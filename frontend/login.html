@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - FreshMart POS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-container">
+    <div class="login-card">
+      <img src="./assets/logosieuthi.png" alt="FreshMart" class="login-logo">
+      <h1>FreshMart POS</h1>
+      <p class="login-subtitle">Employee Login</p>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="login-field">
+          <label>Employee ID</label>
+          <input type="text" id="login-manv" placeholder="e.g. NV01, NV02..." autofocus required>
+        </div>
+        <div id="login-error" class="login-error"></div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+
+      <div class="login-hint">
+        <p>Available accounts:</p>
+        <div id="employee-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="javascript/mock-data.js"></script>
+  <script>
+    // Show available employees as hints
+    document.getElementById('employee-list').innerHTML = MOCK_NHANVIEN.map(e =>
+      '<span class="hint-tag" onclick="document.getElementById(\'login-manv\').value=\'' + e.MaNV + '\'">' +
+      e.MaNV + ' - ' + e.HoTen + ' (' + e.ChucVu + ')' +
+      '</span>'
+    ).join('');
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const maNV = document.getElementById('login-manv').value.trim().toUpperCase();
+      const employee = getEmployeeById(maNV);
+
+      if (!employee) {
+        document.getElementById('login-error').innerText = 'Employee ID not found!';
+        return;
+      }
+
+      localStorage.setItem('loggedInEmployee', JSON.stringify(employee));
+      window.location.href = 'index.html';
+    }
+
+    // If already logged in, skip to POS
+    if (localStorage.getItem('loggedInEmployee')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

@@ -3,72 +3,265 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notification</title>
+  <title>Notification - FreshMart</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <div class="app">
-    <div class="sidebar">
-      <div class="menu">
-        
-        <a href="/index.html" class="nav-item">
-          <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
-        </a>
-        <a href="cart.html" class="nav-item">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        </a>
-        <a href="invoice.html" class="nav-item">
-          <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        </a>
-        <a href="addproduct.html" class="nav-item">
-          <svg viewBox="0 0 24 24"><path d="M4 8h16M4 12h16M4 16h16"/></svg>
-        </a>
-        <a href="notification.html" class="nav-item active">
-          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
-        </a>
-        <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
-      </div>
-      <div class="bottom">
-        <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-14 0"/></svg></div>
+<div class="app">
+  <div class="sidebar">
+    <div class="menu">
+      <a href="../index.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
+      </a>
+      <a href="cart.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </a>
+      <a href="invoice.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </a>
+      <a href="notification.html" class="nav-item active">
+        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
+      </a>
+      <a href="account.html" class="nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+      </a>
+    </div>
+    <div class="bottom">
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-14 0"/></svg>
       </div>
     </div>
-
-    <main class="main-content">
-      <header class="noti-header">
-        <h1>Notification</h1>
-        <a href="#" class="mark-all-read">Mark All As Read</a>
-      </header>
-
-      <div class="noti-container">
-        <div class="noti-item unread">
-            <div class="noti-icon">
-                <svg viewBox="0 0 24 24" fill="white" width="20">
-                    <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
-                </svg>
-            </div>
-            <div class="noti-body">
-                <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem eaque ipsa quae ab illo inventore .</p>
-                <span class="time">20 Minutes Later</span>
-            </div>
-            <button class="close-btn">&times;</button>
-        </div>
-
-        <div class="noti-item read">
-            <div class="noti-icon">
-                <svg viewBox="0 0 24 24" fill="white" width="20">
-                    <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
-                </svg>
-            </div>
-            <div class="noti-body">
-                <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem eaque ipsa quae ab illo inventore .</p>
-                <span class="time">20 Minutes Later</span>
-            </div>
-            <button class="close-btn">&times;</button>
-        </div>
-      </div>
-
-    </main>
   </div>
+
+  <main class="main-content">
+    <header class="noti-header">
+      <div>
+        <h1>Notifications</h1>
+        <p class="noti-count" id="noti-count"></p>
+      </div>
+      <div class="noti-actions">
+        <div class="dropdown" id="filter-dropdown">
+          <button class="dropdown-toggle" onclick="toggleDropdown()">
+            <i class="fa-solid fa-filter"></i>
+            <span id="dropdown-label">All</span>
+            <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+          </button>
+          <div class="dropdown-menu" id="dropdown-menu">
+            <div class="dropdown-item active" data-value="all" onclick="selectFilter(this)"><i class="fa-solid fa-bell"></i> All</div>
+            <div class="dropdown-item" data-value="stock" onclick="selectFilter(this)"><i class="fa-solid fa-box-open" style="color:#F97316"></i> Low Stock</div>
+            <div class="dropdown-item" data-value="expiry" onclick="selectFilter(this)"><i class="fa-solid fa-clock" style="color:#EAB308"></i> Expiry</div>
+            <div class="dropdown-item" data-value="promo" onclick="selectFilter(this)"><i class="fa-solid fa-tags" style="color:#22C55E"></i> Promotions</div>
+            <div class="dropdown-item" data-value="invoice" onclick="selectFilter(this)"><i class="fa-solid fa-file-invoice-dollar" style="color:#3B82F6"></i> Invoices</div>
+            <div class="dropdown-item" data-value="customer" onclick="selectFilter(this)"><i class="fa-solid fa-crown" style="color:#A855F7"></i> Customers</div>
+          </div>
+        </div>
+        <a href="#" class="mark-all-read" onclick="markAllRead()">Mark All Read</a>
+      </div>
+    </header>
+
+    <div class="noti-container" id="noti-list"></div>
+
+    <div class="noti-empty" id="noti-empty" style="display:none;">
+      <i class="fa-solid fa-bell-slash"></i>
+      <p>No notifications</p>
+    </div>
+  </main>
+</div>
+
+<script src="../javascript/mock-data.js"></script>
+<script>
+  // Generate notifications dynamically from mock data
+  function generateNotifications() {
+    const notifications = [];
+    const today = new Date();
+    let id = 1;
+
+    // 1. Low stock alerts (stock <= 30)
+    MOCK_SANPHAM.forEach(sp => {
+      if (sp.SoLuongTon <= 10) {
+        notifications.push({
+          id: id++, type: 'stock', priority: 'high',
+          icon: 'fa-solid fa-triangle-exclamation', color: '#EF4444',
+          title: 'Critical Stock',
+          content: '<b>' + sp.TenSP + ' (' + sp.MaSP + ')</b> only has <b>' + sp.SoLuongTon + '</b> units left. Restock immediately!',
+          time: 'Now', read: false
+        });
+      } else if (sp.SoLuongTon <= 30) {
+        notifications.push({
+          id: id++, type: 'stock', priority: 'medium',
+          icon: 'fa-solid fa-box-open', color: '#F97316',
+          title: 'Low Stock Warning',
+          content: '<b>' + sp.TenSP + ' (' + sp.MaSP + ')</b> has <b>' + sp.SoLuongTon + '</b> units remaining.',
+          time: 'Today', read: false
+        });
+      }
+    });
+
+    // 2. Expiry alerts
+    MOCK_SANPHAM.forEach(sp => {
+      const expDate = new Date(sp.HSD);
+      const daysLeft = Math.ceil((expDate - today) / (1000 * 60 * 60 * 24));
+      if (daysLeft < 0) {
+        notifications.push({
+          id: id++, type: 'expiry', priority: 'high',
+          icon: 'fa-solid fa-skull-crossbones', color: '#EF4444',
+          title: 'EXPIRED',
+          content: '<b>' + sp.TenSP + ' (' + sp.MaSP + ')</b> expired on <b>' + sp.HSD + '</b>. Remove from shelf!',
+          time: 'Urgent', read: false
+        });
+      } else if (daysLeft <= 30) {
+        notifications.push({
+          id: id++, type: 'expiry', priority: 'medium',
+          icon: 'fa-solid fa-clock', color: '#EAB308',
+          title: 'Expiring Soon',
+          content: '<b>' + sp.TenSP + ' (' + sp.MaSP + ')</b> expires in <b>' + daysLeft + ' days</b> (' + sp.HSD + ').',
+          time: daysLeft + ' days left', read: false
+        });
+      }
+    });
+
+    // 3. Active promotions
+    const activePromos = getActivePromotions();
+    activePromos.forEach(km => {
+      const appliedProducts = MOCK_AP_DUNG_KM.filter(ap => ap.MaKM === km.MaKM);
+      const productNames = appliedProducts.map(ap => {
+        const sp = getProductById(ap.MaSP);
+        return sp ? sp.TenSP + ' (-$' + ap.MucGiam.toFixed(2) + ')' : ap.MaSP;
+      }).join(', ');
+
+      const endDate = new Date(km.NgayKetThuc);
+      const daysRemaining = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+
+      notifications.push({
+        id: id++, type: 'promo', priority: 'low',
+        icon: 'fa-solid fa-tags', color: '#22C55E',
+        title: 'Active Promotion',
+        content: '<b>' + km.TenKM + '</b> is running until <b>' + km.NgayKetThuc + '</b> (' + daysRemaining + ' days left).<br>Products: ' + productNames,
+        time: 'Ends in ' + daysRemaining + 'd', read: true
+      });
+    });
+
+    // 4. Recent invoices (today & yesterday)
+    MOCK_HOADON.forEach(hd => {
+      const invoiceDate = new Date(hd.NgayLap);
+      const daysDiff = Math.ceil((today - invoiceDate) / (1000 * 60 * 60 * 24));
+      if (daysDiff <= 2) {
+        const emp = getEmployeeById(hd.MaNV);
+        const cust = getCustomerById(hd.MaKH);
+        notifications.push({
+          id: id++, type: 'invoice', priority: 'low',
+          icon: 'fa-solid fa-file-invoice-dollar', color: '#3B82F6',
+          title: 'Invoice ' + hd.MaHD,
+          content: 'Created by <b>' + (emp ? emp.HoTen : hd.MaNV) + '</b> for <b>' + (cust ? cust.HoTen : hd.MaKH) + '</b> — Total: <b>$' + hd.TongTien.toFixed(2) + '</b>',
+          time: daysDiff === 0 ? 'Today' : daysDiff === 1 ? 'Yesterday' : hd.NgayLap,
+          read: daysDiff > 0
+        });
+      }
+    });
+
+    // 5. Top customers
+    MOCK_KHACHHANG.forEach(kh => {
+      if (kh.DiemTichLuy >= 300) {
+        notifications.push({
+          id: id++, type: 'customer', priority: 'low',
+          icon: 'fa-solid fa-crown', color: '#A855F7',
+          title: 'VIP Customer',
+          content: '<b>' + kh.HoTen + '</b> has <b>' + kh.DiemTichLuy + ' pts</b> — <b>' + kh.HangThanhVien + '</b> tier member.',
+          time: 'Info', read: true
+        });
+      }
+    });
+
+    // Sort: unread first, then by priority
+    const priorityOrder = { high: 0, medium: 1, low: 2 };
+    notifications.sort((a, b) => {
+      if (a.read !== b.read) return a.read ? 1 : -1;
+      return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
+
+    return notifications;
+  }
+
+  let notifications = [];
+
+  window.onload = function() {
+    notifications = generateNotifications();
+    renderNotifications();
+  };
+
+  let currentFilter = 'all';
+
+  function toggleDropdown() {
+    document.getElementById('dropdown-menu').classList.toggle('open');
+  }
+
+  function selectFilter(el) {
+    currentFilter = el.dataset.value;
+    document.getElementById('dropdown-label').innerText = el.innerText.trim();
+    document.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('dropdown-menu').classList.remove('open');
+    renderNotifications();
+  }
+
+  // Close dropdown on outside click
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown')) {
+      document.getElementById('dropdown-menu').classList.remove('open');
+    }
+  });
+
+  function renderNotifications() {
+    const filter = currentFilter;
+    const filtered = filter === 'all' ? notifications : notifications.filter(n => n.type === filter);
+    const unreadCount = notifications.filter(n => !n.read).length;
+
+    document.getElementById('noti-count').innerText = unreadCount > 0 ? unreadCount + ' unread' : 'All caught up';
+
+    const container = document.getElementById('noti-list');
+    const empty = document.getElementById('noti-empty');
+
+    if (filtered.length === 0) {
+      container.innerHTML = '';
+      empty.style.display = 'flex';
+      return;
+    }
+
+    empty.style.display = 'none';
+    container.innerHTML = filtered.map(n => `
+      <div class="noti-item ${n.read ? 'read' : 'unread'}" onclick="markRead(${n.id})">
+        <div class="noti-icon" style="background: ${n.color}">
+          <i class="${n.icon}" style="color: #fff; font-size: 16px;"></i>
+        </div>
+        <div class="noti-body">
+          <div class="noti-title-row">
+            <span class="noti-label">${n.title}</span>
+            <span class="noti-time">${n.time}</span>
+          </div>
+          <p class="content">${n.content}</p>
+        </div>
+        <button class="close-btn" onclick="event.stopPropagation(); dismissNoti(${n.id})">&times;</button>
+      </div>
+    `).join('');
+  }
+
+  function markRead(id) {
+    const n = notifications.find(n => n.id === id);
+    if (n) n.read = true;
+    renderNotifications();
+  }
+
+  function dismissNoti(id) {
+    notifications = notifications.filter(n => n.id !== id);
+    renderNotifications();
+  }
+
+  function markAllRead() {
+    notifications.forEach(n => n.read = true);
+    renderNotifications();
+  }
+</script>
 </body>
 </html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Settings - FreshMart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="sidebar">
+      <div class="menu">
+        <a href="../index.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
+        </a>
+        <a href="cart.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </a>
+        <a href="invoice.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </a>
+        <a href="notification.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
+        </a>
+        <a href="account.html" class="nav-item active">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        </a>
+      </div>
+      <div class="bottom">
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-14 0"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <header class="header">
+        <h1>Account Settings</h1>
+      </header>
+
+      <div class="account-container">
+        <!-- Profile Card -->
+        <div class="account-profile-card">
+          <div class="account-avatar">👤</div>
+          <h2 id="acc-name"></h2>
+          <p id="acc-role" class="account-role"></p>
+          <p id="acc-id" class="account-id"></p>
+        </div>
+
+        <!-- Info Form -->
+        <div class="account-form-card">
+          <h3>Employee Information</h3>
+          <form class="account-form" onsubmit="saveAccount(event)">
+            <div class="account-form-grid">
+              <div class="form-group">
+                <label>Employee ID:</label>
+                <input type="text" id="acc-manv" readonly>
+              </div>
+              <div class="form-group">
+                <label>Full Name:</label>
+                <input type="text" id="acc-hoten" required>
+              </div>
+              <div class="form-group">
+                <label>Role:</label>
+                <select id="acc-chucvu">
+                  <option value="Quản lý">Quản lý</option>
+                  <option value="Thu ngân">Thu ngân</option>
+                  <option value="Bán hàng">Bán hàng</option>
+                  <option value="Kho">Kho</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Phone:</label>
+                <input type="text" id="acc-sdt" required>
+              </div>
+              <div class="form-group">
+                <label>Start Date:</label>
+                <input type="date" id="acc-ngayvaolam" readonly>
+              </div>
+            </div>
+
+            <div class="form-footer">
+              <button type="submit" class="save-btn">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<script src="../javascript/mock-data.js"></script>
+<script>
+  window.onload = function() {
+    const emp = CURRENT_EMPLOYEE;
+
+    // Profile card
+    document.getElementById('acc-name').innerText = emp.HoTen;
+    document.getElementById('acc-role').innerText = emp.ChucVu;
+    document.getElementById('acc-id').innerText = emp.MaNV;
+
+    // Form fields
+    document.getElementById('acc-manv').value = emp.MaNV;
+    document.getElementById('acc-hoten').value = emp.HoTen;
+    document.getElementById('acc-chucvu').value = emp.ChucVu;
+    document.getElementById('acc-sdt').value = emp.SDT;
+    document.getElementById('acc-ngayvaolam').value = emp.NgayVaoLam;
+  };
+
+  function saveAccount(e) {
+    e.preventDefault();
+
+    const updated = {
+      MaNV: document.getElementById('acc-manv').value,
+      HoTen: document.getElementById('acc-hoten').value,
+      ChucVu: document.getElementById('acc-chucvu').value,
+      SDT: document.getElementById('acc-sdt').value,
+      NgayVaoLam: document.getElementById('acc-ngayvaolam').value,
+    };
+
+    console.log('=== Updated NHANVIEN ===', updated);
+    alert('Account updated! Check console for DB record.');
+
+    // Update profile card
+    document.getElementById('acc-name').innerText = updated.HoTen;
+    document.getElementById('acc-role').innerText = updated.ChucVu;
+  }
+</script>
+</body>
+</html>
