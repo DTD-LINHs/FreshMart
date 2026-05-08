@@ -19,38 +19,40 @@
           <label>Employee ID</label>
           <input type="text" id="login-manv" placeholder="e.g. NV01, NV02..." autofocus required>
         </div>
+        <div class="login-field">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="Enter password" required>
+        </div>
         <div id="login-error" class="login-error"></div>
-        <button type="submit" class="login-btn">Login</button>
+        <button type="submit" class="login-btn" id="login-btn">Login</button>
       </form>
-
-      <div class="login-hint">
-        <p>Available accounts:</p>
-        <div id="employee-list"></div>
-      </div>
     </div>
   </div>
 
-  <script src="javascript/mock-data.js"></script>
+  <script src="javascript/api.js"></script>
   <script>
-    // Show available employees as hints
-    document.getElementById('employee-list').innerHTML = MOCK_NHANVIEN.map(e =>
-      '<span class="hint-tag" onclick="document.getElementById(\'login-manv\').value=\'' + e.MaNV + '\'">' +
-      e.MaNV + ' - ' + e.HoTen + ' (' + e.ChucVu + ')' +
-      '</span>'
-    ).join('');
-
-    function handleLogin(e) {
+    async function handleLogin(e) {
       e.preventDefault();
       const maNV = document.getElementById('login-manv').value.trim().toUpperCase();
-      const employee = getEmployeeById(maNV);
+      const password = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('login-error');
+      const btn = document.getElementById('login-btn');
 
-      if (!employee) {
-        document.getElementById('login-error').innerText = 'Employee ID not found!';
-        return;
+      errorEl.innerText = '';
+      btn.disabled = true;
+      btn.innerText = 'Logging in...';
+
+      try {
+        const data = await apiLogin(maNV, password);
+        localStorage.setItem('authToken', data.access_token);
+        localStorage.setItem('loggedInEmployee', JSON.stringify(data.employee));
+        window.location.href = 'index.html';
+      } catch (err) {
+        errorEl.innerText = err.message || 'Login failed';
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Login';
       }
-
-      localStorage.setItem('loggedInEmployee', JSON.stringify(employee));
-      window.location.href = 'index.html';
     }
 
     // If already logged in, skip to POS

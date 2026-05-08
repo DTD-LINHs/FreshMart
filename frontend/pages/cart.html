@@ -103,6 +103,13 @@
           <label>Expiry Date:</label>
           <input type="date" id="inp-hsd" required>
         </div>
+        <div class="form-group full-width">
+          <label>Product Image:</label>
+          <input type="file" id="inp-image" accept="image/*" onchange="previewImage(this, 'inp-img-preview')">
+        </div>
+        <div class="form-group full-width">
+          <div id="inp-img-preview" class="img-preview-box"></div>
+        </div>
       </div>
 
       <div class="modal-form-footer">
@@ -113,44 +120,125 @@
   </div>
 </div>
 
-<script src="../javascript/mock-data.js"></script>
+<!-- MODAL: Edit Product -->
+<div id="modal-edit-product" class="modal-overlay">
+  <div class="modal-form-card">
+    <div class="modal-form-header">
+      <h3>Edit Product</h3>
+      <button class="close-btn" onclick="closeEditProductModal()">&times;</button>
+    </div>
+
+    <form onsubmit="updateProduct(event)">
+      <div class="modal-form-grid">
+        <div class="form-group">
+          <label>Product ID:</label>
+          <input type="text" id="edit-masp" readonly>
+        </div>
+        <div class="form-group">
+          <label>Product Name:</label>
+          <input type="text" id="edit-tensp" required>
+        </div>
+        <div class="form-group">
+          <label>Category:</label>
+          <select id="edit-manhom" required>
+            <option value="">Select Category</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Unit:</label>
+          <input type="text" id="edit-dvt" required>
+        </div>
+        <div class="form-group">
+          <label>Price:</label>
+          <input type="number" id="edit-giaban" step="0.01" min="0" required>
+        </div>
+        <div class="form-group">
+          <label>Stock Quantity:</label>
+          <input type="number" id="edit-soluong" min="0" required>
+        </div>
+        <div class="form-group">
+          <label>Expiry Date:</label>
+          <input type="date" id="edit-hsd">
+        </div>
+        <div class="form-group full-width">
+          <label>Product Image:</label>
+          <input type="file" id="edit-image" accept="image/*" onchange="previewImage(this, 'edit-img-preview')">
+        </div>
+        <div class="form-group full-width">
+          <div id="edit-img-preview" class="img-preview-box"></div>
+        </div>
+      </div>
+
+      <div class="modal-form-footer">
+        <button type="button" class="btn-cancel" onclick="closeEditProductModal()">Cancel</button>
+        <button type="submit" class="btn-confirm">Update Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../javascript/api.js"></script>
 <script>
-  window.onload = function() {
-    renderProductTable();
-    // Populate category dropdown
-    const select = document.getElementById('inp-manhom');
-    MOCK_NHOMHANG.forEach(nh => {
-      const opt = document.createElement('option');
-      opt.value = nh.MaNhom;
-      opt.textContent = nh.MaNhom + ' - ' + nh.TenNhom;
-      select.appendChild(opt);
-    });
+  let productsCache = [];
+  let categoriesCache = [];
+
+  window.onload = async function() {
+    try {
+      [productsCache, categoriesCache] = await Promise.all([
+        apiGetProducts(),
+        apiGetCategories(),
+      ]);
+      renderProductTable();
+      const select = document.getElementById('inp-manhom');
+      categoriesCache.forEach(nh => {
+        const opt = document.createElement('option');
+        opt.value = nh.MaNhom;
+        opt.textContent = nh.MaNhom + ' - ' + nh.TenNhom;
+        select.appendChild(opt);
+      });
+    } catch (err) {
+      console.error('Failed to load data:', err);
+    }
   };
+
+  function previewImage(input, previewId) {
+    const box = document.getElementById(previewId);
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        box.innerHTML = '<img src="' + e.target.result + '">';
+      };
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      box.innerHTML = '';
+    }
+  }
 
   function renderProductTable() {
     const tbody = document.getElementById('product-table-body');
-    tbody.innerHTML = MOCK_SANPHAM.map(sp => {
-      const cat = getCategoryById(sp.MaNhom);
+    tbody.innerHTML = productsCache.map(sp => {
+      const cat = categoriesCache.find(c => c.MaNhom === sp.MaNhom);
       const isLowStock = sp.SoLuongTon <= 10;
-      const isExpired = new Date(sp.HSD) < new Date();
+      const isExpired = sp.HSD && new Date(sp.HSD) < new Date();
+      const imgSrc = sp.HinhAnh ? '../' + sp.HinhAnh : 'https://via.placeholder.com/80?text=' + encodeURIComponent(sp.TenSP);
       return `
         <tr>
           <td>
             <div class="product-cell">
-              <img class="product-img" src="${sp.image}" alt="${sp.TenSP}">
+              <img class="product-img" src="${imgSrc}" alt="${sp.TenSP}">
               <span class="product-name">${sp.TenSP}</span>
             </div>
           </td>
           <td><span class="pid">${sp.MaSP}</span></td>
           <td>${cat ? cat.TenNhom : sp.MaNhom}</td>
           <td>${sp.DonViTinh}</td>
-          <td><span class="price">$${sp.GiaBan.toFixed(2)}</span></td>
+          <td><span class="price">${fmtVND(sp.GiaBan)}</span></td>
           <td>
             <span style="color: ${isLowStock ? '#EF4444' : '#22C55E'}; font-weight:700;">
               ${sp.SoLuongTon}
             </span>
           </td>
-          <td style="color: ${isExpired ? '#EF4444' : '#666'};">${sp.HSD}</td>
+          <td style="color: ${isExpired ? '#EF4444' : '#666'};">${sp.HSD || '--'}</td>
           <td>
             <div class="actions">
               <a href="#" class="btn-edit" onclick="editProduct('${sp.MaSP}')">
@@ -167,13 +255,19 @@
   }
 
   function openAddProductModal() {
-    document.getElementById('inp-masp').value = generateId('SP', MOCK_SANPHAM, 'MaSP');
+    const maxNum = productsCache.reduce((max, p) => {
+      const n = parseInt(p.MaSP.replace('SP', ''));
+      return n > max ? n : max;
+    }, 0);
+    document.getElementById('inp-masp').value = 'SP' + String(maxNum + 1).padStart(2, '0');
     document.getElementById('inp-tensp').value = '';
     document.getElementById('inp-manhom').value = '';
     document.getElementById('inp-dvt').value = '';
     document.getElementById('inp-giaban').value = '';
     document.getElementById('inp-soluong').value = '';
     document.getElementById('inp-hsd').value = '';
+    document.getElementById('inp-image').value = '';
+    document.getElementById('inp-img-preview').innerHTML = '';
     document.getElementById('modal-add-product').style.display = 'flex';
   }
 
@@ -181,35 +275,112 @@
     document.getElementById('modal-add-product').style.display = 'none';
   }
 
-  function saveProduct(e) {
+  async function saveProduct(e) {
     e.preventDefault();
 
+    const maSP = document.getElementById('inp-masp').value;
     const newProduct = {
-      MaSP: document.getElementById('inp-masp').value,
+      MaSP: maSP,
       TenSP: document.getElementById('inp-tensp').value,
       DonViTinh: document.getElementById('inp-dvt').value,
       GiaBan: parseFloat(document.getElementById('inp-giaban').value),
       SoLuongTon: parseInt(document.getElementById('inp-soluong').value),
-      HSD: document.getElementById('inp-hsd').value,
+      HSD: document.getElementById('inp-hsd').value || null,
       MaNhom: document.getElementById('inp-manhom').value,
-      image: 'https://via.placeholder.com/120'
     };
 
-    MOCK_SANPHAM.push(newProduct);
-    console.log('=== New SANPHAM record ===', newProduct);
+    try {
+      await apiCreateProduct(newProduct);
 
-    closeAddProductModal();
-    renderProductTable();
+      const fileInput = document.getElementById('inp-image');
+      if (fileInput.files.length > 0) {
+        await apiUploadProductImage(maSP, fileInput.files[0]);
+      }
+
+      productsCache = await apiGetProducts();
+      closeAddProductModal();
+      renderProductTable();
+    } catch (err) {
+      showToast('Failed to add product: ' + err.message, 'error');
+    }
   }
 
   function editProduct(maSP) {
-    alert('Edit product: ' + maSP + ' (will connect to backend)');
+    const sp = productsCache.find(p => p.MaSP === maSP);
+    if (!sp) return;
+
+    document.getElementById('edit-masp').value = sp.MaSP;
+    document.getElementById('edit-tensp').value = sp.TenSP;
+    document.getElementById('edit-dvt').value = sp.DonViTinh || '';
+    document.getElementById('edit-giaban').value = sp.GiaBan;
+    document.getElementById('edit-soluong').value = sp.SoLuongTon;
+    document.getElementById('edit-hsd').value = sp.HSD || '';
+    document.getElementById('edit-image').value = '';
+
+    // Show current image preview
+    const preview = document.getElementById('edit-img-preview');
+    if (sp.HinhAnh) {
+      preview.innerHTML = '<img src="../' + sp.HinhAnh + '">';
+    } else {
+      preview.innerHTML = '<span class="img-preview-empty">No image uploaded</span>';
+    }
+
+    // Populate edit category dropdown
+    const select = document.getElementById('edit-manhom');
+    select.innerHTML = '<option value="">Select Category</option>';
+    categoriesCache.forEach(nh => {
+      const opt = document.createElement('option');
+      opt.value = nh.MaNhom;
+      opt.textContent = nh.MaNhom + ' - ' + nh.TenNhom;
+      if (nh.MaNhom === sp.MaNhom) opt.selected = true;
+      select.appendChild(opt);
+    });
+
+    document.getElementById('modal-edit-product').style.display = 'flex';
   }
 
-  function deleteProduct(maSP) {
-    if (confirm('Delete product ' + maSP + '?')) {
-      MOCK_SANPHAM = MOCK_SANPHAM.filter(p => p.MaSP !== maSP);
+  function closeEditProductModal() {
+    document.getElementById('modal-edit-product').style.display = 'none';
+  }
+
+  async function updateProduct(e) {
+    e.preventDefault();
+
+    const maSP = document.getElementById('edit-masp').value;
+    const updates = {
+      TenSP: document.getElementById('edit-tensp').value,
+      DonViTinh: document.getElementById('edit-dvt').value,
+      GiaBan: parseFloat(document.getElementById('edit-giaban').value),
+      SoLuongTon: parseInt(document.getElementById('edit-soluong').value),
+      HSD: document.getElementById('edit-hsd').value || null,
+      MaNhom: document.getElementById('edit-manhom').value,
+    };
+
+    try {
+      await apiUpdateProduct(maSP, updates);
+
+      const fileInput = document.getElementById('edit-image');
+      if (fileInput.files.length > 0) {
+        await apiUploadProductImage(maSP, fileInput.files[0]);
+      }
+
+      productsCache = await apiGetProducts();
+      closeEditProductModal();
       renderProductTable();
+    } catch (err) {
+      showToast('Failed to update product: ' + err.message, 'error');
+    }
+  }
+
+  async function deleteProduct(maSP) {
+    if (confirm('Delete product ' + maSP + '?')) {
+      try {
+        await apiDeleteProduct(maSP);
+        productsCache = await apiGetProducts();
+        renderProductTable();
+      } catch (err) {
+        showToast('Failed to delete: ' + err.message, 'error');
+      }
     }
   }
 </script>

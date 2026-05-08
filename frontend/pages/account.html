@@ -89,41 +89,56 @@
     </main>
   </div>
 
-<script src="../javascript/mock-data.js"></script>
+<script src="../javascript/api.js"></script>
 <script>
-  window.onload = function() {
-    const emp = CURRENT_EMPLOYEE;
+  let currentEmp = null;
 
-    // Profile card
-    document.getElementById('acc-name').innerText = emp.HoTen;
-    document.getElementById('acc-role').innerText = emp.ChucVu;
-    document.getElementById('acc-id').innerText = emp.MaNV;
+  window.onload = async function() {
+    const empData = localStorage.getItem('loggedInEmployee');
+    if (!empData) {
+      window.location.href = '../login.html';
+      return;
+    }
+    const stored = JSON.parse(empData);
 
-    // Form fields
-    document.getElementById('acc-manv').value = emp.MaNV;
-    document.getElementById('acc-hoten').value = emp.HoTen;
-    document.getElementById('acc-chucvu').value = emp.ChucVu;
-    document.getElementById('acc-sdt').value = emp.SDT;
-    document.getElementById('acc-ngayvaolam').value = emp.NgayVaoLam;
+    try {
+      currentEmp = await apiGetEmployee(stored.MaNV);
+    } catch {
+      currentEmp = stored;
+    }
+
+    document.getElementById('acc-name').innerText = currentEmp.HoTen;
+    document.getElementById('acc-role').innerText = currentEmp.ChucVu || '';
+    document.getElementById('acc-id').innerText = currentEmp.MaNV;
+
+    document.getElementById('acc-manv').value = currentEmp.MaNV;
+    document.getElementById('acc-hoten').value = currentEmp.HoTen;
+    document.getElementById('acc-chucvu').value = currentEmp.ChucVu || '';
+    document.getElementById('acc-sdt').value = currentEmp.SDT || '';
+    document.getElementById('acc-ngayvaolam').value = currentEmp.NgayVaoLam || '';
   };
 
-  function saveAccount(e) {
+  async function saveAccount(e) {
     e.preventDefault();
 
-    const updated = {
-      MaNV: document.getElementById('acc-manv').value,
+    const updates = {
       HoTen: document.getElementById('acc-hoten').value,
       ChucVu: document.getElementById('acc-chucvu').value,
       SDT: document.getElementById('acc-sdt').value,
-      NgayVaoLam: document.getElementById('acc-ngayvaolam').value,
     };
 
-    console.log('=== Updated NHANVIEN ===', updated);
-    alert('Account updated! Check console for DB record.');
+    try {
+      const updated = await apiUpdateEmployee(currentEmp.MaNV, updates);
+      showToast('Account updated successfully!', 'success');
 
-    // Update profile card
-    document.getElementById('acc-name').innerText = updated.HoTen;
-    document.getElementById('acc-role').innerText = updated.ChucVu;
+      document.getElementById('acc-name').innerText = updated.HoTen;
+      document.getElementById('acc-role').innerText = updated.ChucVu || '';
+
+      // Update localStorage too
+      localStorage.setItem('loggedInEmployee', JSON.stringify(updated));
+    } catch (err) {
+      showToast('Failed to save: ' + err.message, 'error');
+    }
   }
 </script>
 </body>
