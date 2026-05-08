@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <div class="menu">
+
+    <a href="/index.html" class="nav-item">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>
+      </svg>
+    </a>
+
+    <a href="cart.html" class="nav-item active">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7"/>
+        <rect x="14" y="3" width="7" height="7"/>
+        <rect x="3" y="14" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/>
+      </svg>
+    </a>
+
+    <a href="invoice.html" class="nav-item">
+      <svg viewBox="0 0 24 24">
+        <rect x="5" y="4" width="14" height="16" rx="2"/>
+        <line x1="8" y1="8" x2="16" y2="8"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+    </a>
+
+    <a href="addproduct.html" class="nav-item">
+      <svg viewBox="0 0 24 24">
+        <path d="M4 8h16M4 12h16M4 16h16"/>
+      </svg>
+    </a>
+
+    <a href="notification.html" class="nav-item">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
+      </svg>
+    </a>
+
+
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+      </svg>
+    </div>
+
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </div>
+
+  </div>
+
+  <div class="bottom">
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19 12a7 7 0 00-14 0"/>
+    </svg>
+  </div>
+
+</div>
+
+<!-- MAIN -->
+<main class="main">
+ 
+  <div class="header">
+    <h1 class="page-title">Products</h1>
+    <a href="#" class="btn-add">+ Add Product</a>
+  </div>
+ 
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Status</th>
+          <th>Product ID</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+ 
+        <tr>
+          <td>
+            <div class="product-cell">
+              <img class="product-img" width="48" height="48" src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=100&h=100&fit=crop" alt="FreshApples">
+              <span class="product-name">Fresh Apples</span>
+            </div>
+          </td>
+          <td><span class="badge">In Stock</span></td>
+          <td><span class="pid">66758941</span></td>
+          <td>50</td>
+          <td><span class="price">$20.00</span></td>
+          <td>
+            <div class="actions">
+              <a href="#" class="btn-edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</a>
+              <a href="#" class="btn-del"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</a>
+            </div>
+          </td>
+        </tr>
+ 
+        <tr>
+          <td>
+            <div class="product-cell">
+              <img class="product-img" width="48" height="48" src="https://plus.unsplash.com/premium_photo-1689344314069-b60bf06d564c?w=100&h=100&fit=crop" alt="Strawberry">
+              <span class="product-name">Strawberries</span>
+            </div>
+          </td>
+          <td><span class="badge">In Stock</span></td>
+          <td><span class="pid">67869052</span></td>
+          <td>40</td>
+          <td><span class="price">$30.00</span></td>
+          <td>
+            <div class="actions">
+              <a href="#" class="btn-edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</a>
+              <a href="#" class="btn-del"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</a>
+            </div>
+          </td>
+        </tr>
+ 
+        <tr>
+          <td>
+            <div class="product-cell">
+              <img class="product-img" width="48" height="48" src="https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?w=100&h=100&fit=crop" alt="CocaCola">
+              <span class="product-name">CocaCola</span>
+            </div>
+          </td>
+          <td><span class="badge">In Stock</span></td>
+          <td><span class="pid">68970163</span></td>
+          <td>40</td>
+          <td><span class="price">$40.00</span></td>
+          <td>
+            <div class="actions">
+              <a href="#" class="btn-edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</a>
+              <a href="#" class="btn-del"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</a>
+            </div>
+          </td>
+        </tr>
+ 
+        <tr>
+          <td>
+            <div class="product-cell">
+              <img class="product-img" width="48" height="48" src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=100&h=100&fit=crop" alt="Khoai tây">
+              <span class="product-name">Potatoes</span>
+            </div>
+          </td>
+          <td><span class="badge">In Stock</span></td>
+          <td><span class="pid">66758941</span></td>
+          <td>50</td>
+          <td><span class="price">$20.00</span></td>
+          <td>
+            <div class="actions">
+              <a href="#" class="btn-edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</a>
+              <a href="#" class="btn-del"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</a>
+            </div>
+          </td>
+        </tr>
+ 
+        <tr>
+          <td>
+            <div class="product-cell">
+              <img class="product-img" width="48" height="48" src="https://images.unsplash.com/photo-1633380110125-f6e685676160?w=100&h=100&fit=crop" alt="Cà rốt">
+              <span class="product-name">Carrots</span>
+            </div>
+          </td>
+          <td><span class="badge">In Stock</span></td>
+          <td><span class="pid">67869052</span></td>
+          <td>40</td>
+          <td><span class="price">$30.00</span></td>
+          <td>
+            <div class="actions">
+              <a href="#" class="btn-edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</a>
+              <a href="#" class="btn-del"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</a>
+            </div>
+          </td>
+        </tr>
+ 
+        <tr>
+          <td>
+            <div class="product-cell">
+              <img class="product-img" width="48" height="48" src="https://images.unsplash.com/photo-1695683948382-868cd8d516fe?w=100&h=100&fit=crop" alt="Beef Steak">
+              <span class="product-name">Beef Steak</span>
+            </div>
+          </td>
+          <td><span class="badge">In Stock</span></td>
+          <td><span class="pid">68970163</span></td>
+          <td>40</td>
+          <td><span class="price">$40.00</span></td>
+          <td>
+            <div class="actions">
+              <a href="#" class="btn-edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</a>
+              <a href="#" class="btn-del"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</a>
+            </div>
+          </td>
+        </tr>
+ 
+        <tr>
+          <td>
+            <div class="product-cell">
+              <img class="product-img" width="48" height="48" src="https://images.unsplash.com/photo-1645762854600-42d298660501?w=100&h=100&fit=crop" alt="Giá đỗ">
+              <span class="product-name">Mung bean sprouts</span>
+            </div>
+          </td>
+          <td><span class="badge">In Stock</span></td>
+          <td><span class="pid">66758941</span></td>
+          <td>50</td>
+          <td><span class="price">$20.00</span></td>
+          <td>
+            <div class="actions">
+              <a href="#" class="btn-edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</a>
+              <a href="#" class="btn-del"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</a>
+            </div>
+          </td>
+        </tr>
+ 
+      </tbody>
+    </table>
+  </div>
+ 
+</main>
+</body>
+</html>

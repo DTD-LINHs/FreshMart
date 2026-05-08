@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - FreshMart</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app">
+    <div class="sidebar">
+        <div class="menu">
+            <div class="nav-item active"> <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
+            </div>
+            <a href="cart.html" class="nav-item">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            </a>
+            <a href="invoice.html" class="nav-item">
+                <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            </a>
+            <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M4 8h16M4 12h16M4 16h16"/></svg></div>
+            <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg></div>
+            <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+        </div>
+        <div class="bottom">
+            <div class="nav-item"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+    </div>
+
+    <div class="main">
+        <h2 style="margin-bottom: 25px; font-weight: 700;">Invoice No: #256482</h2>
+
+        <div class="checkout-container">
+            <div class="checkout-left">
+                <div class="checkout-form-grid">
+                    <div class="input-group"><label>Customer Name :</label><input id="inp-name" placeholder="Enter Name"></div>
+                    <div class="input-group"><label>Gender :</label><input placeholder="Enter Gender"></div>
+                    <div class="input-group"><label>City :</label><input placeholder="Enter City"></div>
+                    <div class="input-group"><label>Phone Number :</label><input placeholder="Enter Phone"></div>
+                    <div class="input-group"><label>Email Address :</label><input placeholder="Enter Email"></div>
+                    <div class="input-group"><label>Customer ID :</label><input id="inp-id" placeholder="Enter ID"></div>
+                </div>
+
+                <div class="input-group" style="margin-top: 20px;">
+                    <label>Note:</label>
+                    <textarea rows="3" placeholder="Enter Note"></textarea>
+                </div>
+
+                <div id="cart-items" class="checkout-cart-list"></div>
+            </div>
+
+            <div class="checkout-right">
+                <div class="summary-card">
+                    <div class="summary-line"><span>Subtotal:</span><span id="subtotal">$0</span></div>
+                    <div class="summary-line"><span>VAT (10%):</span><span id="tax">$0</span></div>
+                    <div class="summary-line"><span>Charges:</span><span>$24.00</span></div>
+                    <hr>
+                    <div class="summary-line total-line"><span>Total:</span><span id="total">$0</span></div>
+
+                    <div class="checkout-actions" style="margin-top: 20px;">
+                        <button class="btn-confirm-main" onclick="openPaymentModal()">Payment Confirmation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-payment" class="modal-overlay">
+    <div class="modal-card">
+        <h3>Payment Method</h3>
+        <p>Choose payment type to generate receipt</p>
+        <div class="method-grid">
+            <button class="method-opt" onclick="confirmAndShowReceipt('Cash')">Cash</button>
+            <button class="method-opt" onclick="confirmAndShowReceipt('QR Code')">QR Code</button>
+            <button class="method-opt" onclick="confirmAndShowReceipt('Card')">Bank Card</button>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modal-payment')">Cancel</button>
+    </div>
+</div>
+
+<div id="modal-receipt" class="modal-overlay">
+    <div class="receipt-paper">
+        <div class="receipt-head">
+            <h3>Receipt #256482</h3>
+            <p id="rec-date"></p>
+        </div>
+        <div class="receipt-info">
+            <p>Recipient: <span id="rec-name"></span></p>
+            <p>ID: <span id="rec-id"></span></p>
+            <p>Method: <span id="rec-method"></span></p>
+        </div>
+        <div id="rec-items-list" class="receipt-items"></div>
+        <div class="receipt-total-box">
+            <div class="rec-row"><span>Subtotal</span><span id="rec-sub"></span></div>
+            <div class="rec-row"><span>VAT (10%)</span><span id="rec-tax"></span></div>
+            <div class="rec-row bold"><span>Total</span><span id="rec-total"></span></div>
+        </div>
+        <button class="btn-print-final" onclick="finishOrder()">Print Invoice</button>
+    </div>
+</div>
+
+<script src="checkout.js"></script>
+</body>
+</html>

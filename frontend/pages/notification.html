@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="sidebar">
+      <div class="menu">
+        
+        <a href="/index.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
+        </a>
+        <a href="cart.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </a>
+        <a href="invoice.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </a>
+        <a href="addproduct.html" class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M4 8h16M4 12h16M4 16h16"/></svg>
+        </a>
+        <a href="notification.html" class="nav-item active">
+          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
+        </a>
+        <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+      </div>
+      <div class="bottom">
+        <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-14 0"/></svg></div>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <header class="noti-header">
+        <h1>Notification</h1>
+        <a href="#" class="mark-all-read">Mark All As Read</a>
+      </header>
+
+      <div class="noti-container">
+        <div class="noti-item unread">
+            <div class="noti-icon">
+                <svg viewBox="0 0 24 24" fill="white" width="20">
+                    <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
+                </svg>
+            </div>
+            <div class="noti-body">
+                <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem eaque ipsa quae ab illo inventore .</p>
+                <span class="time">20 Minutes Later</span>
+            </div>
+            <button class="close-btn">&times;</button>
+        </div>
+
+        <div class="noti-item read">
+            <div class="noti-icon">
+                <svg viewBox="0 0 24 24" fill="white" width="20">
+                    <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
+                </svg>
+            </div>
+            <div class="noti-body">
+                <p class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem eaque ipsa quae ab illo inventore .</p>
+                <span class="time">20 Minutes Later</span>
+            </div>
+            <button class="close-btn">&times;</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Home</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+
+      <div class="sidebar">
+        <div class="menu">
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"
+              />
+            </svg>
+          </div>
+
+          <a href="/pages/cart.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </a>
+
+          <a href="/pages/invoice.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="4" width="14" height="16" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </a>
+
+          <a href="/pages/addproduct.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 8h16M4 12h16M4 16h16" />
+            </svg>
+          </a>
+
+          <a href="/pages/notification.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" />
+            </svg>
+          </a>
+
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+            </svg>
+          </div>
+
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="bottom">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19 12a7 7 0 00-14 0" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+
+      <div class="main">
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+          <div class="logo">
+            <img
+              src="/assets/logosieuthi.png"
+              alt="Logo Siêu Thị"
+              class="logo-img"
+            />
+          </div>
+
+          <div class="search">
+            <input type="text" placeholder="Search Anything Here" />
+          </div>
+
+          <div class="avatar">👤</div>
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="content">
+          <h3>Special Products Just For You</h3>
+
+          <div class="menu-grid">
+            <!-- CARD -->
+            <div class="card">
+              <img
+                src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"
+              />
+              <div class="card-body">
+                <div class="title">
+                  Fresh Apples
+                  <span>$3.00/kg</span>
+                </div>
+                <p>Sweet and crispy red apples.</p>
+                <div class="card-footer">
+                  <button
+                    onclick="
+                      addToCart(
+                        'Fresh Apples',
+                        3,
+                        'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce',
+                      )
+                    "
+                  >
+                    + Add To Invoice
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD -->
+            <div class="card">
+              <img
+                src="https://images.unsplash.com/photo-1542838132-92c53300491e"
+              />
+              <div class="card-body">
+                <div class="title">
+                  Vegetable Mix
+                  <span>$2.50/kg</span>
+                </div>
+                <p>Fresh carrots, broccoli, and greens.</p>
+                <div class="card-footer">
+                  <button
+                    onclick="
+                      addToCart(
+                        'Vegetable Mix',
+                        2.5,
+                        'https://images.unsplash.com/photo-1542838132-92c53300491e',
+                      )
+                    "
+                  >
+                    + Add To Invoice
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD -->
+            <div class="card">
+              <img
+                src="https://images.unsplash.com/photo-1695683948382-868cd8d516fe"
+              />
+              <div class="card-body">
+                <div class="title">
+                  Beef Steak
+                  <span>$12.00</span>
+                </div>
+                <p>Premium fresh beef for cooking.</p>
+                <div class="card-footer">
+                  <button
+                    onclick="
+                      addToCart(
+                        'Beef Steak',
+                        12,
+                        'https://images.unsplash.com/photo-1695683948382-868cd8d516fe',
+                      )
+                    "
+                  >
+                    + Add To Invoice
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD -->
+            <div class="card">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1694481099872-29a6ece2672c"
+              />
+              <div class="card-body">
+                <div class="title">
+                  Fresh Milk
+                  <span>$1.20</span>
+                </div>
+                <p>Organic dairy milk 1L.</p>
+                <div class="card-footer">
+                  <button
+                    onclick="
+                      addToCart(
+                        'Fresh Milk',
+                        1.2,
+                        'https://plus.unsplash.com/premium_photo-1694481099872-29a6ece2672c',
+                      )
+                    "
+                  >
+                    + Add To Invoice
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD -->
+            <div class="card">
+              <img
+                src="https://images.unsplash.com/photo-1600271886742-f049cd451bba"
+              />
+              <div class="card-body">
+                <div class="title">
+                  Orange Juice
+                  <span>$2.00</span>
+                </div>
+                <p>100% natural orange juice.</p>
+                <div class="card-footer">
+                  <button
+                    onclick="
+                      addToCart(
+                        'Orange Juice',
+                        2,
+                        'https://images.unsplash.com/photo-1600271886742-f049cd451bba',
+                      )
+                    "
+                  >
+                    + Add To Invoice
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD -->
+            <div class="card">
+              <img
+                src="https://images.unsplash.com/photo-1524593166156-312f362cada0"
+              />
+              <div class="card-body">
+                <div class="title">
+                  Tomatoes
+                  <span>$1.80/kg</span>
+                </div>
+                <p>Fresh organic tomatoes.</p>
+                <div class="card-footer">
+                  <button
+                    onclick="
+                      addToCart(
+                        'Tomatoes',
+                        1.8,
+                        'https://images.unsplash.com/photo-1524593166156-312f362cada0',
+                      )
+                    "
+                  >
+                    + Add To Invoice
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+
+      <div class="right-panel">
+        <button class="close-btn" onclick="clearInvoice()">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+        <h3>Invoice</h3>
+
+        <div id="cart-items"></div>
+
+        <div class="summary">
+          <p>Subtotal: <span id="subtotal">$0</span></p>
+          <p>VAT (10%): <span id="tax">$0</span></p>
+          <p>Total: <span id="total">$0</span></p>
+        </div>
+        <button onclick="goToCheckout()">Pay</button>
+      </div>
+    </div>
+
+    <div id="custom-confirm" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-icon">⚠️</div>
+        <h3>Xác nhận xóa</h3>
+        <p>Bạn có chắc chắn muốn xóa toàn bộ hóa đơn không?</p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" onclick="closeModal()">Hủy</button>
+          <button class="btn-confirm" onclick="confirmClear()">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

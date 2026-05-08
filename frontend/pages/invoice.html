@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save Invoice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="sidebar">
+
+    <div class="menu">
+      <a href="/index.html" class="nav-item">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>
+        </svg>
+      </a>
+
+      <a href="cart.html" class="nav-item">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+        </svg>
+      </a>
+
+      <a href="invoice.html" class="nav-item active">
+        <svg viewBox="0 0 24 24">
+          <rect x="5" y="4" width="14" height="16" rx="2"/>
+          <line x1="8" y1="8" x2="16" y2="8"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </a>
+
+      <a href="addproduct.html" class="nav-item">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 8h16M4 12h16M4 16h16"/>
+        </svg>
+      </a>
+
+      <a href="notification.html" class="nav-item">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
+        </svg>
+      </a>
+
+
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+        </svg>
+      </div>
+
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19 12a7 7 0 00-14 0"/>
+      </svg>
+    </div>
+  </div>
+
+  <main class="invoice-main">
+    <section class="invoice-panel invoice-left">
+      <h2 class="invoice-heading">Invoice History</h2>
+      <div class="invoice-list-card">
+        <h3 class="invoice-subtitle">All Invoices</h3>
+
+        <div class="invoice-order-item active">
+          <div>
+            <h4>Invoice #1</h4>
+            
+          </div>
+          <div class="invoice-order-right">
+            <span class="status total">Total</span>
+            <strong>$230</strong>
+          </div>
+        </div>
+
+        <div class="invoice-order-item">
+          <div>
+            <h4>Invoice #2</h4>
+          </div>
+          <div class="invoice-order-right">
+            <span class="status total">Total</span>
+            <strong>$230</strong>
+          </div>
+        </div>
+
+        <div class="invoice-order-item">
+          <div>
+            <h4>Invoice #3</h4>
+          </div>
+          <div class="invoice-order-right">
+            <span class="status total">Total</span>
+            <strong>$230</strong>
+          </div>
+        </div>
+
+        <div class="invoice-order-item">
+          <div>
+            <h4>Invoice #4</h4>
+          </div>
+          <div class="invoice-order-right">
+            <span class="status total">Total</span>
+            <strong>$230</strong>
+          </div>
+        </div>
+
+        <div class="invoice-order-item">
+          <div>
+            <h4>Invoice #5</h4>
+          </div>
+          <div class="invoice-order-right">
+            <span class="status total">Total</span>
+            <strong>$230</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="invoice-panel invoice-right">
+      <div class="invoice-title-row">
+        <h2 class="invoice-heading">Invoice #1</h2>
+      </div>
+
+      <div class="invoice-info">
+        <h3 class="invoice-subtitle">Details</h3>
+        <div class="invoice-detail-grid">
+          <div><span>Date</span><strong>14/12/2025</strong></div>
+          <div><span>Customer ID</span><strong>20226</strong></div>
+          <div><span>Customer</span><strong>Moanees</strong></div>
+          <div><span>Payment</span><strong>Cash</strong></div>
+        </div>
+      </div>
+
+      <div class="invoice-orders">
+        <h3 class="invoice-subtitle">Products</h3>
+
+        <div class="invoice-food-row">
+          <img src="https://images.unsplash.com/photo-1530554764233-e79e16c91d08?w=120&h=120&fit=crop" alt="Grill Sandwich">
+          <p>Grill Sandwich <b>x 2</b></p>
+          <strong>$60.00</strong>
+        </div>
+
+        <div class="invoice-food-row">
+          <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=120&h=120&fit=crop" alt="Chicken Popeyes">
+          <p>Chicken Popeyes <b>x 3</b></p>
+          <strong>$60.00</strong>
+        </div>
+
+        <div class="invoice-food-row">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=120&h=120&fit=crop" alt="Bison Burgers">
+          <p>Bison Burgers <b>x 4</b></p>
+          <strong>$250.00</strong>
+        </div>
+
+        <div class="invoice-food-row">
+          <img src="https://images.unsplash.com/photo-1530554764233-e79e16c91d08?w=120&h=120&fit=crop" alt="Grill Sandwich">
+          <p>Grill Sandwich <b>x 2</b></p>
+          <strong>$60.00</strong>
+        </div>
+      </div>
+
+      <button class="invoice-print-btn" type="button">Print Invoice</button>
+    </section>
+  </main>
+</body>
+</html>

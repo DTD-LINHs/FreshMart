@@ -1,0 +1,1949 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#ffffff;
+    font-family: sans-serif;
+}
+
+/* APP */
+
+.app{
+    display:flex;
+    width:100%;
+    height:100vh;
+    background:#ffffff;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:70px;
+background:#ffffff;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:16px 0;
+justify-content:space-between;
+border-right:1px solid #f0f0f0;
+}
+
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:18px;
+align-items:center;
+}
+
+/* ITEM */
+
+.nav-item{
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:12px;
+cursor:pointer;
+color:#c4c4c4;
+transition:all 0.2s ease;
+}
+
+.nav-item svg{
+width:20px;
+height:20px;
+stroke:currentColor;
+fill:none;
+stroke-width:2;
+}
+
+.nav-item:hover{
+background:#f9fafb;
+color:#6b7280;
+}
+
+.nav-item.active{
+background:#fff1e6;
+color:#f97316;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    background:#ffffff;
+    padding:20px;
+}
+
+/* TOPBAR */
+
+.topbar{
+background:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 25px;
+border-bottom:1px solid #eee;
+}
+
+.logo-img {
+    width: 180px;
+    height: auto;
+    border-radius: 62px;
+    object-fit: contain;
+    padding-left: 20px;
+}
+
+.search input{
+width:350px;
+padding:10px 15px;
+border-radius:20px;
+border:1px solid #ddd;
+outline:none;
+}
+
+.avatar{
+background:#f97316;
+color:white;
+width:35px;
+height:35px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* CONTENT */
+
+.content{
+padding:20px;
+}
+
+.content h3{
+margin-bottom:15px;
+}
+
+/* GRID */
+
+.menu-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.06);
+overflow:hidden;
+transition:0.2s;
+}
+
+.card:hover{
+transform:translateY(-3px);
+}
+
+.card img{
+width:100%;
+height:140px;
+object-fit:cover;
+}
+
+.card-body{
+padding:14px;
+}
+
+.title{
+display:flex;
+justify-content:space-between;
+font-weight:600;
+margin-bottom:5px;
+}
+
+.title span{
+color:#f97316;
+}
+
+.card-body p{
+font-size:12px;
+color:#777;
+margin-bottom:12px;
+}
+
+.card-footer{
+display:flex;
+justify-content:flex-end; 
+}
+
+/* ẨN RATING */
+.rating{
+display:none;
+}
+
+button{
+width:100%; 
+padding:10px;
+background:#f97316;
+border:none;
+color:white;
+border-radius:25px;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+background:#ea580c;
+transform:scale(1.03);
+}
+
+/* RIGHT PANEL */
+
+.right-panel {
+    width: 350px;
+    background: #ffffff;
+    border-left: 1px solid #eee;
+    padding: 25px;
+    display: flex;
+    flex-direction: column; /* Sắp xếp nội dung từ trên xuống */
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    right: 0;
+    
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;      /* Cách mép trên 15px */
+    right: 15px;    /* Cách mép phải 15px */
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    color: #f97316; /* Chuyển màu cam khi di chuột vào cho đồng bộ */
+    transform: scale(1.1);
+}
+
+/* Nền mờ phía sau */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Ẩn đi mặc định */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* Hộp thoại chính */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease; /* Hiệu ứng hiện hình */
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content h3 { margin-top: 15px; color: #333; }
+.modal-content p { color: #666; margin: 10px 0 25px; }
+
+/* Nút bấm */
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-cancel { background: #eee; color: #666; }
+.btn-confirm { background: #f97316; color: white; } /* Màu cam FreshMart */
+
+
+.right-panel h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+}
+
+#cart-items {
+    flex: 1; /* Đẩy phần summary xuống đáy */
+    overflow-y: auto; /* Tạo thanh cuộn nếu quá nhiều món */
+    margin-bottom: 10px;
+}
+
+/* CSS cho từng item trong Invoice giống mẫu Pointsell */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;        /* Khoảng cách giữa ảnh và chữ */
+    margin-bottom: 5px; /* GIẢM TỪ 15px XUỐNG 8px ĐỂ CÁC MÓN SÁT NHAU HƠN */
+    padding: 2.5px 5px; /* Thu nhỏ phần đệm bên trong mỗi món */
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.cart-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.cart-info {
+    flex: 1;
+}
+
+.cart-info .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.cart-info .price {
+    font-size: 13px;
+    color: #f97316;
+    font-weight: 700;
+    margin: 2px 0;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+/* Sửa nút tăng giảm số lượng cho đẹp */
+.quantity button {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #f97316;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity button:hover {
+    background: #f97316;
+    color: #fff;
+}
+
+.fa-trash {
+    color: #f97316;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.fa-trash:hover {
+    cursor: pointer;
+    font-size: 14px;
+    color: #f0f0f0;
+}
+
+.summary {
+    border-top: 2px solid #f0f0f0;
+    padding-top: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-top: auto;
+    width: 100%;
+    background: #fff;
+    align-items: stretch;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+
+.summary p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #666;
+    font-size: 12px;
+}
+
+#total {
+    font-size: 14px;
+    font-weight: 800;
+    color: #333;
+}
+
+.pay-btn {
+    width: 100%;
+    background: #f97316;
+    color: white;
+    border: none;
+    padding: 10px 100px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+    
+}
+
+
+/* ===== CHECKOUT PAGE ===== */
+
+.checkout-content{
+    flex:1;
+    padding:30px;
+    display:flex;
+    gap:30px;
+}
+
+/* FORM */
+.checkout-form{
+    flex:2;
+}
+
+.checkout-form-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.checkout-form-grid input{
+    padding:12px;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+}
+
+.checkout-form textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+}
+
+/* CART */
+.checkout-cart{
+    margin-top:20px;
+}
+
+.checkout-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:1px solid #f0f0f0;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+.checkout-item img{
+    width:60px;
+    height:60px;
+    border-radius:8px;
+}
+
+.checkout-info{
+    flex:1;
+    margin-left:10px;
+}
+
+/* SUMMARY */
+.checkout-summary{
+    width:260px;
+    border:1px solid #f0f0f0;
+    border-radius:12px;
+    padding:20px;
+}
+
+.checkout-summary p{
+    display:flex;
+    justify-content:space-between;
+    margin:8px 0;
+}
+
+.checkout-total{
+    font-weight:bold;
+    margin-top:10px;
+}
+
+/* BUTTON */
+.checkout-actions{
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+}
+
+.checkout-btn{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.checkout-print{
+    background:#f97316;
+    color:white;
+}
+
+.checkout-order{
+    background:black;
+    color:white;
+}
+
+
+/* Layout chia đôi trong Main */
+.checkout-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.checkout-left { flex: 2; }
+.checkout-right-summary { 
+    flex: 1; 
+    background: #fff; 
+    border-radius: 15px; 
+    padding: 25px; 
+    border: 1px solid #f0f0f0;
+    height: fit-content;
+}
+
+/* Form Styling */
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+.input-group label { font-size: 13px; font-weight: 600; color: #444; }
+.input-group input, .input-group textarea {
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #fafafa;
+    outline: none;
+}
+
+/* Item trong Checkout (Giống mẫu bạn gửi) */
+.checkout-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+.checkout-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
+.checkout-item-info { flex: 1; margin-left: 15px; font-weight: 600; }
+.checkout-item-price { color: #f97316; margin: 0 30px; font-weight: 700; }
+.checkout-item-qty { font-weight: 600; color: #333; }
+.btn-remove-item { margin-left: 20px; cursor: pointer; color: #ccc; font-size: 18px; }
+
+/* Summary styling */
+.summary-line { display: flex; justify-content: space-between; margin-bottom: 12px; color: #666; }
+.summary-line.total { font-size: 20px; font-weight: 800; color: #000; margin-top: 10px; }
+.checkout-buttons { display: flex; gap: 10px; margin-top: 20px; }
+.btn-print { background: #f97316; flex: 1; }
+.btn-place-order { background: #000; flex: 1; }
+
+
+/* Layout chung cho Checkout */
+.checkout-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.checkout-left {
+    flex: 1; /* Cột trái chiếm phần còn lại */
+}
+
+.checkout-right {
+    width: 320px; /* Cột phải cố định độ rộng giống mẫu */
+}
+
+/* Card tóm tắt bên phải */
+.summary-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #f0f0f0;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.total-line {
+    font-weight: 800;
+    font-size: 18px;
+    color: #333;
+    margin-top: 15px;
+}
+
+.checkout-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-print { background: #f97316; flex: 1; padding: 12px; border-radius: 10px; color: white; border: none; cursor: pointer; font-weight: 600; }
+.btn-order { background: #000; flex: 1; padding: 12px; border-radius: 10px; color: white; border: none; cursor: pointer; font-weight: 600; }
+
+/* Item list bên trái */
+.checkout-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #f8f8f8;
+    margin-top: 15px;
+}
+
+.checkout-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
+.checkout-item-name { flex: 1; margin-left: 15px; font-weight: 600; }
+.checkout-item-price { color: #f97316; font-weight: 700; margin: 0 30px; }
+.checkout-item-qty { font-weight: 600; font-size: 14px; }
+
+
+/* Tận dụng CSS cũ của bạn và thêm các phần này vào cuối */
+
+.btn-confirm-main {
+    width: 100%;
+    padding: 15px;
+    background: #f97316;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none; /* Hiện bằng JS */
+    justify-content: center; align-items: center;
+    z-index: 1000;
+}
+
+.modal-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+}
+
+.method-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.method-opt {
+    padding: 12px;
+    border: 1px solid #eee;
+    background: #fafafa;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.method-opt:hover { background: #fff1e6; border-color: #f97316; }
+
+/* Receipt Paper (Mô phỏng ảnh bạn gửi) */
+.receipt-paper {
+    background: white;
+    width: 360px;
+    padding: 30px;
+    border-radius: 2px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.receipt-head { text-align: left; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
+.receipt-info { margin: 15px 0; font-size: 14px; }
+.receipt-info p { display: flex; justify-content: space-between; margin-bottom: 5px; }
+
+.receipt-items { border-bottom: 1px dashed #ccc; padding-bottom: 10px; margin-bottom: 15px; }
+.rec-item-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+
+.receipt-total-box { font-size: 14px; }
+.rec-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.rec-row.bold { font-weight: bold; font-size: 18px; border-top: 1px solid #000; padding-top: 10px; margin-top: 10px; }
+
+.btn-print-final {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #f97316;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+/* CART */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --orange: #F97316;
+  --orange-light: #FFF7ED;
+  --green: #22C55E;
+  --green-bg: #DCFCE7;
+  --red: #EF4444;
+  --red-bg: #FEF2F2;
+  --bg: #F8F9FB;
+  --text: #1E293B;
+  --muted: #94A3B8;
+  --border: #E8EDF2;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 68px;
+  background: #fff;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 0;
+  gap: 6px;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+}
+
+
+.nav-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+
+.nav-icon:hover { background: var(--orange-light); color: var(--orange); }
+.nav-icon.active { background: var(--orange-light); color: var(--orange); }
+.nav-icon svg { width: 20px; height: 20px; }
+
+.nav-spacer { flex: 1; }
+
+.nav-icon.active{
+background:#fff1e6;
+color:#f97316;
+}
+
+/* ── MAIN ── */
+.main {
+  margin-left: 68px;
+  flex: 1;
+  padding: 32px 36px;
+}
+
+/* ── HEADER ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.3px;
+}
+
+.btn-add {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(249,115,22,.35);
+  transition: transform .15s, box-shadow .15s;
+  text-decoration: none;
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249,115,22,.45);
+}
+
+/* ── TABLE CARD ── */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+thead th:nth-child(1) { width: 30%; }
+thead th:nth-child(2) { width: 13%; }
+thead th:nth-child(3) { width: 15%; }
+thead th:nth-child(4) { width: 10%; }
+thead th:nth-child(5) { width: 12%; }
+thead th:nth-child(6) { width: 20%; }
+
+thead tr {
+  border-bottom: 1.5px solid var(--border);
+}
+
+thead th {
+  padding: 16px 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: left;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #FAFBFC; }
+
+td {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  vertical-align: middle;
+  height: 68px;
+}
+
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.product-img {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+}
+
+.product-name {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--green-bg);
+  color: var(--green);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+.pid {
+  color: #64748B;
+  font-weight: 600;
+  font-size: 13.5px;
+  font-family: 'Courier New', monospace;
+}
+
+.price { font-weight: 800; font-size: 14.5px; }
+
+.actions { display: flex; align-items: center; gap: 6px; }
+
+.btn-edit, .btn-del {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity .15s, transform .15s;
+  text-decoration: none;
+}
+
+.btn-edit { background: var(--green-bg); color: #16A34A; }
+.btn-del  { background: var(--red-bg);   color: var(--red); }
+
+.btn-edit:hover, .btn-del:hover { opacity: .75; transform: scale(.96); }
+
+.btn-edit svg, .btn-del svg { width: 12px; height: 12px; fill: currentColor; }
+
+
+
+/* INVOICE PAGE */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#ffffff;
+    font-family: sans-serif;
+}
+
+/* APP */
+
+.app{
+    display:flex;
+    width:100%;
+    height:100vh;
+    background:#ffffff;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:70px;
+background:#ffffff;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:16px 0;
+justify-content:space-between;
+border-right:1px solid #f0f0f0;
+}
+
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:18px;
+align-items:center;
+}
+
+/* ITEM */
+
+.nav-item{
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:12px;
+cursor:pointer;
+color:#c4c4c4;
+transition:all 0.2s ease;
+}
+
+.nav-item svg{
+width:20px;
+height:20px;
+stroke:currentColor;
+fill:none;
+stroke-width:2;
+}
+
+.nav-item:hover{
+background:#f9fafb;
+color:#6b7280;
+}
+
+.nav-item.active{
+background:#fff1e6;
+color:#f97316;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    background:#ffffff;
+    padding:20px;
+}
+
+/* TOPBAR */
+
+.topbar{
+background:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 25px;
+border-bottom:1px solid #eee;
+}
+
+.logo-img {
+    width: 180px;
+    height: auto;
+    border-radius: 62px;
+    object-fit: contain;
+}
+
+.search input{
+width:350px;
+padding:10px 15px;
+border-radius:20px;
+border:1px solid #ddd;
+outline:none;
+}
+
+.avatar{
+background:#f97316;
+color:white;
+width:35px;
+height:35px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* CONTENT */
+
+.content{
+padding:20px;
+}
+
+.content h3{
+margin-bottom:15px;
+}
+
+/* GRID */
+
+.menu-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.06);
+overflow:hidden;
+transition:0.2s;
+}
+
+.card:hover{
+transform:translateY(-3px);
+}
+
+.card img{
+width:100%;
+height:140px;
+object-fit:cover;
+}
+
+.card-body{
+padding:14px;
+}
+
+.title{
+display:flex;
+justify-content:space-between;
+font-weight:600;
+margin-bottom:5px;
+}
+
+.title span{
+color:#f97316;
+}
+
+.card-body p{
+font-size:12px;
+color:#777;
+margin-bottom:12px;
+}
+
+.card-footer{
+display:flex;
+justify-content:flex-end; 
+}
+
+/* ẨN RATING */
+.rating{
+display:none;
+}
+
+button{
+width:100%; 
+padding:10px;
+background:#f97316;
+border:none;
+color:white;
+border-radius:25px;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+background:#ea580c;
+transform:scale(1.03);
+}
+
+/* RIGHT PANEL */
+
+.right-panel{
+width:280px;
+background:#f9fafb;
+display:flex;
+align-items:center;
+justify-content:center;
+border-left:1px dashed #ddd;
+}
+
+.add-box{
+text-align:center;
+color:#999;
+}
+
+.plus{
+width:45px;
+height:45px;
+border-radius:50%;
+border:2px dashed #ccc;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+font-size:22px;
+margin-bottom:10px;
+}
+
+/* CART */
+:root {
+  --orange: #F97316;
+  --orange-light: #FFF7ED;
+  --green: #22C55E;
+  --green-bg: #DCFCE7;
+  --red: #EF4444;
+  --red-bg: #FEF2F2;
+  --bg: #F8F9FB;
+  --text: #1E293B;
+  --muted: #94A3B8;
+  --border: #E8EDF2;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+}
+
+
+
+.logo {
+  width: 40px; height: 40px;
+  background: var(--orange);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+
+.logo svg { width: 22px; height: 22px; fill: #fff; }
+
+.nav-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+
+.nav-icon:hover { background: var(--orange-light); color: var(--orange); }
+.nav-icon.active { background: var(--orange-light); color: var(--orange); }
+.nav-icon svg { width: 20px; height: 20px; }
+
+.nav-spacer { flex: 1; }
+
+.nav-icon.active{
+background:#fff1e6;
+color:#f97316;
+}
+
+/* ── MAIN ── */
+.main {
+  margin-left: 68px;
+  flex: 1;
+  padding: 32px 36px;
+}
+
+/* ── HEADER ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.3px;
+}
+
+.btn-add {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 13.5px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(249,115,22,.35);
+  transition: transform .15s, box-shadow .15s;
+  text-decoration: none;
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249,115,22,.45);
+}
+
+/* ── TABLE CARD ── */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+thead th:nth-child(1) { width: 30%; }
+thead th:nth-child(2) { width: 13%; }
+thead th:nth-child(3) { width: 15%; }
+thead th:nth-child(4) { width: 10%; }
+thead th:nth-child(5) { width: 12%; }
+thead th:nth-child(6) { width: 20%; }
+
+thead tr {
+  border-bottom: 1.5px solid var(--border);
+}
+
+thead th {
+  padding: 16px 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: left;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #FAFBFC; }
+
+td {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  vertical-align: middle;
+  height: 68px;
+}
+
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.product-img {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+}
+
+.product-name {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--green-bg);
+  color: var(--green);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+.pid {
+  color: #64748B;
+  font-weight: 600;
+  font-size: 13.5px;
+  font-family: 'Courier New', monospace;
+}
+
+.price { font-weight: 800; font-size: 14.5px; }
+
+.actions { display: flex; align-items: center; gap: 6px; }
+
+.btn-edit, .btn-del {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity .15s, transform .15s;
+  text-decoration: none;
+}
+
+.btn-edit { background: var(--green-bg); color: #16A34A; }
+.btn-del  { background: var(--red-bg);   color: var(--red); }
+
+.btn-edit:hover, .btn-del:hover { opacity: .75; transform: scale(.96); }
+
+.btn-edit svg, .btn-del svg { width: 12px; height: 12px; fill: currentColor; }
+
+
+
+/* INVOICE PAGE */
+.invoice-main{
+  margin-left: 68px;
+  width: calc(100% - 68px);
+  min-height: 100vh;
+  background: #ffffff;
+  display: grid;
+  grid-template-columns: 44% 56%;
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+.invoice-panel{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.invoice-heading{
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.invoice-subtitle{
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.invoice-list-card{
+  border: 1px solid #eceff3;
+  border-radius: 10px;
+  background: #fff;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invoice-order-item{
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.invoice-order-item h4{
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.invoice-order-item p{
+  color: #b6bbc3;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.invoice-order-right{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.invoice-order-right strong{
+  font-size: 16px;
+  line-height: 1;
+}
+
+.invoice-order-item.active{
+  background: #f97316;
+  color: #fff;
+}
+
+.invoice-order-item.active p{
+  color: #ffe6d1;
+}
+
+.invoice-order-item.active .status{
+  color: #fff;
+}
+
+.invoice-title-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eceff3;
+  padding-bottom: 10px;
+}
+
+.status{
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.status.total{
+  color: #22c55e;
+}
+
+
+.invoice-info{
+  border-bottom: 1px solid #eceff3;
+  padding-bottom: 10px;
+}
+
+.invoice-detail-grid{
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.invoice-detail-grid span{
+  display: block;
+  color: #c6c9cf;
+  font-size: 11px;
+  margin-bottom: 3px;
+  font-weight: 700;
+}
+
+.invoice-detail-grid strong{
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.invoice-orders{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invoice-food-row{
+  border: 1px solid #eceff3;
+  border-radius: 10px;
+  background: #fff;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.invoice-food-row img{
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.invoice-food-row p{
+  flex: 1;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.invoice-food-row p b{
+  font-weight: 800;
+}
+
+.invoice-food-row strong{
+  font-size: 13px;
+  font-weight: 800;
+  color: #f97316;
+}
+
+.invoice-print-btn{
+  margin-top: 6px;
+  border: none;
+  border-radius: 8px;
+  background: #f97316;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.invoice-print-btn:hover{
+  background: #ea580c;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 1200px){
+  .invoice-main{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+/* ADD PRODUCT */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background: #ffffff;
+}
+
+.app {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Sidebar giữ nguyên của bạn */
+.sidebar {
+    width: 80px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    justify-content: space-between;
+    border-right: 1px solid #f3f4f6;
+    position: fixed;
+    height: 100vh;
+}
+
+/* Layout Content */
+.main-content {
+    margin-left: 80px; /* Tránh đè lên sidebar */
+    flex: 1;
+    padding: 30px 50px;
+    background-color: #ffffff;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+}
+
+/* Card chứa Form */
+.content-card {
+    border: 1px solid #f3f4f6;
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #f97316;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Upload Section */
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.upload-placeholder {
+    width: 150px;
+    height: 150px;
+    background: #f3f4f6;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.upload-section p {
+    font-weight: 700;
+    font-size: 18px;
+    color: #1a1a1a;
+}
+
+/* Form Styles */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px 40px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a1a1a;
+}
+
+.form-group input, .form-group select {
+    padding: 12px 16px;
+    border: 1px solid #f3f4f6;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    color: #333;
+}
+
+.form-group input::placeholder {
+    color: #d1d5db;
+}
+
+/* Button */
+.form-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.save-btn {
+    background: #f97316;
+    color: white;
+    border: none;
+    padding: 14px 60px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.save-btn:hover {
+    background: #ea580c;
+}
+
+/* Menu Items Styles */
+.menu { display: flex; flex-direction: column; gap: 15px; }
+.nav-item {
+    width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+    border-radius: 12px; color: #9ca3af; transition: 0.3s; text-decoration: none;
+}
+.nav-item.active { background: #fff7ed; color: #f97316; }
+.nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+
+
+
+/* NOTIFICATION */
+
+/* RESET & CHUNG (Giữ nguyên) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background: #ffffff;
+}
+
+.app {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* SIDEBAR (Giữ nguyên) */
+.sidebar {
+    width: 80px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    justify-content: space-between;
+    border-right: 1px solid #f3f4f6;
+    position: fixed;
+    height: 100vh;
+}
+
+.menu { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+.nav-item {
+    width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+    border-radius: 12px; color: #9ca3af; transition: 0.3s; text-decoration: none;
+}
+.nav-item.active { background: #fff7ed; color: #f97316; }
+.nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* MAIN CONTENT (Notification) */
+.main-content {
+    margin-left: 80px;
+    flex: 1;
+    padding: 30px 40px;
+    background-color: #ffffff;
+}
+
+.noti-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.noti-header h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.mark-all-read {
+    color: #f97316;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* Container chính chứa các thông báo */
+.noti-container {
+    border: 1px solid #f3f4f6;
+    border-radius: 12px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+/* Từng dòng thông báo */
+.noti-item {
+    display: flex;
+    align-items: flex-start; 
+    padding: 25px 30px;
+    border-bottom: 1px solid #f3f4f6;
+    background: #fff;
+    gap: 20px;
+}
+
+.noti-item:last-child {
+    border-bottom: none;
+}
+
+/* Icon tròn màu cam */
+.noti-icon {
+    width: 45px;
+    height: 45px;
+    background-color: #f97316;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Giữ icon không bị méo */
+}
+
+/* Phần chứa nội dung chữ */
+.noti-body {
+    flex: 1; /* Chiếm hết khoảng trống giữa */
+    min-width: 0; /* Sửa lỗi văn bản bị ép thành hàng dọc */
+}
+
+.noti-body .content {
+    font-size: 15px;
+    color: #1a1a1a;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+.noti-body .time {
+    font-size: 13px;
+    color: #9ca3af;
+    font-weight: 700;
+}
+
+/* Nút X xóa thông báo - SỬA LỖI NÚT X BỊ DÀI */
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #9ca3af;
+    cursor: pointer;
+    flex-shrink: 0; /* Không cho nút X bị co giãn */
+    width: 30px;    /* Cố định chiều rộng */
+    height: 30px;   /* Cố định chiều cao */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #1a1a1a;
+}
+
+/* Trạng thái đã đọc */
+.noti-item.read {
+    opacity: 0.6;
+}
+
+.noti-item.read .noti-icon {
+    background-color: #ffbd91; /* Cam nhạt hơn cho thông báo đã đọc */
+}
