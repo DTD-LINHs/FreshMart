@@ -5,15 +5,16 @@
   min-height: 100vh;
   background: #fff;
   display: grid;
-  grid-template-columns: 44% 56%;
-  gap: 16px;
-  padding: 16px 20px;
+  grid-template-columns: 40% 60%;
+  gap: 0;
+  padding: 0;
 }
 
 .invoice-panel {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  padding: 20px;
 }
 .invoice-heading {
   font-size: 22px;
@@ -75,15 +76,21 @@
   border-color: var(--orange);
 }
 
+.invoice-right {
+  background: var(--bg);
+  padding: 20px 24px;
+}
+
 .invoice-order-item {
   background: #f8fafc;
   border-radius: 10px;
   border: 1px solid transparent;
-  padding: 10px 14px;
+  padding: 12px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: all 0.15s;
+  cursor: pointer;
 }
 .invoice-order-item h4 {
   font-size: 13px;

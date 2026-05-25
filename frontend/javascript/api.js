@@ -11,45 +11,36 @@ function fmtVND(amount) {
 }
 
 // --- Toast Notification ---
-function showToast(message, type = "info") {
+function showToast(message, type = "info", title = "") {
   let container = document.getElementById("toast-container");
   if (!container) {
     container = document.createElement("div");
     container.id = "toast-container";
-    container.style.cssText =
-      "position:fixed;top:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:10px;";
+    container.className = "toast-container";
     document.body.appendChild(container);
   }
-  const toast = document.createElement("div");
-  const colors = {
-    success: "#22C55E",
-    error: "#EF4444",
-    warning: "#F59E0B",
-    info: "#3B82F6",
-  };
   const icons = {
-    success: "\u2714",
-    error: "\u2716",
-    warning: "\u26A0",
-    info: "\u2139",
+    success: "fa-circle-check",
+    error: "fa-circle-xmark",
+    warning: "fa-triangle-exclamation",
+    info: "fa-circle-info",
   };
-  toast.style.cssText =
-    "display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:12px;background:white;box-shadow:0 4px 20px rgba(0,0,0,0.15);font-family:Nunito,sans-serif;font-size:14px;font-weight:600;color:#333;min-width:280px;max-width:400px;animation:toastIn .3s ease;border-left:4px solid " +
-    (colors[type] || colors.info) +
-    ";";
+  const titles = {
+    success: "Th\u00E0nh c\u00F4ng",
+    error: "L\u1ED7i",
+    warning: "C\u1EA3nh b\u00E1o",
+    info: "Th\u00F4ng b\u00E1o",
+  };
+  const toast = document.createElement("div");
+  toast.className = "toast " + (type || "info");
   toast.innerHTML =
-    '<span style="font-size:18px;color:' +
-    (colors[type] || colors.info) +
-    ';">' +
-    (icons[type] || icons.info) +
-    '</span><span style="flex:1;">' +
-    message +
-    "</span>";
+    '<div class="toast-icon"><i class="fa-solid ' + (icons[type] || icons.info) + '"></i></div>' +
+    '<div class="toast-body"><div class="toast-title">' + (title || titles[type] || titles.info) + '</div>' +
+    '<div class="toast-msg">' + message + '</div></div>' +
+    '<button class="toast-close" onclick="this.parentElement.remove()">&times;</button>';
   container.appendChild(toast);
   setTimeout(function () {
-    toast.style.transition = "opacity .3s, transform .3s";
-    toast.style.opacity = "0";
-    toast.style.transform = "translateX(30px)";
+    toast.classList.add("fade-out");
     setTimeout(function () {
       toast.remove();
     }, 300);

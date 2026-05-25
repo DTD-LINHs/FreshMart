@@ -1,9 +1,9 @@
 /* ══════ PRODUCTS TABLE PAGE (cart.html) ══════ */
 
 .header {
-  display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;
 }
-.page-title { font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
+.page-title { font-size: 24px; font-weight: 800; letter-spacing: -.3px; color: var(--text); }
 
 .btn-add {
   background: var(--orange); color: #fff; border: none; border-radius: 10px;

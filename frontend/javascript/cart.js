@@ -19,19 +19,17 @@ function renderProducts(products) {
           encodeURIComponent(sp.TenSP);
 
       return `
-      <div class="card ${outOfStock ? "out-of-stock" : ""}" onclick="${outOfStock ? "" : "addToCart('" + sp.MaSP + "')"}">
-        ${promo ? '<div class="promo-badge">-' + fmtVND(promo.MucGiam) + "</div>" : ""}
+      <div class="card ${outOfStock ? "out-of-stock" : ""}${promo ? " has-promo" : ""}" onclick="${outOfStock ? "" : "addToCart('" + sp.MaSP + "')"}">
+        ${promo ? '<div class="promo-badge"><i class="fa-solid fa-percent"></i> -' + Math.round(promo.MucGiam / sp.GiaBan * 100) + "%</div>" : ""}
         <img src="${imgSrc}" alt="${sp.TenSP}" />
         <div class="card-body">
-          <div class="title">
-            ${sp.TenSP}
-            <span>
-              ${promo ? '<s style="color:#999;font-size:11px;">' + fmtVND(sp.GiaBan) + "</s> " : ""}
-              ${fmtVND(finalPrice)}/${sp.DonViTinh}
-            </span>
+          <div class="title">${sp.TenSP}</div>
+          <div class="card-price-row">
+            <span style="color:var(--orange);font-size:14px;font-weight:800;">${fmtVND(finalPrice)}</span>
+            ${promo ? '<span class="card-price-original">' + fmtVND(sp.GiaBan) + "</span>" : ""}
           </div>
-          <p>${category ? category.TenNhom : ""} · Kho: ${sp.SoLuongTon}</p>
-          ${promo ? '<p class="card-promo-name"><i class="fa-solid fa-tag"></i> ' + promo.TenKM + "</p>" : ""}
+          ${promo ? '<p class="card-promo-label"><i class="fa-solid fa-tag"></i> Giảm ' + fmtVND(promo.MucGiam) + "</p>" : ""}
+          <p>Còn ${sp.SoLuongTon} · ${sp.DonViTinh}</p>
         </div>
       </div>
     `;

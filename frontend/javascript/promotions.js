@@ -10,9 +10,11 @@ function togglePromoPanel() {
   const icon = document.getElementById("promo-toggle-icon");
   if (body.style.display === "none") {
     body.style.display = "";
+    body.dataset.opened = "1";
     icon.style.transform = "rotate(180deg)";
   } else {
     body.style.display = "none";
+    delete body.dataset.opened;
     icon.style.transform = "";
   }
 }
@@ -24,55 +26,42 @@ function renderPromoPanel() {
     section.style.display = "none";
     return;
   }
+  var totalProducts = activePromosCache.reduce(function (s, p) { return s + p.products.length; }, 0);
+  document.getElementById("promo-section-count").innerText =
+    activePromosCache.length + " khuyến mãi khả dụng";
+
   section.style.display = "";
+  if (!body.dataset.opened) {
+    body.style.display = "none";
+  }
 
   let html = "";
-  activePromosCache.forEach((promo) => {
+  activePromosCache.forEach((promo, idx) => {
+    if (idx > 0) html += '<div class="promo-divider"></div>';
     html += '<div class="promo-panel-item">';
     html +=
       '<div class="promo-panel-header"><i class="fa-solid fa-gift"></i> <b>' +
-      promo.TenKM +
-      "</b>";
+      promo.TenKM + "</b></div>";
     html +=
-      '<span class="promo-panel-date">' +
-      promo.NgayBatDau +
-      " → " +
-      promo.NgayKetThuc +
-      "</span></div>";
+      '<div class="promo-panel-date">' +
+      promo.NgayBatDau + " → " + promo.NgayKetThuc + "</div>";
 
     promo.products.forEach((p) => {
       const inCart = cart.find((c) => c.MaSP === p.MaSP);
       const applied = inCart && inCart.discount > 0;
       const statusClass = applied ? "applied" : "not-applied";
+      const statusIcon = applied ? "fa-circle-check" : "fa-circle-plus";
       const statusText = applied
-        ? '<i class="fa-solid fa-check-circle"></i> Đã áp dụng (x' +
-          inCart.quantity +
-          " = -" +
-          fmtVND(p.MucGiam * inCart.quantity) +
-          ")"
-        : '<i class="fa-solid fa-cart-plus"></i> Thêm <b>' +
-          p.TenSP +
-          "</b> vào giỏ để được giảm " +
-          fmtVND(p.MucGiam);
+        ? "Đã áp dụng (x" + inCart.quantity + " = -" + fmtVND(p.MucGiam * inCart.quantity) + ")"
+        : "Thêm vào giỏ để được giảm";
 
       html += '<div class="promo-product-row ' + statusClass + '">';
-      html +=
-        '<span class="promo-product-name">' +
-        p.TenSP +
-        " <small>(" +
-        p.MaSP +
-        ")</small></span>";
-      html +=
-        '<span class="promo-product-discount">-' +
-        fmtVND(p.MucGiam) +
-        "/sp</span>";
+      html += '<span class="promo-product-name">' + p.TenSP + "</span>";
+      html += '<span class="promo-product-discount">-' + fmtVND(p.MucGiam) + "</span>";
       html += "</div>";
-      html +=
-        '<div class="promo-product-status ' +
-        statusClass +
-        '">' +
-        statusText +
-        "</div>";
+      html += '<div class="promo-product-status ' + statusClass + '">';
+      html += '<i class="fa-solid ' + statusIcon + '"></i> ' + statusText;
+      html += "</div>";
     });
     html += "</div>";
   });
