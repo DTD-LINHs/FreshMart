@@ -41,7 +41,7 @@ def login(req: LoginRequest, db: Session = Depends(get_db)):
     if not pwd_context.verify(req.password, employee.MatKhau):
         raise HTTPException(status_code=401, detail="Invalid employee ID or password")
 
-    token = create_access_token({"sub": employee.MaNV})
+    token = create_access_token({"sub": employee.MaNV, "role": employee.ChucVu or ""})
     return LoginResponse(
         access_token=token,
         employee={
@@ -54,12 +54,3 @@ def login(req: LoginRequest, db: Session = Depends(get_db)):
     )
 
 
-@router.post("/set-password")
-def set_password(MaNV: str, password: str, db: Session = Depends(get_db)):
-    """Utility endpoint to set password for an employee. Remove or protect in production."""
-    employee = db.query(NhanVien).filter(NhanVien.MaNV == MaNV).first()
-    if not employee:
-        raise HTTPException(status_code=404, detail="Employee not found")
-    employee.MatKhau = pwd_context.hash(password)
-    db.commit()
-    return {"message": f"Password set for {MaNV}"}

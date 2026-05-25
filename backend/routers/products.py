@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
 from sqlalchemy.orm import Session
 
 from backend.database import get_db
-from backend.dependencies import get_current_user
+from backend.dependencies import get_current_user, require_role
 from backend.models.sanpham import SanPham
 from backend.models.khuyenmai import KhuyenMai
 from backend.models.ap_dung_km import ApDungKM
@@ -28,7 +28,7 @@ def get_products(
     category: Optional[str] = Query(None),
     search: Optional[str] = Query(None),
     db: Session = Depends(get_db),
-    current_user: str = Depends(get_current_user),
+    current_user: dict = Depends(get_current_user),
 ):
     query = db.query(SanPham)
     if category:
@@ -39,7 +39,7 @@ def get_products(
 
 
 @router.get("/{MaSP}", response_model=ProductResponse)
-def get_product(MaSP: str, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_product(MaSP: str, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     product = db.query(SanPham).filter(SanPham.MaSP == MaSP).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -47,7 +47,7 @@ def get_product(MaSP: str, db: Session = Depends(get_db), current_user: str = De
 
 
 @router.post("", response_model=ProductResponse, status_code=201)
-def create_product(product: ProductCreate, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def create_product(product: ProductCreate, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý", "Kho"))):
     existing = db.query(SanPham).filter(SanPham.MaSP == product.MaSP).first()
     if existing:
         raise HTTPException(status_code=400, detail="Product ID already exists")
@@ -59,7 +59,7 @@ def create_product(product: ProductCreate, db: Session = Depends(get_db), curren
 
 
 @router.put("/{MaSP}", response_model=ProductResponse)
-def update_product(MaSP: str, product: ProductUpdate, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def update_product(MaSP: str, product: ProductUpdate, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý", "Kho"))):
     db_product = db.query(SanPham).filter(SanPham.MaSP == MaSP).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -72,7 +72,7 @@ def update_product(MaSP: str, product: ProductUpdate, db: Session = Depends(get_
 
 
 @router.delete("/{MaSP}")
-def delete_product(MaSP: str, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def delete_product(MaSP: str, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý"))):
     db_product = db.query(SanPham).filter(SanPham.MaSP == MaSP).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -82,7 +82,7 @@ def delete_product(MaSP: str, db: Session = Depends(get_db), current_user: str =
 
 
 @router.post("/{MaSP}/upload-image")
-def upload_product_image(MaSP: str, file: UploadFile = File(...), db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def upload_product_image(MaSP: str, file: UploadFile = File(...), db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý", "Kho"))):
     db_product = db.query(SanPham).filter(SanPham.MaSP == MaSP).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -110,7 +110,7 @@ def upload_product_image(MaSP: str, file: UploadFile = File(...), db: Session = 
 
 
 @router.get("/{MaSP}/discount", response_model=Optional[ProductDiscountResponse])
-def get_product_discount(MaSP: str, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_product_discount(MaSP: str, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     today = date.today()
     result = (
         db.query(ApDungKM, KhuyenMai)

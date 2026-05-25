@@ -16,7 +16,7 @@ router = APIRouter(prefix="/api/notifications", tags=["Notifications"])
 
 
 @router.get("", response_model=list[NotificationResponse])
-def get_notifications(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_notifications(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     notifications = []
     today = date.today()
 

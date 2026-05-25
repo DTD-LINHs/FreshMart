@@ -173,12 +173,24 @@ async function apiCheckout(data) {
 }
 
 // --- Employees ---
+async function apiGetEmployees() {
+  return api('/employees');
+}
+
 async function apiGetEmployee(MaNV) {
   return api('/employees/' + encodeURIComponent(MaNV));
 }
 
+async function apiCreateEmployee(data) {
+  return api('/employees', { method: 'POST', body: JSON.stringify(data) });
+}
+
 async function apiUpdateEmployee(MaNV, data) {
   return api('/employees/' + encodeURIComponent(MaNV), { method: 'PUT', body: JSON.stringify(data) });
+}
+
+async function apiResetPassword(MaNV) {
+  return api('/employees/' + encodeURIComponent(MaNV) + '/reset-password', { method: 'POST' });
 }
 
 // --- Promotions ---

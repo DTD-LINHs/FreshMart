@@ -14,6 +14,14 @@ class EmployeeResponse(BaseModel):
         from_attributes = True
 
 
+class EmployeeCreate(BaseModel):
+    HoTen: str = Field(min_length=1, max_length=100)
+    ChucVu: str = Field(min_length=1)
+    SDT: str = Field(pattern=r"^0\d{9}$")
+    password: str = Field(min_length=6)
+    NgayVaoLam: Optional[date] = None
+
+
 class EmployeeUpdate(BaseModel):
     HoTen: Optional[str] = Field(None, min_length=1)
     ChucVu: Optional[str] = None

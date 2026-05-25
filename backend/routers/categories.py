@@ -9,7 +9,7 @@ router = APIRouter(prefix="/api/categories", tags=["Categories"])
 
 
 @router.get("")
-def get_categories(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_categories(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     categories = db.query(NhomHang).all()
     return [
         {"MaNhom": c.MaNhom, "TenNhom": c.TenNhom, "GhiChu": c.GhiChu}

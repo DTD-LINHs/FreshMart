@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 from backend.database import get_db
-from backend.dependencies import get_current_user
+from backend.dependencies import require_role
 from backend.models.phieunhap import PhieuNhap
 from backend.models.chitietphieunhap import ChiTietPhieuNhap
 from backend.models.sanpham import SanPham
@@ -30,7 +30,7 @@ class StockImportCreate(BaseModel):
 
 
 @router.post("", status_code=201)
-def create_stock_import(data: StockImportCreate, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def create_stock_import(data: StockImportCreate, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý", "Kho"))):
     if not db.query(NhaCungCap).filter(NhaCungCap.MaNCC == data.MaNCC).first():
         raise HTTPException(status_code=400, detail="Supplier not found")
     if not db.query(NhanVien).filter(NhanVien.MaNV == data.MaNV).first():

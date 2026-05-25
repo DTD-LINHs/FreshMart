@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 from backend.database import get_db
-from backend.dependencies import get_current_user
+from backend.dependencies import get_current_user, require_role
 from backend.models.khuyenmai import KhuyenMai
 from backend.models.ap_dung_km import ApDungKM
 from backend.models.sanpham import SanPham
@@ -40,7 +40,7 @@ def _build_detail(promo, db: Session) -> PromotionDetailResponse:
 
 
 @router.get("/active", response_model=list[PromotionDetailResponse])
-def get_active_promotions(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_active_promotions(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     today = date.today()
     promos = (
         db.query(KhuyenMai)
@@ -51,13 +51,13 @@ def get_active_promotions(db: Session = Depends(get_db), current_user: str = Dep
 
 
 @router.get("", response_model=list[PromotionDetailResponse])
-def get_all_promotions(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_all_promotions(db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý"))):
     promos = db.query(KhuyenMai).order_by(KhuyenMai.NgayKetThuc.desc()).all()
     return [_build_detail(p, db) for p in promos]
 
 
 @router.post("", response_model=PromotionDetailResponse, status_code=201)
-def create_promotion(data: PromotionCreate, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def create_promotion(data: PromotionCreate, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý"))):
     if data.NgayKetThuc < data.NgayBatDau:
         raise HTTPException(status_code=400, detail="End date must be on or after start date")
 
@@ -78,7 +78,7 @@ def create_promotion(data: PromotionCreate, db: Session = Depends(get_db), curre
 
 
 @router.put("/{MaKM}", response_model=PromotionDetailResponse)
-def update_promotion(MaKM: str, data: PromotionUpdate, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def update_promotion(MaKM: str, data: PromotionUpdate, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý"))):
     promo = db.query(KhuyenMai).filter(KhuyenMai.MaKM == MaKM).first()
     if not promo:
         raise HTTPException(status_code=404, detail="Promotion not found")
@@ -98,7 +98,7 @@ def update_promotion(MaKM: str, data: PromotionUpdate, db: Session = Depends(get
 
 
 @router.delete("/{MaKM}")
-def delete_promotion(MaKM: str, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def delete_promotion(MaKM: str, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý"))):
     promo = db.query(KhuyenMai).filter(KhuyenMai.MaKM == MaKM).first()
     if not promo:
         raise HTTPException(status_code=404, detail="Promotion not found")
@@ -110,7 +110,7 @@ def delete_promotion(MaKM: str, db: Session = Depends(get_db), current_user: str
 
 
 @router.post("/{MaKM}/products", status_code=201)
-def add_product_to_promotion(MaKM: str, data: ProductPromotionAdd, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def add_product_to_promotion(MaKM: str, data: ProductPromotionAdd, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý"))):
     promo = db.query(KhuyenMai).filter(KhuyenMai.MaKM == MaKM).first()
     if not promo:
         raise HTTPException(status_code=404, detail="Promotion not found")
@@ -130,7 +130,7 @@ def add_product_to_promotion(MaKM: str, data: ProductPromotionAdd, db: Session =
 
 
 @router.delete("/{MaKM}/products/{MaSP}")
-def remove_product_from_promotion(MaKM: str, MaSP: str, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def remove_product_from_promotion(MaKM: str, MaSP: str, db: Session = Depends(get_db), current_user: dict = Depends(require_role("Quản lý"))):
     mapping = db.query(ApDungKM).filter(ApDungKM.MaKM == MaKM, ApDungKM.MaSP == MaSP).first()
     if not mapping:
         raise HTTPException(status_code=404, detail="Product not in this promotion")

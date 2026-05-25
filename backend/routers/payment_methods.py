@@ -9,7 +9,7 @@ router = APIRouter(prefix="/api/payment-methods", tags=["Payment Methods"])
 
 
 @router.get("")
-def get_payment_methods(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_payment_methods(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     methods = db.query(PhuongThucTT).all()
     return [
         {"MaPT": m.MaPT, "TenPT": m.TenPT, "MoTa": m.MoTa}

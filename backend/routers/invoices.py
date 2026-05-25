@@ -46,12 +46,12 @@ def _determine_tier(total_points: int) -> str:
 
 
 @router.get("", response_model=list[InvoiceResponse])
-def get_invoices(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_invoices(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     return db.query(HoaDon).order_by(HoaDon.NgayLap.desc(), HoaDon.MaHD.desc()).all()
 
 
 @router.get("/{MaHD}", response_model=InvoiceFullResponse)
-def get_invoice(MaHD: str, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def get_invoice(MaHD: str, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     invoice = db.query(HoaDon).filter(HoaDon.MaHD == MaHD).first()
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")
@@ -104,7 +104,7 @@ def _get_active_discount(db: Session, MaSP: str, today: date) -> float:
 
 
 @router.post("", response_model=CheckoutResponse, status_code=201)
-def create_invoice(invoice: InvoiceCreate, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+def create_invoice(invoice: InvoiceCreate, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     # Validate employee
     employee = db.query(NhanVien).filter(NhanVien.MaNV == invoice.MaNV).first()
     if not employee:

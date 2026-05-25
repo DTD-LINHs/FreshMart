@@ -85,6 +85,12 @@
   display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
 }
 .modal-form-header h3 { font-size: 20px; font-weight: 800; }
+.modal-form-header .close-btn {
+  background: none; border: none; font-size: 22px; color: #aaa; cursor: pointer;
+  width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.modal-form-header .close-btn:hover { background: #fef2f2; color: #ef4444; }
 .modal-form-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px;
 }
