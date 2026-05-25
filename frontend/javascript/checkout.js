@@ -18,6 +18,10 @@ window.onload = async function () {
         window.location.href = '../login.html';
         return;
     }
+
+    var navPromo = document.getElementById('nav-promotions');
+    if (navPromo && currentEmployee.ChucVu === 'Quản lý') navPromo.style.display = '';
+
     document.getElementById('emp-display').innerText =
         currentEmployee.MaNV + ' - ' + currentEmployee.HoTen + ' (' + currentEmployee.ChucVu + ')';
 

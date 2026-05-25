@@ -186,6 +186,30 @@ async function apiGetActivePromotions() {
   return api('/promotions/active');
 }
 
+async function apiGetAllPromotions() {
+  return api('/promotions');
+}
+
+async function apiCreatePromotion(data) {
+  return api('/promotions', { method: 'POST', body: JSON.stringify(data) });
+}
+
+async function apiUpdatePromotion(MaKM, data) {
+  return api('/promotions/' + encodeURIComponent(MaKM), { method: 'PUT', body: JSON.stringify(data) });
+}
+
+async function apiDeletePromotion(MaKM) {
+  return api('/promotions/' + encodeURIComponent(MaKM), { method: 'DELETE' });
+}
+
+async function apiAddProductToPromo(MaKM, data) {
+  return api('/promotions/' + encodeURIComponent(MaKM) + '/products', { method: 'POST', body: JSON.stringify(data) });
+}
+
+async function apiRemoveProductFromPromo(MaKM, MaSP) {
+  return api('/promotions/' + encodeURIComponent(MaKM) + '/products/' + encodeURIComponent(MaSP), { method: 'DELETE' });
+}
+
 // --- Notifications ---
 async function apiGetNotifications() {
   return api('/notifications');

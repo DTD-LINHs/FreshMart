@@ -27,6 +27,11 @@ window.onload = async function () {
   document.getElementById('employee-name').innerText =
     currentEmployee.HoTen + ' (' + currentEmployee.ChucVu + ')';
 
+  if (currentEmployee.ChucVu === 'Quản lý') {
+    var navPromo = document.getElementById('nav-promotions');
+    if (navPromo) navPromo.style.display = '';
+  }
+
   try {
     [categoriesCache, productsCache, paymentMethodsCache, activePromosCache] = await Promise.all([
       apiGetCategories(),
