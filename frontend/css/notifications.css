@@ -71,3 +71,10 @@
 
 .noti-item.read { opacity: 0.55; border-left: 3px solid transparent; background: #f9fafb; }
 .noti-item.read:hover { opacity: 0.75; background: #f3f4f6; }
+
+.noti-item .close-btn {
+  background: none; border: none; font-size: 18px; color: #ccc; cursor: pointer;
+  width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all .2s;
+}
+.noti-item .close-btn:hover { background: #fef2f2; color: #ef4444; }
