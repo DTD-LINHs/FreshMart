@@ -11,3 +11,4 @@ from backend.models.nhacungcap import NhaCungCap
 from backend.models.phieunhap import PhieuNhap
 from backend.models.chitietphieunhap import ChiTietPhieuNhap
 from backend.models.lichsudiem import LichSuDiem
+from backend.models.audit_log import AuditLog

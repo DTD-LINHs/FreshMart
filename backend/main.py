@@ -1,5 +1,10 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from backend.database import Base, engine
+import backend.models  # noqa: F401 — ensure all models are registered
 
 from backend.routers import (
     auth,
@@ -16,7 +21,13 @@ from backend.routers import (
     audit,
 )
 
-app = FastAPI(title="FreshMart POS API", version="1.0.0")
+@asynccontextmanager
+async def lifespan(app):
+    Base.metadata.create_all(bind=engine)
+    yield
+
+
+app = FastAPI(title="FreshMart POS API", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

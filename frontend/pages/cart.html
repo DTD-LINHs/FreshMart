@@ -1,237 +1,381 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Products - FreshMart</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/common.css">
-  <link rel="stylesheet" href="../css/layout.css">
-  <link rel="stylesheet" href="../css/tables.css">
-  <link rel="stylesheet" href="../css/modals.css">
-</head>
-<body>
-<div class="app">
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="menu">
-      <a href="../index.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
-      </a>
-      <a href="cart.html" class="nav-item active">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      </a>
-      <a href="invoice.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      </a>
-      <a href="promotions.html" class="nav-item" id="nav-promotions" style="display:none">
-        <svg viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3"/><path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3"/></svg>
-      </a>
-      <a href="notification.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
-      </a>
-      <a href="account.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-      </a>
-    </div>
-    <div class="bottom">
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-14 0"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- MAIN -->
-  <main class="main-content">
-    <div class="header">
-      <h1 class="page-title">Products</h1>
-      <button class="btn-add" onclick="openAddProductModal()">+ Add Product</button>
-    </div>
-
-    <div class="table-card">
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>ID</th>
-            <th>Category</th>
-            <th>Unit</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Expiry</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="product-table-body">
-        </tbody>
-      </table>
-    </div>
-  </main>
-</div>
-
-<!-- MODAL: Add Product -->
-<div id="modal-add-product" class="modal-overlay">
-  <div class="modal-form-card">
-    <div class="modal-form-header">
-      <h3>Add New Product</h3>
-      <button class="close-btn" onclick="closeAddProductModal()">&times;</button>
-    </div>
-
-    <form onsubmit="saveProduct(event)">
-      <div class="modal-form-grid">
-        <div class="form-group">
-          <label>Product ID:</label>
-          <input type="text" id="inp-masp" placeholder="Auto-generated" readonly>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products - FreshMart</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/tables.css" />
+    <link rel="stylesheet" href="../css/modals.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="menu">
+          <a href="../index.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"
+              />
+            </svg>
+          </a>
+          <a href="cart.html" class="nav-item active">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </a>
+          <a href="invoice.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="4" width="14" height="16" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </a>
+          <a
+            href="promotions.html"
+            class="nav-item"
+            id="nav-promotions"
+            style="display: none"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M20 12v10H4V12" />
+              <path d="M2 7h20v5H2z" />
+              <path d="M12 22V7" />
+              <path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3" />
+              <path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3" />
+            </svg>
+          </a>
+          <a href="notification.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" />
+            </svg>
+          </a>
+          <a href="account.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+            </svg>
+          </a>
         </div>
-        <div class="form-group">
-          <label>Product Name:</label>
-          <input type="text" id="inp-tensp" placeholder="Enter product name" required>
-        </div>
-        <div class="form-group">
-          <label>Category:</label>
-          <select id="inp-manhom" required>
-            <option value="">Select Category</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Unit:</label>
-          <input type="text" id="inp-dvt" placeholder="kg, Chai, Hop, Lon..." required>
-        </div>
-        <div class="form-group">
-          <label>Price:</label>
-          <input type="number" id="inp-giaban" placeholder="0.00" step="0.01" min="0" required>
-        </div>
-        <div class="form-group">
-          <label>Stock Quantity:</label>
-          <input type="number" id="inp-soluong" placeholder="0" min="0" required>
-        </div>
-        <div class="form-group">
-          <label>Expiry Date:</label>
-          <input type="date" id="inp-hsd" required>
-        </div>
-        <div class="form-group full-width">
-          <label>Product Image:</label>
-          <input type="file" id="inp-image" accept="image/*" onchange="previewImage(this, 'inp-img-preview')">
-        </div>
-        <div class="form-group full-width">
-          <div id="inp-img-preview" class="img-preview-box"></div>
+        <div class="bottom">
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19 12a7 7 0 00-14 0" />
+            </svg>
+          </div>
         </div>
       </div>
 
-      <div class="modal-form-footer">
-        <button type="button" class="btn-cancel" onclick="closeAddProductModal()">Cancel</button>
-        <button type="submit" class="btn-confirm">Save Product</button>
-      </div>
-    </form>
-  </div>
-</div>
+      <!-- MAIN -->
+      <main class="main-content">
+        <div class="header">
+          <h1 class="page-title">Products</h1>
+          <div style="display: flex; gap: 10px">
+            <button
+              class="btn-add"
+              id="btn-audit-log"
+              style="display: none; background: #6366f1"
+              onclick="openAuditLogModal()"
+            >
+              Activity Log
+            </button>
+            <button class="btn-add" onclick="openAddProductModal()">
+              + Add Product
+            </button>
+          </div>
+        </div>
 
-<!-- MODAL: Edit Product -->
-<div id="modal-edit-product" class="modal-overlay">
-  <div class="modal-form-card">
-    <div class="modal-form-header">
-      <h3>Edit Product</h3>
-      <button class="close-btn" onclick="closeEditProductModal()">&times;</button>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Unit</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Expiry</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="product-table-body"></tbody>
+          </table>
+        </div>
+      </main>
     </div>
 
-    <form onsubmit="updateProduct(event)">
-      <div class="modal-form-grid">
-        <div class="form-group">
-          <label>Product ID:</label>
-          <input type="text" id="edit-masp" readonly>
+    <!-- MODAL: Add Product -->
+    <div id="modal-add-product" class="modal-overlay">
+      <div class="modal-form-card">
+        <div class="modal-form-header">
+          <h3>Add New Product</h3>
+          <button class="close-btn" onclick="closeAddProductModal()">
+            &times;
+          </button>
         </div>
-        <div class="form-group">
-          <label>Product Name:</label>
-          <input type="text" id="edit-tensp" required>
+
+        <form onsubmit="saveProduct(event)">
+          <div class="modal-form-grid">
+            <div class="form-group">
+              <label>Product ID:</label>
+              <input
+                type="text"
+                id="inp-masp"
+                placeholder="Auto-generated"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label>Product Name:</label>
+              <input
+                type="text"
+                id="inp-tensp"
+                placeholder="Enter product name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Category:</label>
+              <select id="inp-manhom" required>
+                <option value="">Select Category</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Unit:</label>
+              <input
+                type="text"
+                id="inp-dvt"
+                placeholder="kg, Chai, Hop, Lon..."
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Price:</label>
+              <input
+                type="number"
+                id="inp-giaban"
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Stock Quantity:</label>
+              <input
+                type="number"
+                id="inp-soluong"
+                placeholder="0"
+                min="0"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Expiry Date:</label>
+              <input type="date" id="inp-hsd" required />
+            </div>
+            <div class="form-group full-width">
+              <label>Product Image:</label>
+              <input
+                type="file"
+                id="inp-image"
+                accept="image/*"
+                onchange="previewImage(this, 'inp-img-preview')"
+              />
+            </div>
+            <div class="form-group full-width">
+              <div id="inp-img-preview" class="img-preview-box"></div>
+            </div>
+          </div>
+
+          <div class="modal-form-footer">
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeAddProductModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-confirm">Save Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: Edit Product -->
+    <div id="modal-edit-product" class="modal-overlay">
+      <div class="modal-form-card">
+        <div class="modal-form-header">
+          <h3>Edit Product</h3>
+          <button class="close-btn" onclick="closeEditProductModal()">
+            &times;
+          </button>
         </div>
-        <div class="form-group">
-          <label>Category:</label>
-          <select id="edit-manhom" required>
-            <option value="">Select Category</option>
-          </select>
+
+        <form onsubmit="updateProduct(event)">
+          <div class="modal-form-grid">
+            <div class="form-group">
+              <label>Product ID:</label>
+              <input type="text" id="edit-masp" readonly />
+            </div>
+            <div class="form-group">
+              <label>Product Name:</label>
+              <input type="text" id="edit-tensp" required />
+            </div>
+            <div class="form-group">
+              <label>Category:</label>
+              <select id="edit-manhom" required>
+                <option value="">Select Category</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Unit:</label>
+              <input type="text" id="edit-dvt" required />
+            </div>
+            <div class="form-group">
+              <label>Price:</label>
+              <input
+                type="number"
+                id="edit-giaban"
+                step="0.01"
+                min="0"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Stock Quantity:</label>
+              <input type="number" id="edit-soluong" min="0" required />
+            </div>
+            <div class="form-group">
+              <label>Expiry Date:</label>
+              <input type="date" id="edit-hsd" />
+            </div>
+            <div class="form-group full-width">
+              <label>Product Image:</label>
+              <input
+                type="file"
+                id="edit-image"
+                accept="image/*"
+                onchange="previewImage(this, 'edit-img-preview')"
+              />
+            </div>
+            <div class="form-group full-width">
+              <div id="edit-img-preview" class="img-preview-box"></div>
+            </div>
+          </div>
+
+          <div class="modal-form-footer">
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeEditProductModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-confirm">Update Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: Audit Log -->
+    <div id="modal-audit-log" class="modal-overlay">
+      <div class="modal-form-card" style="width: 700px">
+        <div class="modal-form-header">
+          <h3>Product Activity Log</h3>
+          <button class="close-btn" onclick="closeAuditLogModal()">
+            &times;
+          </button>
         </div>
-        <div class="form-group">
-          <label>Unit:</label>
-          <input type="text" id="edit-dvt" required>
-        </div>
-        <div class="form-group">
-          <label>Price:</label>
-          <input type="number" id="edit-giaban" step="0.01" min="0" required>
-        </div>
-        <div class="form-group">
-          <label>Stock Quantity:</label>
-          <input type="number" id="edit-soluong" min="0" required>
-        </div>
-        <div class="form-group">
-          <label>Expiry Date:</label>
-          <input type="date" id="edit-hsd">
-        </div>
-        <div class="form-group full-width">
-          <label>Product Image:</label>
-          <input type="file" id="edit-image" accept="image/*" onchange="previewImage(this, 'edit-img-preview')">
-        </div>
-        <div class="form-group full-width">
-          <div id="edit-img-preview" class="img-preview-box"></div>
+        <div
+          id="audit-log-list"
+          style="
+            max-height: 450px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+          "
+        ></div>
+        <div class="modal-form-footer">
+          <button
+            type="button"
+            class="btn-cancel"
+            onclick="closeAuditLogModal()"
+          >
+            Close
+          </button>
         </div>
       </div>
+    </div>
 
-      <div class="modal-form-footer">
-        <button type="button" class="btn-cancel" onclick="closeEditProductModal()">Cancel</button>
-        <button type="submit" class="btn-confirm">Update Product</button>
-      </div>
-    </form>
-  </div>
-</div>
+    <script src="../javascript/api.js"></script>
+    <script>
+      let productsCache = [];
+      let categoriesCache = [];
 
-<script src="../javascript/api.js"></script>
-<script>
-  let productsCache = [];
-  let categoriesCache = [];
+      window.onload = async function () {
+        var navPromo = document.getElementById("nav-promotions");
+        var _emp = JSON.parse(localStorage.getItem("loggedInEmployee") || "{}");
+        if (_emp.ChucVu === "Quản lý") {
+          if (navPromo) navPromo.style.display = "";
+          document.getElementById("btn-audit-log").style.display = "";
+        }
 
-  window.onload = async function() {
-    var navPromo = document.getElementById('nav-promotions');
-    var _emp = JSON.parse(localStorage.getItem('loggedInEmployee') || '{}');
-    if (navPromo && _emp.ChucVu === 'Quản lý') navPromo.style.display = '';
-
-    try {
-      [productsCache, categoriesCache] = await Promise.all([
-        apiGetProducts(),
-        apiGetCategories(),
-      ]);
-      renderProductTable();
-      const select = document.getElementById('inp-manhom');
-      categoriesCache.forEach(nh => {
-        const opt = document.createElement('option');
-        opt.value = nh.MaNhom;
-        opt.textContent = nh.MaNhom + ' - ' + nh.TenNhom;
-        select.appendChild(opt);
-      });
-    } catch (err) {
-      console.error('Failed to load data:', err);
-    }
-  };
-
-  function previewImage(input, previewId) {
-    const box = document.getElementById(previewId);
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        box.innerHTML = '<img src="' + e.target.result + '">';
+        try {
+          [productsCache, categoriesCache] = await Promise.all([
+            apiGetProducts(),
+            apiGetCategories(),
+          ]);
+          renderProductTable();
+          const select = document.getElementById("inp-manhom");
+          categoriesCache.forEach((nh) => {
+            const opt = document.createElement("option");
+            opt.value = nh.MaNhom;
+            opt.textContent = nh.MaNhom + " - " + nh.TenNhom;
+            select.appendChild(opt);
+          });
+        } catch (err) {
+          console.error("Failed to load data:", err);
+        }
       };
-      reader.readAsDataURL(input.files[0]);
-    } else {
-      box.innerHTML = '';
-    }
-  }
 
-  function renderProductTable() {
-    const tbody = document.getElementById('product-table-body');
-    tbody.innerHTML = productsCache.map(sp => {
-      const cat = categoriesCache.find(c => c.MaNhom === sp.MaNhom);
-      const isLowStock = sp.SoLuongTon <= 10;
-      const isExpired = sp.HSD && new Date(sp.HSD) < new Date();
-      const imgSrc = sp.HinhAnh ? '../' + sp.HinhAnh : 'https://via.placeholder.com/80?text=' + encodeURIComponent(sp.TenSP);
-      return `
+      function previewImage(input, previewId) {
+        const box = document.getElementById(previewId);
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            box.innerHTML = '<img src="' + e.target.result + '">';
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          box.innerHTML = "";
+        }
+      }
+
+      function renderProductTable() {
+        const tbody = document.getElementById("product-table-body");
+        tbody.innerHTML = productsCache
+          .map((sp) => {
+            const cat = categoriesCache.find((c) => c.MaNhom === sp.MaNhom);
+            const isLowStock = sp.SoLuongTon <= 10;
+            const isExpired = sp.HSD && new Date(sp.HSD) < new Date();
+            const imgSrc = sp.HinhAnh
+              ? "../" + sp.HinhAnh
+              : "https://via.placeholder.com/80?text=" +
+                encodeURIComponent(sp.TenSP);
+            return `
         <tr>
           <td>
             <div class="product-cell">
@@ -244,11 +388,11 @@
           <td>${sp.DonViTinh}</td>
           <td><span class="price">${fmtVND(sp.GiaBan)}</span></td>
           <td>
-            <span style="color: ${isLowStock ? '#EF4444' : '#22C55E'}; font-weight:700;">
+            <span style="color: ${isLowStock ? "#EF4444" : "#22C55E"}; font-weight:700;">
               ${sp.SoLuongTon}
             </span>
           </td>
-          <td style="color: ${isExpired ? '#EF4444' : '#666'};">${sp.HSD || '--'}</td>
+          <td style="color: ${isExpired ? "#EF4444" : "#666"};">${sp.HSD || "--"}</td>
           <td>
             <div class="actions">
               <a href="#" class="btn-edit" onclick="editProduct('${sp.MaSP}')">
@@ -261,163 +405,272 @@
           </td>
         </tr>
       `;
-    }).join('');
-  }
-
-  function openAddProductModal() {
-    const maxNum = productsCache.reduce((max, p) => {
-      const n = parseInt(p.MaSP.replace('SP', ''));
-      return n > max ? n : max;
-    }, 0);
-    document.getElementById('inp-masp').value = 'SP' + String(maxNum + 1).padStart(2, '0');
-    document.getElementById('inp-tensp').value = '';
-    document.getElementById('inp-manhom').value = '';
-    document.getElementById('inp-dvt').value = '';
-    document.getElementById('inp-giaban').value = '';
-    document.getElementById('inp-soluong').value = '';
-    document.getElementById('inp-hsd').value = '';
-    document.getElementById('inp-image').value = '';
-    document.getElementById('inp-img-preview').innerHTML = '';
-    document.getElementById('modal-add-product').style.display = 'flex';
-  }
-
-  function closeAddProductModal() {
-    document.getElementById('modal-add-product').style.display = 'none';
-  }
-
-  async function saveProduct(e) {
-    e.preventDefault();
-
-    const maSP = document.getElementById('inp-masp').value;
-    const tenSP = document.getElementById('inp-tensp').value;
-    const giaBan = document.getElementById('inp-giaban').value;
-    const soLuong = document.getElementById('inp-soluong').value;
-
-    var errors = validateForm([
-      { name: 'Tên sản phẩm', value: tenSP, required: true, maxLength: 100 },
-      { name: 'Giá bán', value: giaBan, gt: 0 },
-      { name: 'Số lượng', value: soLuong, min: 0 },
-    ]);
-    if (errors.length > 0) { showToast(errors[0], 'error'); return; }
-
-    const newProduct = {
-      MaSP: maSP,
-      TenSP: tenSP,
-      DonViTinh: document.getElementById('inp-dvt').value,
-      GiaBan: parseFloat(giaBan),
-      SoLuongTon: parseInt(soLuong),
-      HSD: document.getElementById('inp-hsd').value || null,
-      MaNhom: document.getElementById('inp-manhom').value,
-    };
-
-    try {
-      await apiCreateProduct(newProduct);
-
-      const fileInput = document.getElementById('inp-image');
-      if (fileInput.files.length > 0) {
-        await apiUploadProductImage(maSP, fileInput.files[0]);
+          })
+          .join("");
       }
 
-      productsCache = await apiGetProducts();
-      closeAddProductModal();
-      renderProductTable();
-      showToast('Thêm sản phẩm thành công!', 'success');
-    } catch (err) {
-      showToast('Failed to add product: ' + err.message, 'error');
-    }
-  }
-
-  function editProduct(maSP) {
-    const sp = productsCache.find(p => p.MaSP === maSP);
-    if (!sp) return;
-
-    document.getElementById('edit-masp').value = sp.MaSP;
-    document.getElementById('edit-tensp').value = sp.TenSP;
-    document.getElementById('edit-dvt').value = sp.DonViTinh || '';
-    document.getElementById('edit-giaban').value = sp.GiaBan;
-    document.getElementById('edit-soluong').value = sp.SoLuongTon;
-    document.getElementById('edit-hsd').value = sp.HSD || '';
-    document.getElementById('edit-image').value = '';
-
-    // Show current image preview
-    const preview = document.getElementById('edit-img-preview');
-    if (sp.HinhAnh) {
-      preview.innerHTML = '<img src="../' + sp.HinhAnh + '">';
-    } else {
-      preview.innerHTML = '<span class="img-preview-empty">No image uploaded</span>';
-    }
-
-    // Populate edit category dropdown
-    const select = document.getElementById('edit-manhom');
-    select.innerHTML = '<option value="">Select Category</option>';
-    categoriesCache.forEach(nh => {
-      const opt = document.createElement('option');
-      opt.value = nh.MaNhom;
-      opt.textContent = nh.MaNhom + ' - ' + nh.TenNhom;
-      if (nh.MaNhom === sp.MaNhom) opt.selected = true;
-      select.appendChild(opt);
-    });
-
-    document.getElementById('modal-edit-product').style.display = 'flex';
-  }
-
-  function closeEditProductModal() {
-    document.getElementById('modal-edit-product').style.display = 'none';
-  }
-
-  async function updateProduct(e) {
-    e.preventDefault();
-
-    const maSP = document.getElementById('edit-masp').value;
-    const tenSP = document.getElementById('edit-tensp').value;
-    const giaBan = document.getElementById('edit-giaban').value;
-    const soLuong = document.getElementById('edit-soluong').value;
-
-    var errors = validateForm([
-      { name: 'Tên sản phẩm', value: tenSP, required: true, maxLength: 100 },
-      { name: 'Giá bán', value: giaBan, gt: 0 },
-      { name: 'Số lượng', value: soLuong, min: 0 },
-    ]);
-    if (errors.length > 0) { showToast(errors[0], 'error'); return; }
-
-    const updates = {
-      TenSP: tenSP,
-      DonViTinh: document.getElementById('edit-dvt').value,
-      GiaBan: parseFloat(giaBan),
-      SoLuongTon: parseInt(soLuong),
-      HSD: document.getElementById('edit-hsd').value || null,
-      MaNhom: document.getElementById('edit-manhom').value,
-    };
-
-    try {
-      await apiUpdateProduct(maSP, updates);
-
-      const fileInput = document.getElementById('edit-image');
-      if (fileInput.files.length > 0) {
-        await apiUploadProductImage(maSP, fileInput.files[0]);
+      function openAddProductModal() {
+        const maxNum = productsCache.reduce((max, p) => {
+          const n = parseInt(p.MaSP.replace("SP", ""));
+          return n > max ? n : max;
+        }, 0);
+        document.getElementById("inp-masp").value =
+          "SP" + String(maxNum + 1).padStart(2, "0");
+        document.getElementById("inp-tensp").value = "";
+        document.getElementById("inp-manhom").value = "";
+        document.getElementById("inp-dvt").value = "";
+        document.getElementById("inp-giaban").value = "";
+        document.getElementById("inp-soluong").value = "";
+        document.getElementById("inp-hsd").value = "";
+        document.getElementById("inp-image").value = "";
+        document.getElementById("inp-img-preview").innerHTML = "";
+        document.getElementById("modal-add-product").style.display = "flex";
       }
 
-      productsCache = await apiGetProducts();
-      closeEditProductModal();
-      renderProductTable();
-      showToast('Cập nhật sản phẩm thành công!', 'success');
-    } catch (err) {
-      showToast('Failed to update product: ' + err.message, 'error');
-    }
-  }
-
-  async function deleteProduct(maSP) {
-    if (confirm('Delete product ' + maSP + '?')) {
-      try {
-        await apiDeleteProduct(maSP);
-        productsCache = await apiGetProducts();
-        renderProductTable();
-        showToast('Đã xóa sản phẩm ' + maSP, 'success');
-      } catch (err) {
-        showToast('Failed to delete: ' + err.message, 'error');
+      function closeAddProductModal() {
+        document.getElementById("modal-add-product").style.display = "none";
       }
-    }
-  }
-</script>
-</body>
+
+      async function saveProduct(e) {
+        e.preventDefault();
+
+        const maSP = document.getElementById("inp-masp").value;
+        const tenSP = document.getElementById("inp-tensp").value;
+        const giaBan = document.getElementById("inp-giaban").value;
+        const soLuong = document.getElementById("inp-soluong").value;
+
+        var errors = validateForm([
+          {
+            name: "Tên sản phẩm",
+            value: tenSP,
+            required: true,
+            maxLength: 100,
+          },
+          { name: "Giá bán", value: giaBan, gt: 0 },
+          { name: "Số lượng", value: soLuong, min: 0 },
+        ]);
+        if (errors.length > 0) {
+          showToast(errors[0], "error");
+          return;
+        }
+
+        const newProduct = {
+          MaSP: maSP,
+          TenSP: tenSP,
+          DonViTinh: document.getElementById("inp-dvt").value,
+          GiaBan: parseFloat(giaBan),
+          SoLuongTon: parseInt(soLuong),
+          HSD: document.getElementById("inp-hsd").value || null,
+          MaNhom: document.getElementById("inp-manhom").value,
+        };
+
+        try {
+          await apiCreateProduct(newProduct);
+
+          const fileInput = document.getElementById("inp-image");
+          if (fileInput.files.length > 0) {
+            await apiUploadProductImage(maSP, fileInput.files[0]);
+          }
+
+          productsCache = await apiGetProducts();
+          closeAddProductModal();
+          renderProductTable();
+          showToast("Thêm sản phẩm thành công!", "success");
+        } catch (err) {
+          showToast("Failed to add product: " + err.message, "error");
+        }
+      }
+
+      function editProduct(maSP) {
+        const sp = productsCache.find((p) => p.MaSP === maSP);
+        if (!sp) return;
+
+        document.getElementById("edit-masp").value = sp.MaSP;
+        document.getElementById("edit-tensp").value = sp.TenSP;
+        document.getElementById("edit-dvt").value = sp.DonViTinh || "";
+        document.getElementById("edit-giaban").value = sp.GiaBan;
+        document.getElementById("edit-soluong").value = sp.SoLuongTon;
+        document.getElementById("edit-hsd").value = sp.HSD || "";
+        document.getElementById("edit-image").value = "";
+
+        // Show current image preview
+        const preview = document.getElementById("edit-img-preview");
+        if (sp.HinhAnh) {
+          preview.innerHTML = '<img src="../' + sp.HinhAnh + '">';
+        } else {
+          preview.innerHTML =
+            '<span class="img-preview-empty">No image uploaded</span>';
+        }
+
+        // Populate edit category dropdown
+        const select = document.getElementById("edit-manhom");
+        select.innerHTML = '<option value="">Select Category</option>';
+        categoriesCache.forEach((nh) => {
+          const opt = document.createElement("option");
+          opt.value = nh.MaNhom;
+          opt.textContent = nh.MaNhom + " - " + nh.TenNhom;
+          if (nh.MaNhom === sp.MaNhom) opt.selected = true;
+          select.appendChild(opt);
+        });
+
+        document.getElementById("modal-edit-product").style.display = "flex";
+      }
+
+      function closeEditProductModal() {
+        document.getElementById("modal-edit-product").style.display = "none";
+      }
+
+      async function updateProduct(e) {
+        e.preventDefault();
+
+        const maSP = document.getElementById("edit-masp").value;
+        const tenSP = document.getElementById("edit-tensp").value;
+        const giaBan = document.getElementById("edit-giaban").value;
+        const soLuong = document.getElementById("edit-soluong").value;
+
+        var errors = validateForm([
+          {
+            name: "Tên sản phẩm",
+            value: tenSP,
+            required: true,
+            maxLength: 100,
+          },
+          { name: "Giá bán", value: giaBan, gt: 0 },
+          { name: "Số lượng", value: soLuong, min: 0 },
+        ]);
+        if (errors.length > 0) {
+          showToast(errors[0], "error");
+          return;
+        }
+
+        const updates = {
+          TenSP: tenSP,
+          DonViTinh: document.getElementById("edit-dvt").value,
+          GiaBan: parseFloat(giaBan),
+          SoLuongTon: parseInt(soLuong),
+          HSD: document.getElementById("edit-hsd").value || null,
+          MaNhom: document.getElementById("edit-manhom").value,
+        };
+
+        try {
+          await apiUpdateProduct(maSP, updates);
+
+          const fileInput = document.getElementById("edit-image");
+          if (fileInput.files.length > 0) {
+            await apiUploadProductImage(maSP, fileInput.files[0]);
+          }
+
+          productsCache = await apiGetProducts();
+          closeEditProductModal();
+          renderProductTable();
+          showToast("Cập nhật sản phẩm thành công!", "success");
+        } catch (err) {
+          showToast("Failed to update product: " + err.message, "error");
+        }
+      }
+
+      async function deleteProduct(maSP) {
+        if (confirm("Delete product " + maSP + "?")) {
+          try {
+            await apiDeleteProduct(maSP);
+            productsCache = await apiGetProducts();
+            renderProductTable();
+            showToast("Đã xóa sản phẩm " + maSP, "success");
+          } catch (err) {
+            showToast("Failed to delete: " + err.message, "error");
+          }
+        }
+      }
+
+      async function openAuditLogModal() {
+        var container = document.getElementById("audit-log-list");
+        container.innerHTML =
+          '<p style="text-align:center;color:#aaa;padding:20px;">Loading...</p>';
+        document.getElementById("modal-audit-log").style.display = "flex";
+
+        try {
+          var logs = await apiGetAuditLog("SANPHAM");
+          if (logs.length === 0) {
+            container.innerHTML =
+              '<p style="text-align:center;color:#aaa;padding:30px;font-weight:600;">No activity recorded yet</p>';
+            return;
+          }
+          container.innerHTML = logs
+            .map(function (log) {
+              var actionColors = {
+                CREATE: "#22C55E",
+                UPDATE: "#3B82F6",
+                DELETE: "#EF4444",
+              };
+              var actionLabels = {
+                CREATE: "Created",
+                UPDATE: "Updated",
+                DELETE: "Deleted",
+              };
+              var color = actionColors[log.action] || "#666";
+              var label = actionLabels[log.action] || log.action;
+              var ts = log.timestamp
+                ? new Date(log.timestamp).toLocaleString("vi-VN")
+                : "";
+              var details = "";
+              if (log.details) {
+                try {
+                  var d = JSON.parse(log.details);
+                  var keys = Object.keys(d);
+                  details = keys
+                    .map(function (k) {
+                      return (
+                        '<span style="color:#666;">' + k + ":</span> " + d[k]
+                      );
+                    })
+                    .join(" · ");
+                } catch (e) {
+                  details = log.details;
+                }
+              }
+              return (
+                '<div style="padding:12px 14px;background:#f9fafb;border-radius:10px;border:1px solid #f3f4f6;">' +
+                '<div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">' +
+                '<span style="background:' +
+                color +
+                "15;color:" +
+                color +
+                ';padding:2px 10px;border-radius:12px;font-size:11px;font-weight:800;">' +
+                label +
+                "</span>" +
+                '<span style="font-weight:800;font-size:13px;">' +
+                log.target_id +
+                "</span>" +
+                '<span style="flex:1;"></span>' +
+                '<span style="font-size:11px;color:#999;">' +
+                ts +
+                "</span>" +
+                "</div>" +
+                '<div style="font-size:12px;color:#555;">by <strong>' +
+                (log.employee_name || log.MaNV) +
+                "</strong> (" +
+                log.MaNV +
+                ")</div>" +
+                (details
+                  ? '<div style="font-size:11px;color:#888;margin-top:4px;word-break:break-all;">' +
+                    details +
+                    "</div>"
+                  : "") +
+                "</div>"
+              );
+            })
+            .join("");
+        } catch (err) {
+          container.innerHTML =
+            '<p style="text-align:center;color:#EF4444;padding:20px;">' +
+            err.message +
+            "</p>";
+        }
+      }
+
+      function closeAuditLogModal() {
+        document.getElementById("modal-audit-log").style.display = "none";
+      }
+    </script>
+  </body>
 </html>
