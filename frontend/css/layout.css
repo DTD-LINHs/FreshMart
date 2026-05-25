@@ -8,7 +8,6 @@
   overflow: hidden;
 }
 
-
 /* ══════ SIDEBAR ══════ */
 
 .sidebar {
@@ -23,17 +22,43 @@
   flex-shrink: 0;
 }
 
-.menu { display: flex; flex-direction: column; gap: 10px; align-items: center; }
-.bottom { margin-bottom: 10px; }
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.bottom {
+  margin-bottom: 10px;
+}
 
 .nav-item {
-  width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
-  border-radius: 12px; cursor: pointer; color: #c4c4c4; transition: all .2s ease; text-decoration: none;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #c4c4c4;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
-.nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
-.nav-item:hover { background: #f9fafb; color: #6b7280; }
-.nav-item.active { background: var(--orange-light); color: var(--orange); }
-
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.nav-item:hover {
+  background: #f9fafb;
+  color: #6b7280;
+}
+.nav-item.active {
+  background: var(--orange-light);
+  color: var(--orange);
+}
 
 /* ══════ MAIN AREA ══════ */
 
@@ -64,16 +89,43 @@
   flex-shrink: 0;
 }
 
-.logo-img { width: 140px; height: auto; border-radius: 50px; object-fit: contain; }
+.logo-img {
+  width: 140px;
+  height: auto;
+  border-radius: 50px;
+  object-fit: contain;
+}
 
 .search input {
-  width: 350px; padding: 10px 16px; border-radius: 20px; border: 1px solid #e5e7eb;
-  outline: none; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600;
+  width: 350px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
 }
-.search input:focus { border-color: var(--orange); }
+.search input:focus {
+  border-color: var(--orange);
+}
 
-.employee-info { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: #444; }
+.employee-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
 .avatar {
-  background: var(--orange); color: white; width: 35px; height: 35px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  background: var(--orange);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
 }

@@ -2,24 +2,28 @@
    FreshMart POS — Stylesheet
    ══════════════════════════════════════════ */
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
-  --orange: #F97316;
-  --orange-light: #FFF7ED;
-  --orange-hover: #EA580C;
-  --green: #22C55E;
-  --green-bg: #DCFCE7;
-  --red: #EF4444;
-  --red-bg: #FEF2F2;
-  --bg: #F8F9FB;
-  --text: #1E293B;
-  --muted: #94A3B8;
-  --border: #E8EDF2;
+  --orange: #f97316;
+  --orange-light: #fff7ed;
+  --orange-hover: #ea580c;
+  --green: #22c55e;
+  --green-bg: #dcfce7;
+  --red: #ef4444;
+  --red-bg: #fef2f2;
+  --bg: #f8f9fb;
+  --text: #1e293b;
+  --muted: #94a3b8;
+  --border: #e8edf2;
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   background: #fff;
   color: var(--text);
   margin: 0;

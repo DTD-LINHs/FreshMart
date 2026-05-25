@@ -1,358 +1,555 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Promotions - FreshMart</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/common.css">
-  <link rel="stylesheet" href="../css/layout.css">
-  <link rel="stylesheet" href="../css/tables.css">
-  <link rel="stylesheet" href="../css/modals.css">
-</head>
-<body>
-<div class="app">
-  <div class="sidebar">
-    <div class="menu">
-      <a href="../index.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
-      </a>
-      <a href="cart.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      </a>
-      <a href="invoice.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      </a>
-      <a href="promotions.html" class="nav-item active">
-        <svg viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3"/><path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3"/></svg>
-      </a>
-      <a href="notification.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
-      </a>
-      <a href="account.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-      </a>
-    </div>
-    <div class="bottom">
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-14 0"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <main class="main-content">
-    <div class="header">
-      <h1 class="page-title">Promotions</h1>
-      <button class="btn-add" onclick="openAddPromoModal()">+ Add Promotion</button>
-    </div>
-
-    <div class="table-card">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Promotion Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Products</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="promo-table-body">
-        </tbody>
-      </table>
-    </div>
-  </main>
-</div>
-
-<!-- MODAL: Add Promotion -->
-<div id="modal-add-promo" class="modal-overlay">
-  <div class="modal-form-card" style="width:460px;">
-    <div class="modal-form-header">
-      <h3>Add Promotion</h3>
-      <button class="close-btn" onclick="closeModal('modal-add-promo')">&times;</button>
-    </div>
-    <form onsubmit="savePromo(event)">
-      <div class="modal-form-grid" style="grid-template-columns:1fr;">
-        <div class="form-group">
-          <label>Promotion Name:</label>
-          <input type="text" id="inp-tenkm" placeholder="Enter promotion name" required>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promotions - FreshMart</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/tables.css" />
+    <link rel="stylesheet" href="../css/modals.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="sidebar">
+        <div class="menu">
+          <a href="../index.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"
+              />
+            </svg>
+          </a>
+          <a href="cart.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </a>
+          <a href="invoice.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="4" width="14" height="16" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </a>
+          <a href="promotions.html" class="nav-item active">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 12v10H4V12" />
+              <path d="M2 7h20v5H2z" />
+              <path d="M12 22V7" />
+              <path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3" />
+              <path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3" />
+            </svg>
+          </a>
+          <a href="notification.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" />
+            </svg>
+          </a>
+          <a href="account.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+            </svg>
+          </a>
         </div>
-        <div class="form-group">
-          <label>Start Date:</label>
-          <input type="date" id="inp-ngaybatdau" required>
-        </div>
-        <div class="form-group">
-          <label>End Date:</label>
-          <input type="date" id="inp-ngayketthuc" required>
+        <div class="bottom">
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19 12a7 7 0 00-14 0" />
+            </svg>
+          </div>
         </div>
       </div>
-      <div class="modal-form-footer">
-        <button type="button" class="btn-cancel" onclick="closeModal('modal-add-promo')">Cancel</button>
-        <button type="submit" class="btn-confirm">Save</button>
-      </div>
-    </form>
-  </div>
-</div>
 
-<!-- MODAL: Edit Promotion -->
-<div id="modal-edit-promo" class="modal-overlay">
-  <div class="modal-form-card" style="width:460px;">
-    <div class="modal-form-header">
-      <h3>Edit Promotion</h3>
-      <button class="close-btn" onclick="closeModal('modal-edit-promo')">&times;</button>
-    </div>
-    <form onsubmit="updatePromo(event)">
-      <input type="hidden" id="edit-makm">
-      <div class="modal-form-grid" style="grid-template-columns:1fr;">
-        <div class="form-group">
-          <label>Promotion Name:</label>
-          <input type="text" id="edit-tenkm" required>
+      <main class="main-content">
+        <div class="header">
+          <h1 class="page-title">Promotions</h1>
+          <button class="btn-add" onclick="openAddPromoModal()">
+            + Add Promotion
+          </button>
         </div>
-        <div class="form-group">
-          <label>Start Date:</label>
-          <input type="date" id="edit-ngaybatdau" required>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Promotion Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Products</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="promo-table-body"></tbody>
+          </table>
         </div>
-        <div class="form-group">
-          <label>End Date:</label>
-          <input type="date" id="edit-ngayketthuc" required>
+      </main>
+    </div>
+
+    <!-- MODAL: Add Promotion -->
+    <div id="modal-add-promo" class="modal-overlay">
+      <div class="modal-form-card" style="width: 460px">
+        <div class="modal-form-header">
+          <h3>Add Promotion</h3>
+          <button class="close-btn" onclick="closeModal('modal-add-promo')">
+            &times;
+          </button>
+        </div>
+        <form onsubmit="savePromo(event)">
+          <div class="modal-form-grid" style="grid-template-columns: 1fr">
+            <div class="form-group">
+              <label>Promotion Name:</label>
+              <input
+                type="text"
+                id="inp-tenkm"
+                placeholder="Enter promotion name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Start Date:</label>
+              <input type="date" id="inp-ngaybatdau" required />
+            </div>
+            <div class="form-group">
+              <label>End Date:</label>
+              <input type="date" id="inp-ngayketthuc" required />
+            </div>
+          </div>
+          <div class="modal-form-footer">
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeModal('modal-add-promo')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-confirm">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: Edit Promotion -->
+    <div id="modal-edit-promo" class="modal-overlay">
+      <div class="modal-form-card" style="width: 460px">
+        <div class="modal-form-header">
+          <h3>Edit Promotion</h3>
+          <button class="close-btn" onclick="closeModal('modal-edit-promo')">
+            &times;
+          </button>
+        </div>
+        <form onsubmit="updatePromo(event)">
+          <input type="hidden" id="edit-makm" />
+          <div class="modal-form-grid" style="grid-template-columns: 1fr">
+            <div class="form-group">
+              <label>Promotion Name:</label>
+              <input type="text" id="edit-tenkm" required />
+            </div>
+            <div class="form-group">
+              <label>Start Date:</label>
+              <input type="date" id="edit-ngaybatdau" required />
+            </div>
+            <div class="form-group">
+              <label>End Date:</label>
+              <input type="date" id="edit-ngayketthuc" required />
+            </div>
+          </div>
+          <div class="modal-form-footer">
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeModal('modal-edit-promo')"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn-confirm">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: Manage Products -->
+    <div id="modal-products" class="modal-overlay">
+      <div class="modal-form-card" style="width: 560px">
+        <div class="modal-form-header">
+          <h3 id="products-modal-title">Manage Products</h3>
+          <button class="close-btn" onclick="closeModal('modal-products')">
+            &times;
+          </button>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 16px">
+          <select
+            id="add-product-select"
+            style="
+              flex: 1;
+              padding: 10px 14px;
+              border: 1px solid #e5e7eb;
+              border-radius: 10px;
+              font-family: &quot;Nunito&quot;, sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+            "
+          >
+            <option value="">Select Product...</option>
+          </select>
+          <input
+            type="number"
+            id="add-product-mucgiam"
+            placeholder="Discount (VND)"
+            min="1"
+            style="
+              width: 140px;
+              padding: 10px 14px;
+              border: 1px solid #e5e7eb;
+              border-radius: 10px;
+              font-family: &quot;Nunito&quot;, sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+            "
+          />
+          <button
+            type="button"
+            class="btn-confirm"
+            style="padding: 10px 18px; white-space: nowrap"
+            onclick="addProductToPromo()"
+          >
+            + Add
+          </button>
+        </div>
+
+        <div
+          id="promo-products-list"
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 300px;
+            overflow-y: auto;
+          "
+        ></div>
+
+        <div class="modal-form-footer">
+          <button
+            type="button"
+            class="btn-cancel"
+            onclick="closeModal('modal-products')"
+          >
+            Close
+          </button>
         </div>
       </div>
-      <div class="modal-form-footer">
-        <button type="button" class="btn-cancel" onclick="closeModal('modal-edit-promo')">Cancel</button>
-        <button type="submit" class="btn-confirm">Update</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- MODAL: Manage Products -->
-<div id="modal-products" class="modal-overlay">
-  <div class="modal-form-card" style="width:560px;">
-    <div class="modal-form-header">
-      <h3 id="products-modal-title">Manage Products</h3>
-      <button class="close-btn" onclick="closeModal('modal-products')">&times;</button>
     </div>
 
-    <div style="display:flex;gap:8px;margin-bottom:16px;">
-      <select id="add-product-select" style="flex:1;padding:10px 14px;border:1px solid #e5e7eb;border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;">
-        <option value="">Select Product...</option>
-      </select>
-      <input type="number" id="add-product-mucgiam" placeholder="Discount (VND)" min="1" style="width:140px;padding:10px 14px;border:1px solid #e5e7eb;border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;">
-      <button type="button" class="btn-confirm" style="padding:10px 18px;white-space:nowrap;" onclick="addProductToPromo()">+ Add</button>
-    </div>
+    <script src="../javascript/api.js"></script>
+    <script>
+      let promosCache = [];
+      let productsCache = [];
+      let currentPromoMaKM = null;
 
-    <div id="promo-products-list" style="display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto;">
-    </div>
+      window.onload = async function () {
+        const empData = localStorage.getItem("loggedInEmployee");
+        if (!empData) {
+          window.location.href = "../login.html";
+          return;
+        }
+        const emp = JSON.parse(empData);
+        if (emp.ChucVu !== "Quản lý") {
+          window.location.href = "../index.html";
+          return;
+        }
 
-    <div class="modal-form-footer">
-      <button type="button" class="btn-cancel" onclick="closeModal('modal-products')">Close</button>
-    </div>
-  </div>
-</div>
+        try {
+          [promosCache, productsCache] = await Promise.all([
+            apiGetAllPromotions(),
+            apiGetProducts(),
+          ]);
+          renderPromoTable();
+        } catch (err) {
+          showToast("Không thể tải dữ liệu: " + err.message, "error");
+        }
+      };
 
-<script src="../javascript/api.js"></script>
-<script>
-  let promosCache = [];
-  let productsCache = [];
-  let currentPromoMaKM = null;
-
-  window.onload = async function() {
-    const empData = localStorage.getItem('loggedInEmployee');
-    if (!empData) { window.location.href = '../login.html'; return; }
-    const emp = JSON.parse(empData);
-    if (emp.ChucVu !== 'Quản lý') {
-      window.location.href = '../index.html';
-      return;
-    }
-
-    try {
-      [promosCache, productsCache] = await Promise.all([
-        apiGetAllPromotions(),
-        apiGetProducts(),
-      ]);
-      renderPromoTable();
-    } catch (err) {
-      showToast('Không thể tải dữ liệu: ' + err.message, 'error');
-    }
-  };
-
-  function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
-  }
-
-  function getStatus(promo) {
-    var today = new Date().toISOString().slice(0, 10);
-    if (promo.NgayKetThuc < today) return { label: 'Expired', color: '#EF4444', bg: '#FEF2F2' };
-    if (promo.NgayBatDau > today) return { label: 'Upcoming', color: '#3B82F6', bg: '#EFF6FF' };
-    return { label: 'Active', color: '#22C55E', bg: '#DCFCE7' };
-  }
-
-  function renderPromoTable() {
-    var tbody = document.getElementById('promo-table-body');
-    tbody.innerHTML = promosCache.map(function(promo) {
-      var s = getStatus(promo);
-      return '<tr>' +
-        '<td><span class="pid">' + promo.MaKM + '</span></td>' +
-        '<td style="font-weight:700;">' + promo.TenKM + '</td>' +
-        '<td>' + promo.NgayBatDau + '</td>' +
-        '<td>' + promo.NgayKetThuc + '</td>' +
-        '<td><a href="#" onclick="openProductsModal(\'' + promo.MaKM + '\')" style="color:#3B82F6;font-weight:700;text-decoration:none;">' + promo.products.length + ' products</a></td>' +
-        '<td><span style="background:' + s.bg + ';color:' + s.color + ';padding:4px 10px;border-radius:16px;font-size:12px;font-weight:700;">' + s.label + '</span></td>' +
-        '<td class="actions">' +
-          '<button class="btn-edit" onclick="editPromo(\'' + promo.MaKM + '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</button>' +
-          '<button class="btn-del" onclick="deletePromo(\'' + promo.MaKM + '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</button>' +
-        '</td>' +
-      '</tr>';
-    }).join('');
-  }
-
-  function openAddPromoModal() {
-    document.getElementById('inp-tenkm').value = '';
-    document.getElementById('inp-ngaybatdau').value = '';
-    document.getElementById('inp-ngayketthuc').value = '';
-    document.getElementById('modal-add-promo').style.display = 'flex';
-  }
-
-  async function savePromo(e) {
-    e.preventDefault();
-    var tenKM = document.getElementById('inp-tenkm').value.trim();
-    var ngayBD = document.getElementById('inp-ngaybatdau').value;
-    var ngayKT = document.getElementById('inp-ngayketthuc').value;
-
-    var errors = validateForm([
-      { name: 'Tên khuyến mãi', value: tenKM, required: true, maxLength: 100 },
-    ]);
-    if (errors.length > 0) { showToast(errors[0], 'error'); return; }
-    if (ngayKT < ngayBD) { showToast('Ngày kết thúc phải sau ngày bắt đầu', 'error'); return; }
-
-    try {
-      await apiCreatePromotion({ TenKM: tenKM, NgayBatDau: ngayBD, NgayKetThuc: ngayKT });
-      promosCache = await apiGetAllPromotions();
-      closeModal('modal-add-promo');
-      renderPromoTable();
-      showToast('Tạo khuyến mãi thành công!', 'success');
-    } catch (err) {
-      showToast('Lỗi: ' + err.message, 'error');
-    }
-  }
-
-  function editPromo(maKM) {
-    var promo = promosCache.find(function(p) { return p.MaKM === maKM; });
-    if (!promo) return;
-    document.getElementById('edit-makm').value = promo.MaKM;
-    document.getElementById('edit-tenkm').value = promo.TenKM;
-    document.getElementById('edit-ngaybatdau').value = promo.NgayBatDau;
-    document.getElementById('edit-ngayketthuc').value = promo.NgayKetThuc;
-    document.getElementById('modal-edit-promo').style.display = 'flex';
-  }
-
-  async function updatePromo(e) {
-    e.preventDefault();
-    var maKM = document.getElementById('edit-makm').value;
-    var tenKM = document.getElementById('edit-tenkm').value.trim();
-    var ngayBD = document.getElementById('edit-ngaybatdau').value;
-    var ngayKT = document.getElementById('edit-ngayketthuc').value;
-
-    var errors = validateForm([
-      { name: 'Tên khuyến mãi', value: tenKM, required: true, maxLength: 100 },
-    ]);
-    if (errors.length > 0) { showToast(errors[0], 'error'); return; }
-    if (ngayKT < ngayBD) { showToast('Ngày kết thúc phải sau ngày bắt đầu', 'error'); return; }
-
-    try {
-      await apiUpdatePromotion(maKM, { TenKM: tenKM, NgayBatDau: ngayBD, NgayKetThuc: ngayKT });
-      promosCache = await apiGetAllPromotions();
-      closeModal('modal-edit-promo');
-      renderPromoTable();
-      showToast('Cập nhật thành công!', 'success');
-    } catch (err) {
-      showToast('Lỗi: ' + err.message, 'error');
-    }
-  }
-
-  async function deletePromo(maKM) {
-    if (!confirm('Xóa khuyến mãi ' + maKM + '?')) return;
-    try {
-      await apiDeletePromotion(maKM);
-      promosCache = await apiGetAllPromotions();
-      renderPromoTable();
-      showToast('Đã xóa khuyến mãi ' + maKM, 'success');
-    } catch (err) {
-      showToast('Lỗi: ' + err.message, 'error');
-    }
-  }
-
-  function openProductsModal(maKM) {
-    currentPromoMaKM = maKM;
-    var promo = promosCache.find(function(p) { return p.MaKM === maKM; });
-    if (!promo) return;
-
-    document.getElementById('products-modal-title').innerText = 'Products — ' + promo.TenKM;
-
-    var select = document.getElementById('add-product-select');
-    var assignedIds = promo.products.map(function(p) { return p.MaSP; });
-    select.innerHTML = '<option value="">Select Product...</option>';
-    productsCache.forEach(function(sp) {
-      if (assignedIds.indexOf(sp.MaSP) === -1) {
-        var opt = document.createElement('option');
-        opt.value = sp.MaSP;
-        opt.textContent = sp.MaSP + ' - ' + sp.TenSP + ' (' + fmtVND(sp.GiaBan) + ')';
-        select.appendChild(opt);
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
       }
-    });
-    document.getElementById('add-product-mucgiam').value = '';
 
-    renderProductsList(promo);
-    document.getElementById('modal-products').style.display = 'flex';
-  }
+      function getStatus(promo) {
+        var today = new Date().toISOString().slice(0, 10);
+        if (promo.NgayKetThuc < today)
+          return { label: "Expired", color: "#EF4444", bg: "#FEF2F2" };
+        if (promo.NgayBatDau > today)
+          return { label: "Upcoming", color: "#3B82F6", bg: "#EFF6FF" };
+        return { label: "Active", color: "#22C55E", bg: "#DCFCE7" };
+      }
 
-  function renderProductsList(promo) {
-    var container = document.getElementById('promo-products-list');
-    if (promo.products.length === 0) {
-      container.innerHTML = '<p style="text-align:center;color:#aaa;padding:20px;font-weight:600;">No products assigned</p>';
-      return;
-    }
-    container.innerHTML = promo.products.map(function(p) {
-      return '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f9fafb;border-radius:10px;border:1px solid #f3f4f6;">' +
-        '<span style="flex:1;font-weight:700;font-size:13px;">' + p.TenSP + ' <span class="pid">(' + p.MaSP + ')</span></span>' +
-        '<span style="font-weight:800;color:#22C55E;font-size:13px;">-' + fmtVND(p.MucGiam) + '</span>' +
-        '<button class="btn-del" onclick="removeProductFromPromo(\'' + p.MaSP + '\')" style="padding:4px 10px;">Remove</button>' +
-      '</div>';
-    }).join('');
-  }
+      function renderPromoTable() {
+        var tbody = document.getElementById("promo-table-body");
+        tbody.innerHTML = promosCache
+          .map(function (promo) {
+            var s = getStatus(promo);
+            return (
+              "<tr>" +
+              '<td><span class="pid">' +
+              promo.MaKM +
+              "</span></td>" +
+              '<td style="font-weight:700;">' +
+              promo.TenKM +
+              "</td>" +
+              "<td>" +
+              promo.NgayBatDau +
+              "</td>" +
+              "<td>" +
+              promo.NgayKetThuc +
+              "</td>" +
+              '<td><a href="#" onclick="openProductsModal(\'' +
+              promo.MaKM +
+              '\')" style="color:#3B82F6;font-weight:700;text-decoration:none;">' +
+              promo.products.length +
+              " products</a></td>" +
+              '<td><span style="background:' +
+              s.bg +
+              ";color:" +
+              s.color +
+              ';padding:4px 10px;border-radius:16px;font-size:12px;font-weight:700;">' +
+              s.label +
+              "</span></td>" +
+              '<td class="actions">' +
+              '<button class="btn-edit" onclick="editPromo(\'' +
+              promo.MaKM +
+              '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</button>' +
+              '<button class="btn-del" onclick="deletePromo(\'' +
+              promo.MaKM +
+              '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</button>' +
+              "</td>" +
+              "</tr>"
+            );
+          })
+          .join("");
+      }
 
-  async function addProductToPromo() {
-    var maSP = document.getElementById('add-product-select').value;
-    var mucGiam = parseFloat(document.getElementById('add-product-mucgiam').value);
-    if (!maSP) { showToast('Vui lòng chọn sản phẩm', 'error'); return; }
-    if (!mucGiam || mucGiam <= 0) { showToast('Mức giảm phải > 0', 'error'); return; }
+      function openAddPromoModal() {
+        document.getElementById("inp-tenkm").value = "";
+        document.getElementById("inp-ngaybatdau").value = "";
+        document.getElementById("inp-ngayketthuc").value = "";
+        document.getElementById("modal-add-promo").style.display = "flex";
+      }
 
-    try {
-      await apiAddProductToPromo(currentPromoMaKM, { MaSP: maSP, MucGiam: mucGiam });
-      promosCache = await apiGetAllPromotions();
-      var promo = promosCache.find(function(p) { return p.MaKM === currentPromoMaKM; });
-      openProductsModal(currentPromoMaKM);
-      renderPromoTable();
-      showToast('Đã thêm sản phẩm!', 'success');
-    } catch (err) {
-      showToast('Lỗi: ' + err.message, 'error');
-    }
-  }
+      async function savePromo(e) {
+        e.preventDefault();
+        var tenKM = document.getElementById("inp-tenkm").value.trim();
+        var ngayBD = document.getElementById("inp-ngaybatdau").value;
+        var ngayKT = document.getElementById("inp-ngayketthuc").value;
 
-  async function removeProductFromPromo(maSP) {
-    try {
-      await apiRemoveProductFromPromo(currentPromoMaKM, maSP);
-      promosCache = await apiGetAllPromotions();
-      var promo = promosCache.find(function(p) { return p.MaKM === currentPromoMaKM; });
-      openProductsModal(currentPromoMaKM);
-      renderPromoTable();
-      showToast('Đã xóa sản phẩm khỏi khuyến mãi', 'success');
-    } catch (err) {
-      showToast('Lỗi: ' + err.message, 'error');
-    }
-  }
-</script>
-</body>
+        var errors = validateForm([
+          {
+            name: "Tên khuyến mãi",
+            value: tenKM,
+            required: true,
+            maxLength: 100,
+          },
+        ]);
+        if (errors.length > 0) {
+          showToast(errors[0], "error");
+          return;
+        }
+        if (ngayKT < ngayBD) {
+          showToast("Ngày kết thúc phải sau ngày bắt đầu", "error");
+          return;
+        }
+
+        try {
+          await apiCreatePromotion({
+            TenKM: tenKM,
+            NgayBatDau: ngayBD,
+            NgayKetThuc: ngayKT,
+          });
+          promosCache = await apiGetAllPromotions();
+          closeModal("modal-add-promo");
+          renderPromoTable();
+          showToast("Tạo khuyến mãi thành công!", "success");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      }
+
+      function editPromo(maKM) {
+        var promo = promosCache.find(function (p) {
+          return p.MaKM === maKM;
+        });
+        if (!promo) return;
+        document.getElementById("edit-makm").value = promo.MaKM;
+        document.getElementById("edit-tenkm").value = promo.TenKM;
+        document.getElementById("edit-ngaybatdau").value = promo.NgayBatDau;
+        document.getElementById("edit-ngayketthuc").value = promo.NgayKetThuc;
+        document.getElementById("modal-edit-promo").style.display = "flex";
+      }
+
+      async function updatePromo(e) {
+        e.preventDefault();
+        var maKM = document.getElementById("edit-makm").value;
+        var tenKM = document.getElementById("edit-tenkm").value.trim();
+        var ngayBD = document.getElementById("edit-ngaybatdau").value;
+        var ngayKT = document.getElementById("edit-ngayketthuc").value;
+
+        var errors = validateForm([
+          {
+            name: "Tên khuyến mãi",
+            value: tenKM,
+            required: true,
+            maxLength: 100,
+          },
+        ]);
+        if (errors.length > 0) {
+          showToast(errors[0], "error");
+          return;
+        }
+        if (ngayKT < ngayBD) {
+          showToast("Ngày kết thúc phải sau ngày bắt đầu", "error");
+          return;
+        }
+
+        try {
+          await apiUpdatePromotion(maKM, {
+            TenKM: tenKM,
+            NgayBatDau: ngayBD,
+            NgayKetThuc: ngayKT,
+          });
+          promosCache = await apiGetAllPromotions();
+          closeModal("modal-edit-promo");
+          renderPromoTable();
+          showToast("Cập nhật thành công!", "success");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      }
+
+      async function deletePromo(maKM) {
+        if (!confirm("Xóa khuyến mãi " + maKM + "?")) return;
+        try {
+          await apiDeletePromotion(maKM);
+          promosCache = await apiGetAllPromotions();
+          renderPromoTable();
+          showToast("Đã xóa khuyến mãi " + maKM, "success");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      }
+
+      function openProductsModal(maKM) {
+        currentPromoMaKM = maKM;
+        var promo = promosCache.find(function (p) {
+          return p.MaKM === maKM;
+        });
+        if (!promo) return;
+
+        document.getElementById("products-modal-title").innerText =
+          "Products — " + promo.TenKM;
+
+        var select = document.getElementById("add-product-select");
+        var assignedIds = promo.products.map(function (p) {
+          return p.MaSP;
+        });
+        select.innerHTML = '<option value="">Select Product...</option>';
+        productsCache.forEach(function (sp) {
+          if (assignedIds.indexOf(sp.MaSP) === -1) {
+            var opt = document.createElement("option");
+            opt.value = sp.MaSP;
+            opt.textContent =
+              sp.MaSP + " - " + sp.TenSP + " (" + fmtVND(sp.GiaBan) + ")";
+            select.appendChild(opt);
+          }
+        });
+        document.getElementById("add-product-mucgiam").value = "";
+
+        renderProductsList(promo);
+        document.getElementById("modal-products").style.display = "flex";
+      }
+
+      function renderProductsList(promo) {
+        var container = document.getElementById("promo-products-list");
+        if (promo.products.length === 0) {
+          container.innerHTML =
+            '<p style="text-align:center;color:#aaa;padding:20px;font-weight:600;">No products assigned</p>';
+          return;
+        }
+        container.innerHTML = promo.products
+          .map(function (p) {
+            return (
+              '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f9fafb;border-radius:10px;border:1px solid #f3f4f6;">' +
+              '<span style="flex:1;font-weight:700;font-size:13px;">' +
+              p.TenSP +
+              ' <span class="pid">(' +
+              p.MaSP +
+              ")</span></span>" +
+              '<span style="font-weight:800;color:#22C55E;font-size:13px;">-' +
+              fmtVND(p.MucGiam) +
+              "</span>" +
+              '<button class="btn-del" onclick="removeProductFromPromo(\'' +
+              p.MaSP +
+              '\')" style="padding:4px 10px;">Remove</button>' +
+              "</div>"
+            );
+          })
+          .join("");
+      }
+
+      async function addProductToPromo() {
+        var maSP = document.getElementById("add-product-select").value;
+        var mucGiam = parseFloat(
+          document.getElementById("add-product-mucgiam").value,
+        );
+        if (!maSP) {
+          showToast("Vui lòng chọn sản phẩm", "error");
+          return;
+        }
+        if (!mucGiam || mucGiam <= 0) {
+          showToast("Mức giảm phải > 0", "error");
+          return;
+        }
+
+        try {
+          await apiAddProductToPromo(currentPromoMaKM, {
+            MaSP: maSP,
+            MucGiam: mucGiam,
+          });
+          promosCache = await apiGetAllPromotions();
+          var promo = promosCache.find(function (p) {
+            return p.MaKM === currentPromoMaKM;
+          });
+          openProductsModal(currentPromoMaKM);
+          renderPromoTable();
+          showToast("Đã thêm sản phẩm!", "success");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      }
+
+      async function removeProductFromPromo(maSP) {
+        try {
+          await apiRemoveProductFromPromo(currentPromoMaKM, maSP);
+          promosCache = await apiGetAllPromotions();
+          var promo = promosCache.find(function (p) {
+            return p.MaKM === currentPromoMaKM;
+          });
+          openProductsModal(currentPromoMaKM);
+          renderPromoTable();
+          showToast("Đã xóa sản phẩm khỏi khuyến mãi", "success");
+        } catch (err) {
+          showToast("Lỗi: " + err.message, "error");
+        }
+      }
+    </script>
+  </body>
 </html>

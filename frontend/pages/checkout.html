@@ -1,128 +1,214 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout - FreshMart</title>
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/account.css">
-    <link rel="stylesheet" href="../css/modals.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-<div class="app">
-    <div class="sidebar">
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/account.css" />
+    <link rel="stylesheet" href="../css/modals.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <div class="sidebar">
         <div class="menu">
-            <a href="../index.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
-            </a>
-            <a href="cart.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-            </a>
-            <a href="invoice.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-            </a>
-            <a href="promotions.html" class="nav-item" id="nav-promotions" style="display:none">
-                <svg viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3"/><path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3"/></svg>
-            </a>
-            <a href="notification.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
-            </a>
-            <a href="account.html" class="nav-item">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-            </a>
+          <a href="../index.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"
+              />
+            </svg>
+          </a>
+          <a href="cart.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </a>
+          <a href="invoice.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="4" width="14" height="16" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </a>
+          <a
+            href="promotions.html"
+            class="nav-item"
+            id="nav-promotions"
+            style="display: none"
+          >
+            <svg viewBox="0 0 24 24">
+              <path d="M20 12v10H4V12" />
+              <path d="M2 7h20v5H2z" />
+              <path d="M12 22V7" />
+              <path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3" />
+              <path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3" />
+            </svg>
+          </a>
+          <a href="notification.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" />
+            </svg>
+          </a>
+          <a href="account.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+            </svg>
+          </a>
         </div>
         <div class="bottom">
-            <div class="nav-item"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" /></svg>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="main">
-        <h2 style="margin-bottom: 25px; font-weight: 700;">New Invoice: <span id="invoice-id"></span></h2>
+      <div class="main">
+        <h2 style="margin-bottom: 25px; font-weight: 700">
+          New Invoice: <span id="invoice-id"></span>
+        </h2>
 
         <div class="checkout-container">
-            <div class="checkout-left">
-                <!-- Employee info (auto-filled from session) -->
-                <div style="background:#fff7ed; padding:12px 18px; border-radius:10px; margin-bottom:20px; font-size:14px;">
-                    <strong>Employee:</strong>
-                    <span id="emp-display"></span>
-                </div>
-
-                <!-- Customer info matching KHACHHANG table -->
-                <div class="checkout-form-grid">
-                    <div class="input-group">
-                        <label>Customer Phone (SDT):</label>
-                        <input id="inp-sdt" placeholder="Enter phone to lookup" oninput="lookupCustomer(this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label>Customer ID (MaKH):</label>
-                        <input id="inp-makh" placeholder="Auto-filled" readonly>
-                    </div>
-                    <div class="input-group">
-                        <label>Customer Name (HoTen):</label>
-                        <input id="inp-hoten" placeholder="Auto-filled or enter name">
-                    </div>
-                    <div class="input-group">
-                        <label>Loyalty Points (DiemTichLuy):</label>
-                        <input id="inp-diem" placeholder="--" readonly>
-                    </div>
-                    <div class="input-group">
-                        <label>Member Tier (HangThanhVien):</label>
-                        <input id="inp-hang" placeholder="--" readonly>
-                    </div>
-                </div>
-
-                <div id="cart-items" class="checkout-cart-list" style="margin-top:20px;"></div>
+          <div class="checkout-left">
+            <!-- Employee info (auto-filled from session) -->
+            <div
+              style="
+                background: #fff7ed;
+                padding: 12px 18px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                font-size: 14px;
+              "
+            >
+              <strong>Employee:</strong>
+              <span id="emp-display"></span>
             </div>
 
-            <div class="checkout-right">
-                <div class="summary-card">
-                    <h4 style="margin-bottom:15px;">Tổng đơn hàng</h4>
-                    <div class="summary-line"><span>Tạm tính:</span><span id="subtotal">0₫</span></div>
-                    <div class="summary-line"><span>VAT (10%):</span><span id="tax">0₫</span></div>
-                    <hr>
-                    <div class="summary-line total-line"><span>Tổng cộng:</span><span id="total">0₫</span></div>
-
-                    <div style="margin-top:20px;">
-                        <label style="font-size:13px; font-weight:600; color:#444;">Payment Method (MaPT):</label>
-                        <div id="payment-methods" class="method-grid" style="margin-top:10px;"></div>
-                    </div>
-
-                    <div class="checkout-actions" style="margin-top: 20px;">
-                        <button class="btn-confirm-main" onclick="confirmPayment()">Payment Confirmation</button>
-                    </div>
-                </div>
+            <!-- Customer info matching KHACHHANG table -->
+            <div class="checkout-form-grid">
+              <div class="input-group">
+                <label>Customer Phone (SDT):</label>
+                <input
+                  id="inp-sdt"
+                  placeholder="Enter phone to lookup"
+                  oninput="lookupCustomer(this.value)"
+                />
+              </div>
+              <div class="input-group">
+                <label>Customer ID (MaKH):</label>
+                <input id="inp-makh" placeholder="Auto-filled" readonly />
+              </div>
+              <div class="input-group">
+                <label>Customer Name (HoTen):</label>
+                <input id="inp-hoten" placeholder="Auto-filled or enter name" />
+              </div>
+              <div class="input-group">
+                <label>Loyalty Points (DiemTichLuy):</label>
+                <input id="inp-diem" placeholder="--" readonly />
+              </div>
+              <div class="input-group">
+                <label>Member Tier (HangThanhVien):</label>
+                <input id="inp-hang" placeholder="--" readonly />
+              </div>
             </div>
+
+            <div
+              id="cart-items"
+              class="checkout-cart-list"
+              style="margin-top: 20px"
+            ></div>
+          </div>
+
+          <div class="checkout-right">
+            <div class="summary-card">
+              <h4 style="margin-bottom: 15px">Tổng đơn hàng</h4>
+              <div class="summary-line">
+                <span>Tạm tính:</span><span id="subtotal">0₫</span>
+              </div>
+              <div class="summary-line">
+                <span>VAT (10%):</span><span id="tax">0₫</span>
+              </div>
+              <hr />
+              <div class="summary-line total-line">
+                <span>Tổng cộng:</span><span id="total">0₫</span>
+              </div>
+
+              <div style="margin-top: 20px">
+                <label style="font-size: 13px; font-weight: 600; color: #444"
+                  >Payment Method (MaPT):</label
+                >
+                <div
+                  id="payment-methods"
+                  class="method-grid"
+                  style="margin-top: 10px"
+                ></div>
+              </div>
+
+              <div class="checkout-actions" style="margin-top: 20px">
+                <button class="btn-confirm-main" onclick="confirmPayment()">
+                  Payment Confirmation
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Receipt Modal -->
-<div id="modal-receipt" class="modal-overlay">
-    <div class="receipt-paper">
+    <!-- Receipt Modal -->
+    <div id="modal-receipt" class="modal-overlay">
+      <div class="receipt-paper">
         <div class="receipt-head">
-            <h3>Receipt <span id="rec-mahd"></span></h3>
-            <p id="rec-date"></p>
+          <h3>Receipt <span id="rec-mahd"></span></h3>
+          <p id="rec-date"></p>
         </div>
         <div class="receipt-info">
-            <p>Employee: <span id="rec-employee"></span></p>
-            <p>Customer: <span id="rec-customer"></span> (<span id="rec-makh"></span>)</p>
-            <p>Payment: <span id="rec-method"></span></p>
+          <p>Employee: <span id="rec-employee"></span></p>
+          <p>
+            Customer: <span id="rec-customer"></span> (<span
+              id="rec-makh"
+            ></span
+            >)
+          </p>
+          <p>Payment: <span id="rec-method"></span></p>
         </div>
         <div id="rec-items-list" class="receipt-items"></div>
         <div class="receipt-total-box">
-            <div class="rec-row"><span>Subtotal</span><span id="rec-sub"></span></div>
-            <div class="rec-row"><span>VAT (10%)</span><span id="rec-tax"></span></div>
-            <div class="rec-row bold"><span>Total</span><span id="rec-total"></span></div>
+          <div class="rec-row">
+            <span>Subtotal</span><span id="rec-sub"></span>
+          </div>
+          <div class="rec-row">
+            <span>VAT (10%)</span><span id="rec-tax"></span>
+          </div>
+          <div class="rec-row bold">
+            <span>Total</span><span id="rec-total"></span>
+          </div>
         </div>
-        <div style="text-align:center; margin-top:10px; font-size:12px; color:#999;" id="rec-points"></div>
-        <button class="btn-print-final" onclick="finishOrder()">Print Invoice</button>
+        <div
+          style="
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #999;
+          "
+          id="rec-points"
+        ></div>
+        <button class="btn-print-final" onclick="finishOrder()">
+          Print Invoice
+        </button>
+      </div>
     </div>
-</div>
 
-<script src="../javascript/api.js"></script>
-<script src="../javascript/checkout.js"></script>
-</body>
+    <script src="../javascript/api.js"></script>
+    <script src="../javascript/checkout.js"></script>
+  </body>
 </html>
