@@ -1,157 +1,293 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice History - FreshMart</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-<div class="app">
-  <div class="sidebar">
-    <div class="menu">
-      <a href="../index.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg>
-      </a>
-      <a href="cart.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      </a>
-      <a href="invoice.html" class="nav-item active">
-        <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      </a>
-      <a href="notification.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
-      </a>
-      <a href="account.html" class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-      </a>
-    </div>
-    <div class="bottom">
-      <div class="nav-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-14 0"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <main class="invoice-main">
-    <!-- LEFT: Invoice list -->
-    <section class="invoice-panel invoice-left">
-      <h2 class="invoice-heading">Invoice History</h2>
-      <div class="invoice-list-card">
-        <h3 class="invoice-subtitle">All Invoices</h3>
-        <div id="invoice-list">
-          <!-- Rendered dynamically -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice History - FreshMart</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/invoice-history.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="sidebar">
+        <div class="menu">
+          <a href="../index.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 12L12 4l9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"
+              />
+            </svg>
+          </a>
+          <a href="cart.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </a>
+          <a href="invoice.html" class="nav-item active">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="4" width="14" height="16" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </a>
+          <a href="promotions.html" class="nav-item" id="nav-promotions" style="display:none">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 12v10H4V12"/>
+              <path d="M2 7h20v5H2z"/>
+              <path d="M12 22V7"/>
+              <path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3"/>
+              <path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3"/>
+            </svg>
+          </a>
+          <a href="notification.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" />
+            </svg>
+          </a>
+          <a href="account.html" class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+            </svg>
+          </a>
         </div>
-      </div>
-    </section>
-
-    <!-- RIGHT: Invoice detail -->
-    <section class="invoice-panel invoice-right">
-      <div class="invoice-title-row">
-        <h2 class="invoice-heading" id="detail-title">Select an invoice</h2>
-      </div>
-
-      <div class="invoice-info" id="detail-info" style="display:none;">
-        <h3 class="invoice-subtitle">Details</h3>
-        <div class="invoice-detail-grid">
-          <div><span>Date</span><strong id="det-date">--</strong></div>
-          <div><span>Customer</span><strong id="det-customer">--</strong></div>
-          <div><span>Employee</span><strong id="det-employee">--</strong></div>
-          <div><span>Payment</span><strong id="det-payment">--</strong></div>
-        </div>
-      </div>
-
-      <div class="invoice-orders" id="detail-items" style="display:none;">
-        <h3 class="invoice-subtitle">Products</h3>
-        <div id="detail-products"></div>
-      </div>
-
-      <div class="invoice-bill-summary" id="detail-summary" style="display:none;">
-        <div class="bill-row"><span>Subtotal</span><span id="det-subtotal">$0.00</span></div>
-        <div class="bill-row"><span>VAT (10%)</span><span id="det-tax">$0.00</span></div>
-        <div class="bill-row bill-total"><span>TOTAL</span><span id="det-total">$0.00</span></div>
-      </div>
-
-      <button class="invoice-print-btn" type="button" id="btn-print" style="display:none;" onclick="window.print()">Print Invoice</button>
-    </section>
-  </main>
-</div>
-
-<script src="../javascript/mock-data.js"></script>
-<script>
-  let selectedHD = null;
-
-  window.onload = function() {
-    renderInvoiceList();
-    if (MOCK_HOADON.length > 0) {
-      selectInvoice(MOCK_HOADON[0].MaHD);
-    }
-  };
-
-  function renderInvoiceList() {
-    const container = document.getElementById('invoice-list');
-    container.innerHTML = MOCK_HOADON.map(hd => {
-      const customer = getCustomerById(hd.MaKH);
-      return `
-        <div class="invoice-order-item ${selectedHD === hd.MaHD ? 'active' : ''}"
-             onclick="selectInvoice('${hd.MaHD}')" style="cursor:pointer;">
-          <div>
-            <h4>${hd.MaHD}</h4>
-            <p>${hd.NgayLap} · ${customer ? customer.HoTen : hd.MaKH}</p>
-          </div>
-          <div class="invoice-order-right">
-            <span class="status total">Total</span>
-            <strong>$${hd.TongTien.toFixed(2)}</strong>
+        <div class="bottom">
+          <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19 12a7 7 0 00-14 0" />
+            </svg>
           </div>
         </div>
-      `;
-    }).join('');
-  }
+      </div>
 
-  function selectInvoice(maHD) {
-    selectedHD = maHD;
-    const hd = MOCK_HOADON.find(h => h.MaHD === maHD);
-    if (!hd) return;
+      <main class="invoice-main">
+        <!-- LEFT: Invoice list -->
+        <section class="invoice-panel invoice-left">
+          <h2 class="invoice-heading">Invoice History</h2>
+          <div class="invoice-list-card">
+            <div class="invoice-toolbar">
+              <input type="text" id="invoice-search" class="invoice-search-input" placeholder="Tìm mã HD, khách hàng..." oninput="filterInvoices()" />
+              <select id="invoice-sort" class="invoice-sort-select" onchange="filterInvoices()">
+                <option value="date-desc">Mới nhất</option>
+                <option value="date-asc">Cũ nhất</option>
+                <option value="total-desc">Tổng cao → thấp</option>
+                <option value="total-asc">Tổng thấp → cao</option>
+              </select>
+            </div>
+            <div id="invoice-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </section>
 
-    const customer = getCustomerById(hd.MaKH);
-    const employee = getEmployeeById(hd.MaNV);
-    const payment = getPaymentById(hd.MaPT);
-    const details = getInvoiceDetails(maHD);
+        <!-- RIGHT: Invoice detail -->
+        <section class="invoice-panel invoice-right">
+          <div class="invoice-title-row">
+            <h2 class="invoice-heading" id="detail-title">Chọn hóa đơn</h2>
+          </div>
 
-    document.getElementById('detail-title').innerText = 'Invoice ' + hd.MaHD;
+          <div class="invoice-info" id="detail-info" style="display: none">
+            <h3 class="invoice-subtitle">Chi tiết</h3>
+            <div class="invoice-detail-grid">
+              <div><span>Ngày lập</span><strong id="det-date">--</strong></div>
+              <div>
+                <span>Khách hàng</span><strong id="det-customer">--</strong>
+              </div>
+              <div>
+                <span>Nhân viên</span><strong id="det-employee">--</strong>
+              </div>
+              <div>
+                <span>Thanh toán</span><strong id="det-payment">--</strong>
+              </div>
+            </div>
+          </div>
 
-    document.getElementById('detail-info').style.display = '';
-    document.getElementById('det-date').innerText = hd.NgayLap;
-    document.getElementById('det-customer').innerText = (customer ? customer.HoTen : '') + ' (' + hd.MaKH + ')';
-    document.getElementById('det-employee').innerText = (employee ? employee.HoTen : '') + ' (' + hd.MaNV + ')';
-    document.getElementById('det-payment').innerText = (payment ? payment.TenPT : '') + ' (' + hd.MaPT + ')';
+          <div class="invoice-orders" id="detail-items" style="display: none">
+            <h3 class="invoice-subtitle">Sản phẩm</h3>
+            <div id="detail-products"></div>
+          </div>
 
-    document.getElementById('detail-items').style.display = '';
-    const productsContainer = document.getElementById('detail-products');
-    productsContainer.innerHTML = details.map(ct => {
-      const sp = getProductById(ct.MaSP);
-      return `
-        <div class="invoice-food-row">
-          <img src="${sp ? sp.image : ''}" alt="${sp ? sp.TenSP : ct.MaSP}">
-          <p>${sp ? sp.TenSP : ct.MaSP} <small style="color:#999;">(${ct.MaSP})</small> <b>x ${ct.SoLuong}</b></p>
-          <strong>$${(ct.DonGia * ct.SoLuong).toFixed(2)}</strong>
+          <div
+            class="invoice-bill-summary"
+            id="detail-summary"
+            style="display: none"
+          >
+            <div class="bill-row">
+              <span>Tạm tính</span><span id="det-subtotal">0₫</span>
+            </div>
+            <div class="bill-row" id="det-discount-row" style="display: none">
+              <span>Giảm giá</span
+              ><span id="det-discount" style="color: #ef4444">-0₫</span>
+            </div>
+            <div class="bill-row">
+              <span>VAT (10%)</span><span id="det-tax">0₫</span>
+            </div>
+            <div class="bill-row bill-total">
+              <span>TỔNG CỘNG</span><span id="det-total">0₫</span>
+            </div>
+          </div>
+
+          <button
+            class="invoice-print-btn"
+            type="button"
+            id="btn-print"
+            style="display: none"
+            onclick="window.print()"
+          >
+            In hóa đơn
+          </button>
+        </section>
+      </main>
+    </div>
+
+    <script src="../javascript/api.js"></script>
+    <script>
+      let selectedHD = null;
+      let invoicesCache = [];
+      let filteredInvoices = [];
+
+      function fmtDateTime(isoStr) {
+        if (!isoStr) return "--";
+        const d = new Date(isoStr);
+        const date = d.toLocaleDateString("vi-VN");
+        const time = d.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" });
+        return date + " " + time;
+      }
+
+      window.onload = async function () {
+        var navPromo = document.getElementById('nav-promotions');
+        var _emp = JSON.parse(localStorage.getItem('loggedInEmployee') || '{}');
+        if (navPromo && _emp.ChucVu === 'Quản lý') navPromo.style.display = '';
+
+        try {
+          invoicesCache = await apiGetInvoices();
+          filterInvoices();
+          if (filteredInvoices.length > 0) {
+            await selectInvoice(filteredInvoices[0].MaHD);
+          }
+        } catch (err) {
+          console.error("Failed to load invoices:", err);
+        }
+      };
+
+      function filterInvoices() {
+        const query = (document.getElementById("invoice-search").value || "").toLowerCase().trim();
+        const sortBy = document.getElementById("invoice-sort").value;
+
+        // Filter
+        filteredInvoices = invoicesCache.filter(hd => {
+          if (!query) return true;
+          return hd.MaHD.toLowerCase().includes(query) ||
+                 (hd.MaKH || "").toLowerCase().includes(query) ||
+                 fmtDateTime(hd.NgayLap).toLowerCase().includes(query);
+        });
+
+        // Sort (NgayLap is ISO datetime string, so string compare works for date sorting)
+        filteredInvoices.sort((a, b) => {
+          switch (sortBy) {
+            case "date-desc": return new Date(b.NgayLap) - new Date(a.NgayLap);
+            case "date-asc": return new Date(a.NgayLap) - new Date(b.NgayLap);
+            case "total-desc": return b.TongTien - a.TongTien;
+            case "total-asc": return a.TongTien - b.TongTien;
+            default: return 0;
+          }
+        });
+
+        renderInvoiceList();
+      }
+
+      function renderInvoiceList() {
+        const container = document.getElementById("invoice-list");
+        if (filteredInvoices.length === 0) {
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Không tìm thấy hóa đơn</p>';
+          return;
+        }
+        container.innerHTML = filteredInvoices
+          .map(
+            (hd) => `
+      <div class="invoice-order-item ${selectedHD === hd.MaHD ? "active" : ""}"
+           onclick="selectInvoice('${hd.MaHD}')" style="cursor:pointer;">
+        <div>
+          <h4>${hd.MaHD}</h4>
+          <p>${fmtDateTime(hd.NgayLap)} · ${hd.MaKH}</p>
         </div>
-      `;
-    }).join('');
+        <div class="invoice-order-right">
+          <span class="status total">Tổng</span>
+          <strong>${fmtVND(hd.TongTien)}</strong>
+        </div>
+      </div>
+    `,
+          )
+          .join("");
+      }
 
-    // Bill summary
-    let subtotal = details.reduce((s, ct) => s + ct.DonGia * ct.SoLuong, 0);
-    let tax = subtotal * 0.1;
-    let total = subtotal + tax;
-    document.getElementById('detail-summary').style.display = '';
-    document.getElementById('det-subtotal').innerText = '$' + subtotal.toFixed(2);
-    document.getElementById('det-tax').innerText = '$' + tax.toFixed(2);
-    document.getElementById('det-total').innerText = '$' + total.toFixed(2);
+      async function selectInvoice(maHD) {
+        selectedHD = maHD;
 
-    document.getElementById('btn-print').style.display = '';
-    renderInvoiceList();
-  }
-</script>
-</body>
+        try {
+          const detail = await apiGetInvoice(maHD);
+
+          document.getElementById("detail-title").innerText =
+            "Hóa đơn " + detail.MaHD;
+          document.getElementById("detail-info").style.display = "";
+          document.getElementById("det-date").innerText = fmtDateTime(detail.NgayLap);
+          document.getElementById("det-customer").innerText =
+            (detail.customer_name || "") + " (" + detail.MaKH + ")";
+          document.getElementById("det-employee").innerText =
+            (detail.employee_name || "") + " (" + detail.MaNV + ")";
+          document.getElementById("det-payment").innerText =
+            (detail.payment_name || "") + " (" + detail.MaPT + ")";
+
+          document.getElementById("detail-items").style.display = "";
+          const productsContainer = document.getElementById("detail-products");
+          productsContainer.innerHTML = detail.items
+            .map((ct) => {
+              const imgSrc = ct.HinhAnh ? "../" + ct.HinhAnh : "";
+              return `
+          <div class="invoice-food-row">
+            ${imgSrc ? '<img src="' + imgSrc + '" alt="' + (ct.TenSP || ct.MaSP) + '">' : ""}
+            <p>${ct.TenSP || ct.MaSP} <small style="color:#999;">(${ct.MaSP})</small> <b>x ${ct.SoLuong}</b></p>
+            <strong>${fmtVND(ct.DonGia * ct.SoLuong)}</strong>
+          </div>
+        `;
+            })
+            .join("");
+
+          let total = detail.TongTien;
+          let beforeTax = total / 1.1;
+          let tax = total - beforeTax;
+          let subtotal = detail.items.reduce(
+            (s, ct) => s + ct.DonGia * ct.SoLuong,
+            0,
+          );
+          let discount = subtotal - beforeTax;
+          document.getElementById("detail-summary").style.display = "";
+          document.getElementById("det-subtotal").innerText = fmtVND(subtotal);
+          if (discount > 0.01) {
+            document.getElementById("det-discount-row").style.display = "";
+            document.getElementById("det-discount").innerText =
+              "-" + fmtVND(discount);
+          } else {
+            document.getElementById("det-discount-row").style.display = "none";
+          }
+          document.getElementById("det-tax").innerText = fmtVND(tax);
+          document.getElementById("det-total").innerText = fmtVND(total);
+
+          document.getElementById("btn-print").style.display = "";
+          renderInvoiceList();
+        } catch (err) {
+          console.error("Failed to load invoice detail:", err);
+        }
+      }
+    </script>
+  </body>
 </html>

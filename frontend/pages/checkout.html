@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - FreshMart</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/modals.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -20,6 +23,9 @@
             </a>
             <a href="invoice.html" class="nav-item">
                 <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            </a>
+            <a href="promotions.html" class="nav-item" id="nav-promotions" style="display:none">
+                <svg viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3"/><path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3"/></svg>
             </a>
             <a href="notification.html" class="nav-item">
                 <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/></svg>
@@ -73,11 +79,11 @@
 
             <div class="checkout-right">
                 <div class="summary-card">
-                    <h4 style="margin-bottom:15px;">Order Summary</h4>
-                    <div class="summary-line"><span>Subtotal:</span><span id="subtotal">$0.00</span></div>
-                    <div class="summary-line"><span>VAT (10%):</span><span id="tax">$0.00</span></div>
+                    <h4 style="margin-bottom:15px;">Tổng đơn hàng</h4>
+                    <div class="summary-line"><span>Tạm tính:</span><span id="subtotal">0₫</span></div>
+                    <div class="summary-line"><span>VAT (10%):</span><span id="tax">0₫</span></div>
                     <hr>
-                    <div class="summary-line total-line"><span>Total (TongTien):</span><span id="total">$0.00</span></div>
+                    <div class="summary-line total-line"><span>Tổng cộng:</span><span id="total">0₫</span></div>
 
                     <div style="margin-top:20px;">
                         <label style="font-size:13px; font-weight:600; color:#444;">Payment Method (MaPT):</label>
@@ -116,7 +122,7 @@
     </div>
 </div>
 
-<script src="../javascript/mock-data.js"></script>
+<script src="../javascript/api.js"></script>
 <script src="../javascript/checkout.js"></script>
 </body>
 </html>
