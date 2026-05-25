@@ -50,6 +50,8 @@
   fill: none;
   stroke-width: 2;
 }
+.nav-item i { font-size: 18px; }
+.nav-item svg.nav-icon-grid rect { fill: currentColor; stroke: none; }
 .nav-item:hover {
   background: rgba(255,255,255,0.08);
   color: #cbd5e1;

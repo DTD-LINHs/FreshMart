@@ -26,10 +26,10 @@ function showToast(message, type = "info", title = "") {
     info: "fa-circle-info",
   };
   const titles = {
-    success: "Th\u00E0nh c\u00F4ng",
-    error: "L\u1ED7i",
-    warning: "C\u1EA3nh b\u00E1o",
-    info: "Th\u00F4ng b\u00E1o",
+    success: "Success",
+    error: "Error",
+    warning: "Warning",
+    info: "Info",
   };
   const toast = document.createElement("div");
   toast.className = "toast " + (type || "info");
@@ -53,15 +53,15 @@ function validateForm(rules) {
     var r = rules[i];
     var val = r.value;
     if (r.required && (val === "" || val === null || val === undefined)) {
-      errors.push(r.name + " không được để trống");
+      errors.push(r.name + " is required");
     } else if (r.min !== undefined && Number(val) < r.min) {
-      errors.push(r.name + " phải >= " + r.min);
+      errors.push(r.name + " must be >= " + r.min);
     } else if (r.gt !== undefined && Number(val) <= r.gt) {
-      errors.push(r.name + " phải > " + r.gt);
+      errors.push(r.name + " must be > " + r.gt);
     } else if (r.pattern && val && !r.pattern.test(val)) {
-      errors.push(r.name + " không đúng định dạng");
+      errors.push(r.name + " has invalid format");
     } else if (r.maxLength && val && val.length > r.maxLength) {
-      errors.push(r.name + " tối đa " + r.maxLength + " ký tự");
+      errors.push(r.name + " max " + r.maxLength + " characters");
     }
   }
   return errors;
@@ -81,19 +81,21 @@ async function api(endpoint, options = {}) {
   try {
     res = await fetch(url, config);
   } catch (e) {
-    showToast("Không thể kết nối server", "error");
+    showToast("Cannot connect to server", "error");
     throw new Error("Network error");
   }
   if (res.status === 401) {
+    var isLoginPage = window.location.pathname.includes("login.html");
+    if (isLoginPage) {
+      var errBody = await res.json().catch(function () { return { detail: "Invalid credentials" }; });
+      throw new Error(errBody.detail || "Invalid credentials");
+    }
     localStorage.removeItem("authToken");
     localStorage.removeItem("loggedInEmployee");
-    var isLoginPage = window.location.pathname.includes("login.html");
-    if (!isLoginPage) {
-      window.location.href = window.location.pathname.includes("/pages/")
-        ? "../login.html"
-        : "login.html";
-    }
-    throw new Error("Phiên đăng nhập hết hạn");
+    window.location.href = window.location.pathname.includes("/pages/")
+      ? "../login.html"
+      : "login.html";
+    throw new Error("Session expired");
   }
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
@@ -215,6 +217,13 @@ async function apiUpdateEmployee(MaNV, data) {
 async function apiResetPassword(MaNV) {
   return api("/employees/" + encodeURIComponent(MaNV) + "/reset-password", {
     method: "POST",
+  });
+}
+
+async function apiChangePassword(currentPassword, newPassword) {
+  return api("/employees/me/change-password", {
+    method: "POST",
+    body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
   });
 }
 

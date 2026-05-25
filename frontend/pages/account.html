@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,11 +30,11 @@
             </svg>
           </a>
           <a href="cart.html" class="nav-item">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
+            <svg viewBox="0 0 24 24" class="nav-icon-grid">
+              <rect x="4" y="4" width="6" height="6" rx="1.5" />
+              <rect x="14" y="4" width="6" height="6" rx="1.5" />
+              <rect x="4" y="14" width="6" height="6" rx="1.5" />
+              <rect x="14" y="14" width="6" height="6" rx="1.5" />
             </svg>
           </a>
           <a href="invoice.html" class="nav-item">
@@ -117,6 +117,39 @@
                 <button type="submit" class="save-btn">Save Changes</button>
               </div>
             </form>
+          </div>
+        </div>
+
+        <!-- Change Password -->
+        <div style="margin-top: 28px">
+          <h2 style="font-size: 20px; font-weight: 800; color: #1e293b; margin-bottom: 16px">Change Password</h2>
+          <div class="profile-card">
+            <div class="profile-avatar-col">
+              <div class="profile-avatar" style="background: #dbeafe; color: #3b82f6">
+                <i class="fa-solid fa-lock"></i>
+              </div>
+            </div>
+            <div class="profile-form-col">
+              <form onsubmit="changePassword(event)">
+                <div class="form-group" style="margin-bottom: 16px">
+                  <label>Current Password</label>
+                  <input type="password" id="pw-current" required placeholder="Enter current password" oncopy="return false" oncut="return false" onpaste="return false" />
+                </div>
+                <div class="profile-form-row" style="margin-bottom: 16px">
+                  <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="pw-new" required placeholder="Min 6 characters" oncopy="return false" oncut="return false" onpaste="return false" />
+                  </div>
+                  <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="pw-confirm" required placeholder="Re-enter new password" oncopy="return false" oncut="return false" onpaste="return false" />
+                  </div>
+                </div>
+                <div class="profile-save-row">
+                  <button type="submit" class="save-btn">Update Password</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
 
@@ -206,6 +239,14 @@
                 placeholder="Min 6 characters"
               />
             </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Start Date</label>
+            <input
+              type="date"
+              id="staff-ngayvaolam"
+              style="height: 44px"
+            />
           </div>
           <div class="modal-form-footer">
             <button
@@ -411,9 +452,9 @@
         const hoTen = document.getElementById("acc-hoten").value.trim();
         const sdt = document.getElementById("acc-sdt").value.trim();
         var errors = validateForm([
-          { name: "Họ tên", value: hoTen, required: true },
+          { name: "Full name", value: hoTen, required: true },
           {
-            name: "Số điện thoại",
+            name: "Phone",
             value: sdt,
             required: true,
             pattern: /^0\d{9}$/,
@@ -435,6 +476,32 @@
           localStorage.setItem("loggedInEmployee", JSON.stringify(updated));
         } catch (err) {
           showToast("Failed to save: " + err.message, "error");
+        }
+      }
+
+      async function changePassword(e) {
+        e.preventDefault();
+        var current = document.getElementById("pw-current").value;
+        var newPw = document.getElementById("pw-new").value;
+        var confirm = document.getElementById("pw-confirm").value;
+
+        if (newPw.length < 6) {
+          showToast("New password must be at least 6 characters", "error");
+          return;
+        }
+        if (newPw !== confirm) {
+          showToast("New passwords do not match", "error");
+          return;
+        }
+
+        try {
+          await apiChangePassword(current, newPw);
+          showToast("Password changed successfully!", "success");
+          document.getElementById("pw-current").value = "";
+          document.getElementById("pw-new").value = "";
+          document.getElementById("pw-confirm").value = "";
+        } catch (err) {
+          showToast(err.message || "Failed to change password", "error");
         }
       }
 
@@ -501,15 +568,15 @@
           document.getElementById("staff-ngayvaolam").value || null;
 
         var errors = validateForm([
-          { name: "Họ tên", value: hoTen, required: true, maxLength: 100 },
-          { name: "Chức vụ", value: chucVu, required: true },
+          { name: "Full name", value: hoTen, required: true, maxLength: 100 },
+          { name: "Role", value: chucVu, required: true },
           {
-            name: "Số điện thoại",
+            name: "Phone",
             value: sdt,
             required: true,
             pattern: /^0\d{9}$/,
           },
-          { name: "Mật khẩu", value: password, required: true },
+          { name: "Password", value: password, required: true },
         ]);
         if (errors.length > 0) {
           showToast(errors[0], "error");
@@ -556,9 +623,9 @@
         var sdt = document.getElementById("edit-staff-sdt").value.trim();
 
         var errors = validateForm([
-          { name: "Họ tên", value: hoTen, required: true },
+          { name: "Full name", value: hoTen, required: true },
           {
-            name: "Số điện thoại",
+            name: "Phone",
             value: sdt,
             required: true,
             pattern: /^0\d{9}$/,
