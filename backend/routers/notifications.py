@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 from backend.database import get_db
+from backend.dependencies import get_current_user
 from backend.models.sanpham import SanPham
 from backend.models.khuyenmai import KhuyenMai
 from backend.models.hoadon import HoaDon
@@ -15,7 +16,7 @@ router = APIRouter(prefix="/api/notifications", tags=["Notifications"])
 
 
 @router.get("", response_model=list[NotificationResponse])
-def get_notifications(db: Session = Depends(get_db)):
+def get_notifications(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
     notifications = []
     today = date.today()
 

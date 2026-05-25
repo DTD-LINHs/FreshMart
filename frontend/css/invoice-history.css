@@ -1,0 +1,98 @@
+/* ══════ INVOICE HISTORY PAGE ══════ */
+
+.invoice-main {
+  flex: 1; min-height: 100vh;
+  background: #fff; display: grid; grid-template-columns: 44% 56%; gap: 16px; padding: 16px 20px;
+}
+
+.invoice-panel { display: flex; flex-direction: column; gap: 10px; }
+.invoice-heading { font-size: 22px; font-weight: 800; color: #111827; }
+.invoice-subtitle { font-size: 16px; font-weight: 800; color: #111827; }
+
+.invoice-list-card {
+  border: 1px solid var(--border); border-radius: 10px; background: #fff;
+  padding: 14px; display: flex; flex-direction: column; gap: 8px;
+}
+
+.invoice-toolbar {
+  display: flex; gap: 8px; margin-bottom: 4px;
+}
+.invoice-search-input {
+  flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+  font-family: inherit; font-size: 13px; font-weight: 600; outline: none;
+  transition: border-color .2s;
+}
+.invoice-search-input:focus { border-color: var(--orange); }
+.invoice-sort-select {
+  padding: 8px 30px 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+  font-family: inherit; font-size: 13px; font-weight: 600; background: #fff;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center;
+  cursor: pointer; outline: none;
+}
+.invoice-sort-select:focus { border-color: var(--orange); }
+
+.invoice-order-item {
+  background: #f8fafc; border-radius: 10px; border: 1px solid transparent;
+  padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
+  transition: all .15s;
+}
+.invoice-order-item h4 { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+.invoice-order-item p { color: #b6bbc3; font-size: 12px; font-weight: 700; }
+
+.invoice-order-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.invoice-order-right strong { font-size: 16px; line-height: 1; }
+
+.invoice-order-item.active { background: var(--orange); color: #fff; }
+.invoice-order-item.active p { color: #ffe6d1; }
+.invoice-order-item.active .status { color: #fff; }
+
+.invoice-title-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.status { font-size: 13px; font-weight: 800; }
+.status.total { color: var(--green); }
+
+.invoice-info { border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.invoice-detail-grid { margin-top: 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.invoice-detail-grid span { display: block; color: #c6c9cf; font-size: 11px; margin-bottom: 3px; font-weight: 700; }
+.invoice-detail-grid strong { font-size: 13px; font-weight: 800; }
+
+.invoice-orders { display: flex; flex-direction: column; gap: 8px; }
+
+.invoice-food-row {
+  border: 1px solid var(--border); border-radius: 10px; background: #fff;
+  padding: 6px 10px; display: flex; align-items: center; gap: 10px;
+}
+.invoice-food-row img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.invoice-food-row p { flex: 1; font-size: 13px; font-weight: 800; color: #111827; }
+.invoice-food-row strong { font-size: 13px; font-weight: 800; color: var(--orange); }
+
+.invoice-bill-summary {
+  background: #f9fafb; border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 18px; margin-top: 12px;
+}
+.bill-row {
+  display: flex; justify-content: space-between; font-size: 14px; font-weight: 600;
+  color: #666; margin-bottom: 8px;
+}
+.bill-row:last-child { margin-bottom: 0; }
+.bill-row.bill-total {
+  font-size: 18px; font-weight: 800; color: var(--text);
+  border-top: 2px solid var(--border); padding-top: 10px; margin-top: 4px;
+}
+
+.invoice-print-btn {
+  margin-top: 6px; border: none; border-radius: 8px; background: var(--orange); color: #fff;
+  font-size: 13px; font-weight: 800; padding: 10px 16px; cursor: pointer; transition: background .2s;
+  font-family: 'Nunito', sans-serif;
+}
+.invoice-print-btn:hover { background: var(--orange-hover); }
+
+@media (max-width: 1200px) { .invoice-main { grid-template-columns: 1fr; } }
+
+@media print {
+  .sidebar, .invoice-left, .invoice-print-btn { display: none !important; }
+  .app { display: block; }
+  .invoice-main { display: block; padding: 0; }
+  .invoice-right { width: 100%; }
+}

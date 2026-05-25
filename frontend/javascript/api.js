@@ -33,6 +33,26 @@ function showToast(message, type = 'info') {
   }, 3000);
 }
 
+function validateForm(rules) {
+  var errors = [];
+  for (var i = 0; i < rules.length; i++) {
+    var r = rules[i];
+    var val = r.value;
+    if (r.required && (val === '' || val === null || val === undefined)) {
+      errors.push(r.name + ' không được để trống');
+    } else if (r.min !== undefined && Number(val) < r.min) {
+      errors.push(r.name + ' phải >= ' + r.min);
+    } else if (r.gt !== undefined && Number(val) <= r.gt) {
+      errors.push(r.name + ' phải > ' + r.gt);
+    } else if (r.pattern && val && !r.pattern.test(val)) {
+      errors.push(r.name + ' không đúng định dạng');
+    } else if (r.maxLength && val && val.length > r.maxLength) {
+      errors.push(r.name + ' tối đa ' + r.maxLength + ' ký tự');
+    }
+  }
+  return errors;
+}
+
 async function api(endpoint, options = {}) {
   const url = API_BASE + endpoint;
   const config = {
@@ -43,7 +63,22 @@ async function api(endpoint, options = {}) {
   if (token) {
     config.headers['Authorization'] = 'Bearer ' + token;
   }
-  const res = await fetch(url, config);
+  var res;
+  try {
+    res = await fetch(url, config);
+  } catch (e) {
+    showToast('Không thể kết nối server', 'error');
+    throw new Error('Network error');
+  }
+  if (res.status === 401) {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('loggedInEmployee');
+    var isLoginPage = window.location.pathname.includes('login.html');
+    if (!isLoginPage) {
+      window.location.href = window.location.pathname.includes('/pages/') ? '../login.html' : 'login.html';
+    }
+    throw new Error('Phiên đăng nhập hết hạn');
+  }
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
     throw new Error(err.detail || 'API error');

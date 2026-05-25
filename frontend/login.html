@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+                      <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - FreshMart POS</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body class="login-body">
   <div class="login-container">
@@ -39,6 +40,10 @@
       const btn = document.getElementById('login-btn');
 
       errorEl.innerText = '';
+
+      if (!maNV) { errorEl.innerText = 'Vui lòng nhập mã nhân viên'; return; }
+      if (!password) { errorEl.innerText = 'Vui lòng nhập mật khẩu'; return; }
+
       btn.disabled = true;
       btn.innerText = 'Logging in...';
 

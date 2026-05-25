@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from backend.database import get_db
+from backend.dependencies import get_current_user
 from backend.models.khuyenmai import KhuyenMai
 from backend.models.ap_dung_km import ApDungKM
 from backend.models.sanpham import SanPham
@@ -13,7 +14,7 @@ router = APIRouter(prefix="/api/promotions", tags=["Promotions"])
 
 
 @router.get("/active", response_model=list[PromotionDetailResponse])
-def get_active_promotions(db: Session = Depends(get_db)):
+def get_active_promotions(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
     today = date.today()
     promos = (
         db.query(KhuyenMai)

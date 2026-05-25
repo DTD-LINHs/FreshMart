@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account Settings - FreshMart</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/account.css">
 </head>
 <body>
   <div class="app">
@@ -121,10 +123,18 @@
   async function saveAccount(e) {
     e.preventDefault();
 
+    const hoTen = document.getElementById('acc-hoten').value.trim();
+    const sdt = document.getElementById('acc-sdt').value.trim();
+    var errors = validateForm([
+      { name: 'Họ tên', value: hoTen, required: true },
+      { name: 'Số điện thoại', value: sdt, required: true, pattern: /^0\d{9}$/ },
+    ]);
+    if (errors.length > 0) { showToast(errors[0], 'error'); return; }
+
     const updates = {
-      HoTen: document.getElementById('acc-hoten').value,
+      HoTen: hoTen,
       ChucVu: document.getElementById('acc-chucvu').value,
-      SDT: document.getElementById('acc-sdt').value,
+      SDT: sdt,
     };
 
     try {

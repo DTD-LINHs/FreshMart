@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
 from backend.database import get_db
+from backend.dependencies import get_current_user
 from backend.models.nhanvien import NhanVien
 from backend.schemas.employee import EmployeeResponse, EmployeeUpdate
 
@@ -11,7 +12,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 @router.get("/{MaNV}", response_model=EmployeeResponse)
-def get_employee(MaNV: str, db: Session = Depends(get_db)):
+def get_employee(MaNV: str, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
     employee = db.query(NhanVien).filter(NhanVien.MaNV == MaNV).first()
     if not employee:
         raise HTTPException(status_code=404, detail="Employee not found")
@@ -19,7 +20,7 @@ def get_employee(MaNV: str, db: Session = Depends(get_db)):
 
 
 @router.put("/{MaNV}", response_model=EmployeeResponse)
-def update_employee(MaNV: str, data: EmployeeUpdate, db: Session = Depends(get_db)):
+def update_employee(MaNV: str, data: EmployeeUpdate, db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
     employee = db.query(NhanVien).filter(NhanVien.MaNV == MaNV).first()
     if not employee:
         raise HTTPException(status_code=404, detail="Employee not found")

@@ -1,19 +1,19 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
 
 
 class InvoiceItem(BaseModel):
-    MaSP: str
-    SoLuong: int
+    MaSP: str = Field(min_length=1)
+    SoLuong: int = Field(gt=0)
 
 
 class InvoiceCreate(BaseModel):
-    MaNV: str
-    MaKH: str
-    MaPT: str
-    items: list[InvoiceItem]
-    points_used: int = 0
+    MaNV: str = Field(min_length=1)
+    MaKH: str = Field(min_length=1)
+    MaPT: str = Field(min_length=1)
+    items: list[InvoiceItem] = Field(min_length=1)
+    points_used: int = Field(default=0, ge=0)
 
 
 class InvoiceDetailResponse(BaseModel):
