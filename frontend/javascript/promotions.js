@@ -28,7 +28,7 @@ function renderPromoPanel() {
   }
   var totalProducts = activePromosCache.reduce(function (s, p) { return s + p.products.length; }, 0);
   document.getElementById("promo-section-count").innerText =
-    activePromosCache.length + " khuyến mãi khả dụng";
+    activePromosCache.length + " promotions available";
 
   section.style.display = "";
   if (!body.dataset.opened) {
@@ -52,8 +52,8 @@ function renderPromoPanel() {
       const statusClass = applied ? "applied" : "not-applied";
       const statusIcon = applied ? "fa-circle-check" : "fa-circle-plus";
       const statusText = applied
-        ? "Đã áp dụng (x" + inCart.quantity + " = -" + fmtVND(p.MucGiam * inCart.quantity) + ")"
-        : "Thêm vào giỏ để được giảm";
+        ? "Applied (x" + inCart.quantity + " = -" + fmtVND(p.MucGiam * inCart.quantity) + ")"
+        : "Add to cart for discount";
 
       html += '<div class="promo-product-row ' + statusClass + '">';
       html += '<span class="promo-product-name">' + p.TenSP + "</span>";

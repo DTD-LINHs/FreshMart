@@ -15,20 +15,20 @@
 
 .table-card {
   background: #fff; border: 1px solid #f3f4f6; border-radius: 12px;
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 table { width: 100%; border-collapse: collapse; }
-thead tr { border-bottom: 1.5px solid var(--border); }
+thead tr { border-bottom: 1.5px solid #e8edf2; }
 thead th {
-  padding: 14px 16px; font-size: 12px; font-weight: 700; color: var(--muted);
+  padding: 14px 16px; font-size: 11px; font-weight: 700; color: var(--muted);
   text-align: left; letter-spacing: .5px; text-transform: uppercase;
 }
-tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+tbody tr { border-bottom: 1px solid #e8edf2; transition: background .15s; }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: #FAFBFC; }
 
-td { padding: 10px 16px; font-size: 13px; font-weight: 600; vertical-align: middle; height: 60px; }
+td { padding: 12px 16px; font-size: 13px; font-weight: 600; vertical-align: middle; }
 
 .product-cell { display: flex; align-items: center; gap: 12px; }
 .product-img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
@@ -36,12 +36,26 @@ td { padding: 10px 16px; font-size: 13px; font-weight: 600; vertical-align: midd
 
 .badge {
   display: inline-flex; align-items: center; gap: 5px;
-  background: var(--green-bg); color: var(--green); padding: 4px 10px; border-radius: 16px;
+  background: var(--green-bg); color: var(--green); padding: 4px 12px; border-radius: 16px;
   font-size: 12px; font-weight: 700;
 }
-.badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 
-.pid { color: #64748B; font-weight: 600; font-size: 13px; font-family: 'Courier New', monospace; }
+.pid { color: #64748b; font-weight: 700; font-size: 13px; }
+
+.td-name {
+  font-weight: 700; color: #1e293b;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.td-date { color: #666; }
+.td-products {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; color: #666;
+}
+.td-products i { color: #94a3b8; font-size: 13px; }
+
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
 .price { font-weight: 800; font-size: 14px; }
 
 .actions { display: flex; align-items: center; gap: 6px; }

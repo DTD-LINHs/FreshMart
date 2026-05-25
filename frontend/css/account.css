@@ -1,66 +1,102 @@
 /* ══════ ACCOUNT PAGE ══════ */
 
-.account-container {
-  display: flex;
-  gap: 30px;
-  align-items: flex-start;
-  max-width: 1000px;
-}
-
-.account-profile-card {
-  width: 260px;
+.profile-card {
   background: #fff;
   border: 1px solid #f3f4f6;
   border-radius: 16px;
-  padding: 35px 25px;
-  text-align: center;
+  padding: 30px;
+  display: flex;
+  gap: 30px;
+}
+
+.profile-avatar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   flex-shrink: 0;
 }
-.account-avatar {
+.profile-avatar {
   width: 80px;
   height: 80px;
-  background: var(--orange-light);
-  border-radius: 50%;
+  background: #fff7ed;
+  border-radius: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36px;
-  margin: 0 auto 15px;
+  color: #f97316;
+  font-size: 32px;
 }
-.account-profile-card h2 {
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 5px;
-}
-.account-role {
-  color: var(--orange);
+.profile-avatar-id {
+  font-size: 12px;
   font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 4px;
-}
-.account-id {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
+  color: #94a3b8;
 }
 
-.account-form-card {
+.profile-form-col {
   flex: 1;
-  background: #fff;
-  border: 1px solid #f3f4f6;
-  border-radius: 16px;
-  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-.account-form-card h3 {
-  font-size: 18px;
-  font-weight: 800;
-  margin-bottom: 25px;
-}
-.account-form-grid {
+.profile-form-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px 30px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
+.profile-form-col .form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #444;
+}
+.profile-form-col .form-group input {
+  height: 44px;
+}
+.profile-form-col .form-group input[readonly] {
+  background: #f9fafb;
+  color: #94a3b8;
+  cursor: default;
+}
+.profile-save-row {
+  display: flex;
+  justify-content: center;
+}
+
+.staff-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.staff-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.btn-reset {
+  border: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: opacity .15s;
+  background: #dbeafe;
+  color: #3b82f6;
+}
+.btn-reset:hover { opacity: .7; }
 
 /* ══════ CHECKOUT PAGE (standalone, still works) ══════ */
 

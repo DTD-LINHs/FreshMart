@@ -83,16 +83,16 @@
         </div>
 
         <div class="table-card">
-          <table>
+          <table style="table-layout: fixed">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Promotion Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Products</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th style="width: 80px">ID</th>
+                <th>Name</th>
+                <th style="width: 120px">Start Date</th>
+                <th style="width: 120px">End Date</th>
+                <th style="width: 90px">Products</th>
+                <th style="width: 110px">Status</th>
+                <th style="width: 160px">Action</th>
               </tr>
             </thead>
             <tbody id="promo-table-body"></tbody>
@@ -103,31 +103,44 @@
 
     <!-- MODAL: Add Promotion -->
     <div id="modal-add-promo" class="modal-overlay">
-      <div class="modal-form-card" style="width: 460px">
+      <div class="modal-form-card" style="width: 480px">
         <div class="modal-form-header">
-          <h3>Add Promotion</h3>
+          <h3>Add New Promotion</h3>
           <button class="close-btn" onclick="closeModal('modal-add-promo')">
-            &times;
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
         <form onsubmit="savePromo(event)">
-          <div class="modal-form-grid" style="grid-template-columns: 1fr">
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Promotion Name</label>
+            <input
+              type="text"
+              id="inp-tenkm"
+              placeholder="Enter promotion name"
+              required
+              style="height: 44px"
+            />
+          </div>
+          <div class="promo-date-row">
             <div class="form-group">
-              <label>Promotion Name:</label>
+              <label>Start Date</label>
               <input
-                type="text"
-                id="inp-tenkm"
-                placeholder="Enter promotion name"
+                type="date"
+                id="inp-ngaybatdau"
                 required
+                style="height: 44px"
+                oninput="syncEndDateMin('inp-ngaybatdau', 'inp-ngayketthuc')"
               />
             </div>
             <div class="form-group">
-              <label>Start Date:</label>
-              <input type="date" id="inp-ngaybatdau" required />
-            </div>
-            <div class="form-group">
-              <label>End Date:</label>
-              <input type="date" id="inp-ngayketthuc" required />
+              <label>End Date</label>
+              <input
+                type="date"
+                id="inp-ngayketthuc"
+                required
+                style="height: 44px"
+              />
+              <span class="date-error" id="inp-date-error"></span>
             </div>
           </div>
           <div class="modal-form-footer">
@@ -138,7 +151,7 @@
             >
               Cancel
             </button>
-            <button type="submit" class="btn-confirm">Save</button>
+            <button type="submit" class="btn-confirm">Create Promotion</button>
           </div>
         </form>
       </div>
@@ -146,28 +159,64 @@
 
     <!-- MODAL: Edit Promotion -->
     <div id="modal-edit-promo" class="modal-overlay">
-      <div class="modal-form-card" style="width: 460px">
+      <div class="modal-form-card" style="width: 480px">
         <div class="modal-form-header">
           <h3>Edit Promotion</h3>
           <button class="close-btn" onclick="closeModal('modal-edit-promo')">
-            &times;
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
         <form onsubmit="updatePromo(event)">
           <input type="hidden" id="edit-makm" />
-          <div class="modal-form-grid" style="grid-template-columns: 1fr">
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Promotion ID</label>
+            <input
+              type="text"
+              id="edit-makm-display"
+              readonly
+              style="
+                height: 44px;
+                background: #f9fafb;
+                color: #94a3b8;
+                cursor: default;
+              "
+            />
+          </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Promotion Name</label>
+            <input type="text" id="edit-tenkm" required style="height: 44px" />
+          </div>
+          <div class="promo-date-row">
             <div class="form-group">
-              <label>Promotion Name:</label>
-              <input type="text" id="edit-tenkm" required />
+              <label>Start Date</label>
+              <input
+                type="date"
+                id="edit-ngaybatdau"
+                required
+                style="height: 44px"
+                oninput="syncEndDateMin('edit-ngaybatdau', 'edit-ngayketthuc')"
+              />
             </div>
             <div class="form-group">
-              <label>Start Date:</label>
-              <input type="date" id="edit-ngaybatdau" required />
+              <label>End Date</label>
+              <input
+                type="date"
+                id="edit-ngayketthuc"
+                required
+                style="height: 44px"
+              />
+              <span class="date-error" id="edit-date-error"></span>
             </div>
-            <div class="form-group">
-              <label>End Date:</label>
-              <input type="date" id="edit-ngayketthuc" required />
-            </div>
+          </div>
+          <div
+            class="promo-assigned-bar"
+            id="edit-assigned-bar"
+            style="display: none"
+          >
+            <span id="edit-assigned-count">0 products assigned</span>
+            <a href="#" id="edit-manage-link" onclick="return false;"
+              >Manage &rarr;</a
+            >
           </div>
           <div class="modal-form-footer">
             <button
@@ -177,7 +226,7 @@
             >
               Cancel
             </button>
-            <button type="submit" class="btn-confirm">Update</button>
+            <button type="submit" class="btn-confirm">Update Promotion</button>
           </div>
         </form>
       </div>
@@ -186,63 +235,46 @@
     <!-- MODAL: Manage Products -->
     <div id="modal-products" class="modal-overlay">
       <div class="modal-form-card" style="width: 560px">
-        <div class="modal-form-header">
-          <h3 id="products-modal-title">Manage Products</h3>
+        <div class="modal-form-header" style="margin-bottom: 16px">
+          <div>
+            <h3 id="products-modal-title">Manage Products</h3>
+            <p id="products-modal-subtitle" class="promo-modal-subtitle"></p>
+          </div>
           <button class="close-btn" onclick="closeModal('modal-products')">
-            &times;
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div style="display: flex; gap: 8px; margin-bottom: 16px">
-          <select
-            id="add-product-select"
-            style="
-              flex: 1;
-              padding: 10px 14px;
-              border: 1px solid #e5e7eb;
-              border-radius: 10px;
-              font-family: &quot;Nunito&quot;, sans-serif;
-              font-size: 13px;
-              font-weight: 600;
-            "
-          >
-            <option value="">Select Product...</option>
-          </select>
-          <input
-            type="number"
-            id="add-product-mucgiam"
-            placeholder="Discount (VND)"
-            min="1"
-            style="
-              width: 140px;
-              padding: 10px 14px;
-              border: 1px solid #e5e7eb;
-              border-radius: 10px;
-              font-family: &quot;Nunito&quot;, sans-serif;
-              font-size: 13px;
-              font-weight: 600;
-            "
-          />
+        <div class="promo-add-row">
+          <div class="promo-add-field" style="flex: 1">
+            <label>Add Product</label>
+            <select id="add-product-select">
+              <option value="">Select Product...</option>
+            </select>
+          </div>
+          <div class="promo-add-field" style="width: 140px">
+            <label>Discount (₫)</label>
+            <input
+              type="number"
+              id="add-product-mucgiam"
+              placeholder="0"
+              min="1"
+            />
+          </div>
           <button
             type="button"
-            class="btn-confirm"
-            style="padding: 10px 18px; white-space: nowrap"
+            class="promo-add-btn"
             onclick="addProductToPromo()"
           >
-            + Add
+            <i class="fa-solid fa-plus"></i> Add
           </button>
         </div>
 
-        <div
-          id="promo-products-list"
-          style="
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            max-height: 300px;
-            overflow-y: auto;
-          "
-        ></div>
+        <div class="promo-section-title" id="products-section-title">
+          Assigned Products
+        </div>
+
+        <div id="promo-products-list" class="promo-products-list"></div>
 
         <div class="modal-form-footer">
           <button
@@ -251,6 +283,35 @@
             onclick="closeModal('modal-products')"
           >
             Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Delete Confirmation -->
+    <div id="modal-delete-promo" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-icon">
+          <i
+            class="fa-solid fa-trash"
+            style="color: #ef4444; font-size: 36px"
+          ></i>
+        </div>
+        <h3>Delete Promotion</h3>
+        <p>
+          Are you sure you want to delete <b id="delete-promo-name"></b>? This
+          will also remove all assigned products.
+        </p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" onclick="closeModal('modal-delete-promo')">
+            Cancel
+          </button>
+          <button
+            class="btn-confirm"
+            style="background: #ef4444"
+            onclick="confirmDeletePromo()"
+          >
+            Delete
           </button>
         </div>
       </div>
@@ -289,13 +350,22 @@
         document.getElementById(id).style.display = "none";
       }
 
+      function syncEndDateMin(startId, endId) {
+        var startVal = document.getElementById(startId).value;
+        var endInp = document.getElementById(endId);
+        endInp.min = startVal;
+        if (endInp.value && endInp.value < startVal) {
+          endInp.value = startVal;
+        }
+      }
+
       function getStatus(promo) {
         var today = new Date().toISOString().slice(0, 10);
         if (promo.NgayKetThuc < today)
-          return { label: "Expired", color: "#EF4444", bg: "#FEF2F2" };
+          return { label: "Expired", color: "#ef4444", bg: "#fef2f2" };
         if (promo.NgayBatDau > today)
-          return { label: "Upcoming", color: "#3B82F6", bg: "#EFF6FF" };
-        return { label: "Active", color: "#22C55E", bg: "#DCFCE7" };
+          return { label: "Upcoming", color: "#3b82f6", bg: "#dbeafe" };
+        return { label: "Active", color: "#22c55e", bg: "#dcfce7" };
       }
 
       function renderPromoTable() {
@@ -308,34 +378,38 @@
               '<td><span class="pid">' +
               promo.MaKM +
               "</span></td>" +
-              '<td style="font-weight:700;">' +
+              '<td class="td-name">' +
               promo.TenKM +
               "</td>" +
-              "<td>" +
+              '<td class="td-date">' +
               promo.NgayBatDau +
               "</td>" +
-              "<td>" +
+              '<td class="td-date">' +
               promo.NgayKetThuc +
               "</td>" +
-              '<td><a href="#" onclick="openProductsModal(\'' +
-              promo.MaKM +
-              '\')" style="color:#3B82F6;font-weight:700;text-decoration:none;">' +
+              '<td><span class="td-products">' +
+              '<i class="fa-solid fa-box"></i> ' +
               promo.products.length +
-              " products</a></td>" +
-              '<td><span style="background:' +
+              " items</span></td>" +
+              '<td><span class="badge" style="background:' +
               s.bg +
               ";color:" +
               s.color +
-              ';padding:4px 10px;border-radius:16px;font-size:12px;font-weight:700;">' +
+              ';">' +
+              '<span class="badge-dot" style="background:' +
+              s.color +
+              ';"></span>' +
               s.label +
               "</span></td>" +
               '<td class="actions">' +
               '<button class="btn-edit" onclick="editPromo(\'' +
               promo.MaKM +
-              '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit</button>' +
+              "')\">" +
+              '<i class="fa-solid fa-pencil"></i> Edit</button>' +
               '<button class="btn-del" onclick="deletePromo(\'' +
               promo.MaKM +
-              '\')"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete</button>' +
+              "')\">" +
+              '<i class="fa-solid fa-trash"></i> Delete</button>' +
               "</td>" +
               "</tr>"
             );
@@ -368,10 +442,15 @@
           showToast(errors[0], "error");
           return;
         }
+        var dateErr = document.getElementById("inp-date-error");
         if (ngayKT < ngayBD) {
-          showToast("Ngày kết thúc phải sau ngày bắt đầu", "error");
+          dateErr.textContent = "End date must be after start date";
+          document.getElementById("inp-ngayketthuc").style.borderColor =
+            "#ef4444";
           return;
         }
+        dateErr.textContent = "";
+        document.getElementById("inp-ngayketthuc").style.borderColor = "";
 
         try {
           await apiCreatePromotion({
@@ -394,9 +473,26 @@
         });
         if (!promo) return;
         document.getElementById("edit-makm").value = promo.MaKM;
+        document.getElementById("edit-makm-display").value = promo.MaKM;
         document.getElementById("edit-tenkm").value = promo.TenKM;
         document.getElementById("edit-ngaybatdau").value = promo.NgayBatDau;
         document.getElementById("edit-ngayketthuc").value = promo.NgayKetThuc;
+
+        var bar = document.getElementById("edit-assigned-bar");
+        var count = promo.products.length;
+        if (count > 0) {
+          bar.style.display = "";
+          document.getElementById("edit-assigned-count").textContent =
+            count + " products assigned";
+          document.getElementById("edit-manage-link").onclick = function () {
+            closeModal("modal-edit-promo");
+            openProductsModal(maKM);
+            return false;
+          };
+        } else {
+          bar.style.display = "none";
+        }
+
         document.getElementById("modal-edit-promo").style.display = "flex";
       }
 
@@ -419,10 +515,15 @@
           showToast(errors[0], "error");
           return;
         }
+        var dateErr = document.getElementById("edit-date-error");
         if (ngayKT < ngayBD) {
-          showToast("Ngày kết thúc phải sau ngày bắt đầu", "error");
+          dateErr.textContent = "End date must be after start date";
+          document.getElementById("edit-ngayketthuc").style.borderColor =
+            "#ef4444";
           return;
         }
+        dateErr.textContent = "";
+        document.getElementById("edit-ngayketthuc").style.borderColor = "";
 
         try {
           await apiUpdatePromotion(maKM, {
@@ -439,16 +540,30 @@
         }
       }
 
-      async function deletePromo(maKM) {
-        if (!confirm("Xóa khuyến mãi " + maKM + "?")) return;
+      let deletePromoMaKM = null;
+
+      function deletePromo(maKM) {
+        var promo = promosCache.find(function (p) {
+          return p.MaKM === maKM;
+        });
+        if (!promo) return;
+        deletePromoMaKM = maKM;
+        document.getElementById("delete-promo-name").textContent = promo.TenKM;
+        document.getElementById("modal-delete-promo").style.display = "flex";
+      }
+
+      async function confirmDeletePromo() {
+        if (!deletePromoMaKM) return;
         try {
-          await apiDeletePromotion(maKM);
+          await apiDeletePromotion(deletePromoMaKM);
           promosCache = await apiGetAllPromotions();
+          closeModal("modal-delete-promo");
           renderPromoTable();
-          showToast("Đã xóa khuyến mãi " + maKM, "success");
+          showToast("Đã xóa khuyến mãi " + deletePromoMaKM, "success");
         } catch (err) {
           showToast("Lỗi: " + err.message, "error");
         }
+        deletePromoMaKM = null;
       }
 
       function openProductsModal(maKM) {
@@ -459,7 +574,9 @@
         if (!promo) return;
 
         document.getElementById("products-modal-title").innerText =
-          "Products — " + promo.TenKM;
+          "Manage Products — " + promo.TenKM;
+        document.getElementById("products-modal-subtitle").innerText =
+          promo.MaKM + " · " + promo.products.length + " products assigned";
 
         var select = document.getElementById("add-product-select");
         var assignedIds = promo.products.map(function (p) {
@@ -483,26 +600,34 @@
 
       function renderProductsList(promo) {
         var container = document.getElementById("promo-products-list");
+        var sectionTitle = document.getElementById("products-section-title");
         if (promo.products.length === 0) {
+          sectionTitle.style.display = "none";
           container.innerHTML =
-            '<p style="text-align:center;color:#aaa;padding:20px;font-weight:600;">No products assigned</p>';
+            '<p style="text-align:center;color:#aaa;padding:30px 20px;font-weight:600;">No products assigned</p>';
           return;
         }
+        sectionTitle.style.display = "";
         container.innerHTML = promo.products
           .map(function (p) {
             return (
-              '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f9fafb;border-radius:10px;border:1px solid #f3f4f6;">' +
-              '<span style="flex:1;font-weight:700;font-size:13px;">' +
+              '<div class="promo-product-item">' +
+              '<div class="promo-product-item-info">' +
+              '<span class="promo-product-item-name">' +
               p.TenSP +
-              ' <span class="pid">(' +
+              "</span>" +
+              '<span class="promo-product-item-id">' +
               p.MaSP +
-              ")</span></span>" +
-              '<span style="font-weight:800;color:#22C55E;font-size:13px;">-' +
+              "</span>" +
+              "</div>" +
+              '<span class="promo-discount-badge">-' +
               fmtVND(p.MucGiam) +
               "</span>" +
-              '<button class="btn-del" onclick="removeProductFromPromo(\'' +
+              '<button class="promo-remove-btn" onclick="removeProductFromPromo(\'' +
               p.MaSP +
-              '\')" style="padding:4px 10px;">Remove</button>' +
+              '\')" title="Remove">' +
+              '<i class="fa-solid fa-xmark"></i>' +
+              "</button>" +
               "</div>"
             );
           })

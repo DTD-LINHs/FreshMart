@@ -32,7 +32,7 @@ function updatePointsSection() {
   if (currentCustomer && (currentCustomer.DiemTichLuy || 0) > 0) {
     section.style.display = "";
     document.getElementById("points-available").innerText =
-      (currentCustomer.DiemTichLuy || 0) + " điểm";
+      (currentCustomer.DiemTichLuy || 0) + " points";
     document.getElementById("inp-points").max =
       currentCustomer.DiemTichLuy || 0;
   } else {
