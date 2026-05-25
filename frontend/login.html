@@ -1,69 +1,99 @@
-                      <!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - FreshMart POS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/auth.css">
-</head>
-<body class="login-body">
-  <div class="login-container">
-    <div class="login-card">
-      <img src="./assets/logosieuthi.png" alt="FreshMart" class="login-logo">
-      <h1>FreshMart POS</h1>
-      <p class="login-subtitle">Employee Login</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - FreshMart POS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body class="login-body">
+    <div class="login-container">
+      <div class="login-card">
+        <img
+          src="./assets/logosieuthi.png"
+          alt="FreshMart"
+          class="login-logo"
+        />
+        <h1>FreshMart POS</h1>
+        <p class="login-subtitle">Employee Login</p>
 
-      <form onsubmit="handleLogin(event)">
-        <div class="login-field">
-          <label>Employee ID</label>
-          <input type="text" id="login-manv" placeholder="e.g. NV01, NV02..." autofocus required>
-        </div>
-        <div class="login-field">
-          <label>Password</label>
-          <input type="password" id="login-password" placeholder="Enter password" required>
-        </div>
-        <div id="login-error" class="login-error"></div>
-        <button type="submit" class="login-btn" id="login-btn">Login</button>
-      </form>
+        <form onsubmit="handleLogin(event)">
+          <div class="login-field">
+            <label>Employee ID</label>
+            <input
+              type="text"
+              id="login-manv"
+              placeholder="e.g. NV01, NV02..."
+              autofocus
+              required
+            />
+          </div>
+          <div class="login-field">
+            <label>Password</label>
+            <input
+              type="password"
+              id="login-password"
+              placeholder="Enter password"
+              required
+            />
+          </div>
+          <div id="login-error" class="login-error"></div>
+          <button type="submit" class="login-btn" id="login-btn">Login</button>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <script src="javascript/api.js"></script>
-  <script>
-    async function handleLogin(e) {
-      e.preventDefault();
-      const maNV = document.getElementById('login-manv').value.trim().toUpperCase();
-      const password = document.getElementById('login-password').value;
-      const errorEl = document.getElementById('login-error');
-      const btn = document.getElementById('login-btn');
+    <script src="javascript/api.js"></script>
+    <script>
+      async function handleLogin(e) {
+        e.preventDefault();
+        const maNV = document
+          .getElementById("login-manv")
+          .value.trim()
+          .toUpperCase();
+        const password = document.getElementById("login-password").value;
+        const errorEl = document.getElementById("login-error");
+        const btn = document.getElementById("login-btn");
 
-      errorEl.innerText = '';
+        errorEl.innerText = "";
 
-      if (!maNV) { errorEl.innerText = 'Vui lòng nhập mã nhân viên'; return; }
-      if (!password) { errorEl.innerText = 'Vui lòng nhập mật khẩu'; return; }
+        if (!maNV) {
+          errorEl.innerText = "Vui lòng nhập mã nhân viên";
+          return;
+        }
+        if (!password) {
+          errorEl.innerText = "Vui lòng nhập mật khẩu";
+          return;
+        }
 
-      btn.disabled = true;
-      btn.innerText = 'Logging in...';
+        btn.disabled = true;
+        btn.innerText = "Logging in...";
 
-      try {
-        const data = await apiLogin(maNV, password);
-        localStorage.setItem('authToken', data.access_token);
-        localStorage.setItem('loggedInEmployee', JSON.stringify(data.employee));
-        window.location.href = 'index.html';
-      } catch (err) {
-        errorEl.innerText = err.message || 'Login failed';
-      } finally {
-        btn.disabled = false;
-        btn.innerText = 'Login';
+        try {
+          const data = await apiLogin(maNV, password);
+          localStorage.setItem("authToken", data.access_token);
+          localStorage.setItem(
+            "loggedInEmployee",
+            JSON.stringify(data.employee),
+          );
+          window.location.href = "index.html";
+        } catch (err) {
+          errorEl.innerText = err.message || "Login failed";
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "Login";
+        }
       }
-    }
 
-    // If already logged in, skip to POS
-    if (localStorage.getItem('loggedInEmployee')) {
-      window.location.href = 'index.html';
-    }
-  </script>
-</body>
+      // If already logged in, skip to POS
+      if (localStorage.getItem("loggedInEmployee")) {
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
 </html>

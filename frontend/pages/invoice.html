@@ -38,13 +38,18 @@
               <line x1="8" y1="12" x2="16" y2="12" />
             </svg>
           </a>
-          <a href="promotions.html" class="nav-item" id="nav-promotions" style="display:none">
+          <a
+            href="promotions.html"
+            class="nav-item"
+            id="nav-promotions"
+            style="display: none"
+          >
             <svg viewBox="0 0 24 24">
-              <path d="M20 12v10H4V12"/>
-              <path d="M2 7h20v5H2z"/>
-              <path d="M12 22V7"/>
-              <path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3"/>
-              <path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3"/>
+              <path d="M20 12v10H4V12" />
+              <path d="M2 7h20v5H2z" />
+              <path d="M12 22V7" />
+              <path d="M12 7a3 3 0 00-3-3c-1.7 0-3 1.3-3 3" />
+              <path d="M12 7a3 3 0 013-3c1.7 0 3 1.3 3 3" />
             </svg>
           </a>
           <a href="notification.html" class="nav-item">
@@ -75,8 +80,18 @@
           <h2 class="invoice-heading">Invoice History</h2>
           <div class="invoice-list-card">
             <div class="invoice-toolbar">
-              <input type="text" id="invoice-search" class="invoice-search-input" placeholder="Tìm mã HD, khách hàng..." oninput="filterInvoices()" />
-              <select id="invoice-sort" class="invoice-sort-select" onchange="filterInvoices()">
+              <input
+                type="text"
+                id="invoice-search"
+                class="invoice-search-input"
+                placeholder="Tìm mã HD, khách hàng..."
+                oninput="filterInvoices()"
+              />
+              <select
+                id="invoice-sort"
+                class="invoice-sort-select"
+                onchange="filterInvoices()"
+              >
                 <option value="date-desc">Mới nhất</option>
                 <option value="date-asc">Cũ nhất</option>
                 <option value="total-desc">Tổng cao → thấp</option>
@@ -159,14 +174,17 @@
         if (!isoStr) return "--";
         const d = new Date(isoStr);
         const date = d.toLocaleDateString("vi-VN");
-        const time = d.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" });
+        const time = d.toLocaleTimeString("vi-VN", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
         return date + " " + time;
       }
 
       window.onload = async function () {
-        var navPromo = document.getElementById('nav-promotions');
-        var _emp = JSON.parse(localStorage.getItem('loggedInEmployee') || '{}');
-        if (navPromo && _emp.ChucVu === 'Quản lý') navPromo.style.display = '';
+        var navPromo = document.getElementById("nav-promotions");
+        var _emp = JSON.parse(localStorage.getItem("loggedInEmployee") || "{}");
+        if (navPromo && _emp.ChucVu === "Quản lý") navPromo.style.display = "";
 
         try {
           invoicesCache = await apiGetInvoices();
@@ -180,25 +198,34 @@
       };
 
       function filterInvoices() {
-        const query = (document.getElementById("invoice-search").value || "").toLowerCase().trim();
+        const query = (document.getElementById("invoice-search").value || "")
+          .toLowerCase()
+          .trim();
         const sortBy = document.getElementById("invoice-sort").value;
 
         // Filter
-        filteredInvoices = invoicesCache.filter(hd => {
+        filteredInvoices = invoicesCache.filter((hd) => {
           if (!query) return true;
-          return hd.MaHD.toLowerCase().includes(query) ||
-                 (hd.MaKH || "").toLowerCase().includes(query) ||
-                 fmtDateTime(hd.NgayLap).toLowerCase().includes(query);
+          return (
+            hd.MaHD.toLowerCase().includes(query) ||
+            (hd.MaKH || "").toLowerCase().includes(query) ||
+            fmtDateTime(hd.NgayLap).toLowerCase().includes(query)
+          );
         });
 
         // Sort (NgayLap is ISO datetime string, so string compare works for date sorting)
         filteredInvoices.sort((a, b) => {
           switch (sortBy) {
-            case "date-desc": return new Date(b.NgayLap) - new Date(a.NgayLap);
-            case "date-asc": return new Date(a.NgayLap) - new Date(b.NgayLap);
-            case "total-desc": return b.TongTien - a.TongTien;
-            case "total-asc": return a.TongTien - b.TongTien;
-            default: return 0;
+            case "date-desc":
+              return new Date(b.NgayLap) - new Date(a.NgayLap);
+            case "date-asc":
+              return new Date(a.NgayLap) - new Date(b.NgayLap);
+            case "total-desc":
+              return b.TongTien - a.TongTien;
+            case "total-asc":
+              return a.TongTien - b.TongTien;
+            default:
+              return 0;
           }
         });
 
@@ -208,7 +235,8 @@
       function renderInvoiceList() {
         const container = document.getElementById("invoice-list");
         if (filteredInvoices.length === 0) {
-          container.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Không tìm thấy hóa đơn</p>';
+          container.innerHTML =
+            '<p style="text-align:center;color:#999;padding:20px;">Không tìm thấy hóa đơn</p>';
           return;
         }
         container.innerHTML = filteredInvoices
@@ -239,7 +267,9 @@
           document.getElementById("detail-title").innerText =
             "Hóa đơn " + detail.MaHD;
           document.getElementById("detail-info").style.display = "";
-          document.getElementById("det-date").innerText = fmtDateTime(detail.NgayLap);
+          document.getElementById("det-date").innerText = fmtDateTime(
+            detail.NgayLap,
+          );
           document.getElementById("det-customer").innerText =
             (detail.customer_name || "") + " (" + detail.MaKH + ")";
           document.getElementById("det-employee").innerText =

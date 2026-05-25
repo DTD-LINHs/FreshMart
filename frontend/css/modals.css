@@ -1,125 +1,362 @@
 /* ══════ MODALS ══════ */
 
 .modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 2000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
 }
 
 .modal-content {
-  background: white; padding: 30px; border-radius: 20px; width: 350px; text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: modalIn .25s ease;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalIn 0.25s ease;
 }
 
 @keyframes modalIn {
-  from { transform: translateY(20px) scale(0.95); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
+  from {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 @keyframes toastIn {
-  from { transform: translateX(30px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-.modal-content h3 { margin-top: 10px; color: #333; font-size: 18px; }
-.modal-content p { color: #666; margin: 10px 0 20px; font-size: 14px; }
-.modal-icon { font-size: 40px; }
+.modal-content h3 {
+  margin-top: 10px;
+  color: #333;
+  font-size: 18px;
+}
+.modal-content p {
+  color: #666;
+  margin: 10px 0 20px;
+  font-size: 14px;
+}
+.modal-icon {
+  font-size: 40px;
+}
 
-.modal-buttons { display: flex; gap: 12px; }
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+}
 .modal-buttons button {
-  flex: 1; padding: 12px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer;
-  font-family: 'Nunito', sans-serif; font-size: 14px; transition: opacity .15s;
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  transition: opacity 0.15s;
 }
-.btn-cancel { background: #f3f4f6; color: #666; padding: 12px 20px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 14px; transition: opacity .15s; }
-.btn-cancel:hover { opacity: 0.8; }
-.btn-confirm { background: var(--orange); color: white; padding: 12px 20px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 14px; transition: opacity .15s; }
-.btn-confirm:hover { background: var(--orange-hover); }
+.btn-cancel {
+  background: #f3f4f6;
+  color: #666;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  transition: opacity 0.15s;
+}
+.btn-cancel:hover {
+  opacity: 0.8;
+}
+.btn-confirm {
+  background: var(--orange);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  transition: opacity 0.15s;
+}
+.btn-confirm:hover {
+  background: var(--orange-hover);
+}
 
 /* Payment Modal */
 .modal-card {
-  background: white; padding: 30px; border-radius: 20px; width: 380px; text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: modalIn .25s ease;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalIn 0.25s ease;
 }
-.modal-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 5px; }
+.modal-card h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
 
-.method-grid { display: flex; flex-direction: column; gap: 8px; margin: 20px 0; }
-.method-opt {
-  padding: 14px 16px; border: 1.5px solid #eee; background: #fafafa; border-radius: 12px;
-  cursor: pointer; font-weight: 700; font-family: 'Nunito', sans-serif; text-align: left; transition: all .15s;
+.method-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 0;
 }
-.method-opt:hover { background: var(--orange-light); border-color: var(--orange); }
-.method-opt .method-name { font-size: 14px; display: block; }
-.method-opt small { font-weight: 500; font-size: 11px; color: var(--muted); }
-.method-opt.selected { background: var(--orange-light); border-color: var(--orange); color: var(--orange); }
+.method-opt {
+  padding: 14px 16px;
+  border: 1.5px solid #eee;
+  background: #fafafa;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  text-align: left;
+  transition: all 0.15s;
+}
+.method-opt:hover {
+  background: var(--orange-light);
+  border-color: var(--orange);
+}
+.method-opt .method-name {
+  font-size: 14px;
+  display: block;
+}
+.method-opt small {
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--muted);
+}
+.method-opt.selected {
+  background: var(--orange-light);
+  border-color: var(--orange);
+  color: var(--orange);
+}
 
 /* Receipt */
 .receipt-paper {
-  background: white; width: 360px; padding: 30px; border-radius: 4px;
-  font-family: 'Courier New', Courier, monospace; animation: modalIn .25s ease;
+  background: white;
+  width: 360px;
+  padding: 30px;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+  animation: modalIn 0.25s ease;
 }
-.receipt-head { text-align: center; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
-.receipt-head h3 { font-size: 20px; }
-.receipt-info { margin: 15px 0; font-size: 13px; }
-.receipt-info p { margin-bottom: 4px; }
-.receipt-items { border-bottom: 1px dashed #ccc; padding-bottom: 10px; margin-bottom: 15px; }
-.rec-item-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
-.rec-item-promo { font-size: 11px; color: var(--green); font-weight: 600; margin: -2px 0 4px 16px; display: flex; align-items: center; gap: 4px; }
-.rec-item-promo i { font-size: 10px; }
-.receipt-total-box { font-size: 14px; }
-.rec-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
-.rec-row.bold { font-weight: bold; font-size: 18px; border-top: 1px solid #000; padding-top: 10px; margin-top: 10px; }
+.receipt-head {
+  text-align: center;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+}
+.receipt-head h3 {
+  font-size: 20px;
+}
+.receipt-info {
+  margin: 15px 0;
+  font-size: 13px;
+}
+.receipt-info p {
+  margin-bottom: 4px;
+}
+.receipt-items {
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.rec-item-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.rec-item-promo {
+  font-size: 11px;
+  color: var(--green);
+  font-weight: 600;
+  margin: -2px 0 4px 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.rec-item-promo i {
+  font-size: 10px;
+}
+.receipt-total-box {
+  font-size: 14px;
+}
+.rec-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.rec-row.bold {
+  font-weight: bold;
+  font-size: 18px;
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  margin-top: 10px;
+}
 
 .btn-print-final {
-  width: 100%; margin-top: 20px; padding: 14px; background: var(--orange); color: white;
-  border: none; border-radius: 10px; font-weight: 800; cursor: pointer; font-family: 'Nunito', sans-serif;
-  font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: background .2s;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
 }
-.btn-print-final:hover { background: var(--orange-hover); }
+.btn-print-final:hover {
+  background: var(--orange-hover);
+}
 
 /* Modal Form (Add Product, etc.) */
 .modal-form-card {
-  background: white; width: 560px; max-height: 90vh; overflow-y: auto;
-  padding: 30px; border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: modalIn .25s ease;
+  background: white;
+  width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalIn 0.25s ease;
 }
 .modal-form-header {
-  display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
-.modal-form-header h3 { font-size: 20px; font-weight: 800; }
+.modal-form-header h3 {
+  font-size: 20px;
+  font-weight: 800;
+}
 .modal-form-header .close-btn {
-  background: none; border: none; font-size: 22px; color: #aaa; cursor: pointer;
-  width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
-  transition: all .2s;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #aaa;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
 }
-.modal-form-header .close-btn:hover { background: #fef2f2; color: #ef4444; }
+.modal-form-header .close-btn:hover {
+  background: #fef2f2;
+  color: #ef4444;
+}
 .modal-form-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
 }
-.modal-form-grid .form-group.full-width { grid-column: 1 / -1; }
+.modal-form-grid .form-group.full-width {
+  grid-column: 1 / -1;
+}
 .modal-form-grid .form-group input[type="file"] {
-  padding: 8px; font-size: 13px; border: 1px dashed #d1d5db; border-radius: 10px;
-  background: #fafafa; cursor: pointer;
+  padding: 8px;
+  font-size: 13px;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  background: #fafafa;
+  cursor: pointer;
 }
-.modal-form-grid .form-group input[type="file"]:hover { border-color: var(--orange); background: #fff7ed; }
+.modal-form-grid .form-group input[type="file"]:hover {
+  border-color: var(--orange);
+  background: #fff7ed;
+}
 .img-preview-box {
-  width: 100%; min-height: 60px; border: 2px dashed #e5e7eb; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  background: #fafafa; overflow: hidden;
+  width: 100%;
+  min-height: 60px;
+  border: 2px dashed #e5e7eb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  overflow: hidden;
 }
 .img-preview-box img {
-  max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 8px;
-  display: block; margin: 0 auto; padding: 8px;
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+  padding: 8px;
 }
-.img-preview-empty { font-size: 12px; color: #aaa; padding: 16px; }
-.modal-form-card::-webkit-scrollbar { width: 6px; }
-.modal-form-card::-webkit-scrollbar-track { background: transparent; margin: 12px 0; }
-.modal-form-card::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
-.modal-form-card::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
-.modal-form-card { scrollbar-width: thin; scrollbar-color: #d1d5db transparent; }
+.img-preview-empty {
+  font-size: 12px;
+  color: #aaa;
+  padding: 16px;
+}
+.modal-form-card::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-form-card::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 12px 0;
+}
+.modal-form-card::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+.modal-form-card::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+.modal-form-card {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
 .modal-form-footer {
-  display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
 }
 .modal-form-footer .btn-cancel,
 .modal-form-footer .btn-confirm {
-  padding: 12px 28px; border-radius: 10px; border: none; font-weight: 700;
-  cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 14px; transition: opacity .15s;
+  padding: 12px 28px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  transition: opacity 0.15s;
 }
