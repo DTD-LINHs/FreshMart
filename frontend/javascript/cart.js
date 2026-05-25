@@ -19,19 +19,17 @@ function renderProducts(products) {
           encodeURIComponent(sp.TenSP);
 
       return `
-      <div class="card ${outOfStock ? "out-of-stock" : ""}" onclick="${outOfStock ? "" : "addToCart('" + sp.MaSP + "')"}">
-        ${promo ? '<div class="promo-badge">-' + fmtVND(promo.MucGiam) + "</div>" : ""}
+      <div class="card ${outOfStock ? "out-of-stock" : ""}${promo ? " has-promo" : ""}" onclick="${outOfStock ? "" : "addToCart('" + sp.MaSP + "')"}">
+        ${promo ? '<div class="promo-badge"><i class="fa-solid fa-percent"></i> -' + Math.round(promo.MucGiam / sp.GiaBan * 100) + "%</div>" : ""}
         <img src="${imgSrc}" alt="${sp.TenSP}" />
         <div class="card-body">
-          <div class="title">
-            ${sp.TenSP}
-            <span>
-              ${promo ? '<s style="color:#999;font-size:11px;">' + fmtVND(sp.GiaBan) + "</s> " : ""}
-              ${fmtVND(finalPrice)}/${sp.DonViTinh}
-            </span>
+          <div class="title">${sp.TenSP}</div>
+          <div class="card-price-row">
+            <span style="color:var(--orange);font-size:14px;font-weight:800;">${fmtVND(finalPrice)}</span>
+            ${promo ? '<span class="card-price-original">' + fmtVND(sp.GiaBan) + "</span>" : ""}
           </div>
-          <p>${category ? category.TenNhom : ""} · Kho: ${sp.SoLuongTon}</p>
-          ${promo ? '<p class="card-promo-name"><i class="fa-solid fa-tag"></i> ' + promo.TenKM + "</p>" : ""}
+          ${promo ? '<p class="card-promo-label"><i class="fa-solid fa-tag"></i> Giảm ' + fmtVND(promo.MucGiam) + "</p>" : ""}
+          <p>Còn ${sp.SoLuongTon} · ${sp.DonViTinh}</p>
         </div>
       </div>
     `;
@@ -47,7 +45,7 @@ function addToCart(maSP) {
   let item = cart.find((p) => p.MaSP === maSP);
   if (item) {
     if (item.quantity >= product.SoLuongTon) {
-      showToast("Không đủ hàng! Còn lại: " + product.SoLuongTon, "warning");
+      showToast("Not enough stock! Remaining: " + product.SoLuongTon, "warning");
       return;
     }
     item.quantity++;
@@ -77,7 +75,7 @@ function renderCart() {
   const container = document.getElementById("cart-items");
   if (cart.length === 0) {
     container.innerHTML =
-      '<div class="cart-empty"><i class="fa-solid fa-basket-shopping"></i><p>Chưa có sản phẩm</p></div>';
+      '<div class="cart-empty"><i class="fa-solid fa-basket-shopping"></i><p>No products yet</p></div>';
   } else {
     container.innerHTML = cart
       .map(
@@ -113,7 +111,7 @@ function changeQty(maSP, delta) {
   if (delta > 0) {
     const product = productsCache.find((p) => p.MaSP === maSP);
     if (item.quantity >= product.SoLuongTon) {
-      showToast("Không đủ hàng! Còn lại: " + product.SoLuongTon, "warning");
+      showToast("Not enough stock! Remaining: " + product.SoLuongTon, "warning");
       return;
     }
   }

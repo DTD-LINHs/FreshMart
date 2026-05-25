@@ -8,7 +8,7 @@ from passlib.context import CryptContext
 from backend.database import get_db
 from backend.dependencies import get_current_user, require_role
 from backend.models.nhanvien import NhanVien
-from backend.schemas.employee import EmployeeResponse, EmployeeUpdate, EmployeeCreate
+from backend.schemas.employee import EmployeeResponse, EmployeeUpdate, EmployeeCreate, ChangePasswordRequest
 
 router = APIRouter(prefix="/api/employees", tags=["Employees"])
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -19,6 +19,18 @@ MANAGER = "Quản lý"
 @router.get("", response_model=list[EmployeeResponse])
 def list_employees(db: Session = Depends(get_db), current_user: dict = Depends(require_role(MANAGER))):
     return db.query(NhanVien).order_by(NhanVien.MaNV).all()
+
+
+@router.post("/me/change-password")
+def change_password(data: ChangePasswordRequest, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
+    employee = db.query(NhanVien).filter(NhanVien.MaNV == current_user["MaNV"]).first()
+    if not employee:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    if not pwd_context.verify(data.current_password, employee.MatKhau):
+        raise HTTPException(status_code=400, detail="Current password is incorrect")
+    employee.MatKhau = pwd_context.hash(data.new_password)
+    db.commit()
+    return {"message": "Password changed successfully"}
 
 
 @router.get("/{MaNV}", response_model=EmployeeResponse)

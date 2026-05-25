@@ -169,7 +169,7 @@
 }
 .noti-item.unread {
   background: #fffbf5;
-  border-left: 3px solid var(--orange);
+  border-left: 3px solid #f97316;
 }
 .noti-item:hover {
   background: #f9fafb;
@@ -217,19 +217,17 @@
 }
 
 .noti-item.read {
-  opacity: 0.55;
-  border-left: 3px solid transparent;
-  background: #f9fafb;
+  background: #fff;
+  border-left: none;
 }
 .noti-item.read:hover {
-  opacity: 0.75;
-  background: #f3f4f6;
+  background: #f9fafb;
 }
 
 .noti-item .close-btn {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 14px;
   color: #ccc;
   cursor: pointer;
   width: 28px;

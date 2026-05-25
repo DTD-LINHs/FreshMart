@@ -1,9 +1,9 @@
 /* ══════ RIGHT PANEL (Invoice) ══════ */
 
 .right-panel {
-  width: 350px;
+  width: 340px;
   background: #fff;
-  border-left: 1px solid #eee;
+  border-left: 1px solid var(--border);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,6 @@
   top: 0;
   right: 0;
   z-index: 100;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.04);
 }
 
 .right-panel-header {
@@ -46,17 +45,18 @@
   color: var(--red);
 }
 
-/* Cart Items */
-#cart-items {
+/* Scrollable area (cart + customer + promos + points) */
+.right-panel-scroll {
   flex: 1;
   overflow-y: auto;
   margin-bottom: 10px;
   padding-right: 4px;
+  min-height: 0;
 }
-#cart-items::-webkit-scrollbar {
+.right-panel-scroll::-webkit-scrollbar {
   width: 3px;
 }
-#cart-items::-webkit-scrollbar-thumb {
+.right-panel-scroll::-webkit-scrollbar-thumb {
   background: #e5e7eb;
   border-radius: 3px;
 }
@@ -282,8 +282,13 @@
 .promo-panel-date {
   font-size: 10px;
   color: #999;
-  font-weight: 400;
-  margin-left: auto;
+  font-weight: 600;
+  padding: 0 0 4px;
+}
+.promo-divider {
+  height: 1px;
+  background: #dcfce7;
+  margin: 6px 0;
 }
 .promo-product-row {
   display: flex;

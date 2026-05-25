@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,10 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/common.css" />
     <link rel="stylesheet" href="../css/layout.css" />
@@ -26,11 +30,11 @@
             </svg>
           </a>
           <a href="cart.html" class="nav-item active">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
+            <svg viewBox="0 0 24 24" class="nav-icon-grid">
+              <rect x="4" y="4" width="6" height="6" rx="1.5" />
+              <rect x="14" y="4" width="6" height="6" rx="1.5" />
+              <rect x="4" y="14" width="6" height="6" rx="1.5" />
+              <rect x="14" y="14" width="6" height="6" rx="1.5" />
             </svg>
           </a>
           <a href="invoice.html" class="nav-item">
@@ -117,87 +121,83 @@
 
     <!-- MODAL: Add Product -->
     <div id="modal-add-product" class="modal-overlay">
-      <div class="modal-form-card">
+      <div class="modal-form-card" style="width: 480px">
         <div class="modal-form-header">
           <h3>Add New Product</h3>
           <button class="close-btn" onclick="closeAddProductModal()">
-            &times;
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <form onsubmit="saveProduct(event)">
-          <div class="modal-form-grid">
+          <input type="hidden" id="inp-masp" />
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Product Name</label>
+            <input
+              type="text"
+              id="inp-tensp"
+              placeholder="Enter product name"
+              required
+              style="height: 44px"
+            />
+          </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Category</label>
+            <select id="inp-manhom" required style="height: 44px">
+              <option value="">Select category...</option>
+            </select>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px">
             <div class="form-group">
-              <label>Product ID:</label>
-              <input
-                type="text"
-                id="inp-masp"
-                placeholder="Auto-generated"
-                readonly
-              />
-            </div>
-            <div class="form-group">
-              <label>Product Name:</label>
-              <input
-                type="text"
-                id="inp-tensp"
-                placeholder="Enter product name"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label>Category:</label>
-              <select id="inp-manhom" required>
-                <option value="">Select Category</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Unit:</label>
+              <label>Unit</label>
               <input
                 type="text"
                 id="inp-dvt"
-                placeholder="kg, Chai, Hop, Lon..."
+                placeholder="kg, bottle, box..."
                 required
+                style="height: 44px"
               />
             </div>
             <div class="form-group">
-              <label>Price:</label>
+              <label>Price</label>
               <input
                 type="number"
                 id="inp-giaban"
-                placeholder="0.00"
+                placeholder="0"
                 step="0.01"
                 min="0"
                 required
+                style="height: 44px"
               />
             </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px">
             <div class="form-group">
-              <label>Stock Quantity:</label>
+              <label>Stock Quantity</label>
               <input
                 type="number"
                 id="inp-soluong"
                 placeholder="0"
                 min="0"
                 required
+                style="height: 44px"
               />
             </div>
             <div class="form-group">
-              <label>Expiry Date:</label>
-              <input type="date" id="inp-hsd" required />
-            </div>
-            <div class="form-group full-width">
-              <label>Product Image:</label>
-              <input
-                type="file"
-                id="inp-image"
-                accept="image/*"
-                onchange="previewImage(this, 'inp-img-preview')"
-              />
-            </div>
-            <div class="form-group full-width">
-              <div id="inp-img-preview" class="img-preview-box"></div>
+              <label>Expiry Date</label>
+              <input type="date" id="inp-hsd" required style="height: 44px" />
             </div>
           </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Product Image</label>
+            <input
+              type="file"
+              id="inp-image"
+              accept="image/*"
+              onchange="previewImage(this, 'inp-img-preview')"
+            />
+          </div>
+          <div id="inp-img-preview" class="img-preview-box" style="margin-bottom: 8px"></div>
 
           <div class="modal-form-footer">
             <button
@@ -215,65 +215,71 @@
 
     <!-- MODAL: Edit Product -->
     <div id="modal-edit-product" class="modal-overlay">
-      <div class="modal-form-card">
+      <div class="modal-form-card" style="width: 480px">
         <div class="modal-form-header">
           <h3>Edit Product</h3>
           <button class="close-btn" onclick="closeEditProductModal()">
-            &times;
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <form onsubmit="updateProduct(event)">
-          <div class="modal-form-grid">
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Product ID</label>
+            <input
+              type="text"
+              id="edit-masp"
+              readonly
+              style="height: 44px; background: #f9fafb; color: #94a3b8; cursor: default"
+            />
+          </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Product Name</label>
+            <input type="text" id="edit-tensp" required style="height: 44px" />
+          </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Category</label>
+            <select id="edit-manhom" required style="height: 44px">
+              <option value="">Select category...</option>
+            </select>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px">
             <div class="form-group">
-              <label>Product ID:</label>
-              <input type="text" id="edit-masp" readonly />
+              <label>Unit</label>
+              <input type="text" id="edit-dvt" required style="height: 44px" />
             </div>
             <div class="form-group">
-              <label>Product Name:</label>
-              <input type="text" id="edit-tensp" required />
-            </div>
-            <div class="form-group">
-              <label>Category:</label>
-              <select id="edit-manhom" required>
-                <option value="">Select Category</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Unit:</label>
-              <input type="text" id="edit-dvt" required />
-            </div>
-            <div class="form-group">
-              <label>Price:</label>
+              <label>Price</label>
               <input
                 type="number"
                 id="edit-giaban"
                 step="0.01"
                 min="0"
                 required
+                style="height: 44px"
               />
-            </div>
-            <div class="form-group">
-              <label>Stock Quantity:</label>
-              <input type="number" id="edit-soluong" min="0" required />
-            </div>
-            <div class="form-group">
-              <label>Expiry Date:</label>
-              <input type="date" id="edit-hsd" />
-            </div>
-            <div class="form-group full-width">
-              <label>Product Image:</label>
-              <input
-                type="file"
-                id="edit-image"
-                accept="image/*"
-                onchange="previewImage(this, 'edit-img-preview')"
-              />
-            </div>
-            <div class="form-group full-width">
-              <div id="edit-img-preview" class="img-preview-box"></div>
             </div>
           </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px">
+            <div class="form-group">
+              <label>Stock Quantity</label>
+              <input type="number" id="edit-soluong" min="0" required style="height: 44px" />
+            </div>
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <input type="date" id="edit-hsd" style="height: 44px" />
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 16px">
+            <label>Product Image</label>
+            <input
+              type="file"
+              id="edit-image"
+              accept="image/*"
+              onchange="previewImage(this, 'edit-img-preview')"
+            />
+          </div>
+          <div id="edit-img-preview" class="img-preview-box" style="margin-bottom: 8px"></div>
 
           <div class="modal-form-footer">
             <button
@@ -289,13 +295,28 @@
       </div>
     </div>
 
+    <!-- MODAL: Delete Confirmation -->
+    <div id="modal-delete-product" class="modal-overlay">
+      <div class="modal-content" style="width: 350px">
+        <div style="width: 64px; height: 64px; border-radius: 32px; background: #fef3c7; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px">
+          <i class="fa-solid fa-triangle-exclamation" style="font-size: 28px; color: #f59e0b"></i>
+        </div>
+        <h3>Delete Product</h3>
+        <p>Are you sure you want to delete <strong id="delete-product-name"></strong>? This action cannot be undone.</p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" onclick="closeModal('modal-delete-product')">Cancel</button>
+          <button style="background: #ef4444; color: #fff; padding: 12px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 14px; flex: 1;" onclick="confirmDeleteProduct()">Delete</button>
+        </div>
+      </div>
+    </div>
+
     <!-- MODAL: Audit Log -->
     <div id="modal-audit-log" class="modal-overlay">
       <div class="modal-form-card" style="width: 700px">
         <div class="modal-form-header">
           <h3>Product Activity Log</h3>
           <button class="close-btn" onclick="closeAuditLogModal()">
-            &times;
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
         <div
@@ -441,13 +462,13 @@
 
         var errors = validateForm([
           {
-            name: "Tên sản phẩm",
+            name: "Product name",
             value: tenSP,
             required: true,
             maxLength: 100,
           },
-          { name: "Giá bán", value: giaBan, gt: 0 },
-          { name: "Số lượng", value: soLuong, min: 0 },
+          { name: "Price", value: giaBan, gt: 0 },
+          { name: "Quantity", value: soLuong, min: 0 },
         ]);
         if (errors.length > 0) {
           showToast(errors[0], "error");
@@ -475,7 +496,7 @@
           productsCache = await apiGetProducts();
           closeAddProductModal();
           renderProductTable();
-          showToast("Thêm sản phẩm thành công!", "success");
+          showToast("Product added successfully!", "success");
         } catch (err) {
           showToast("Failed to add product: " + err.message, "error");
         }
@@ -530,13 +551,13 @@
 
         var errors = validateForm([
           {
-            name: "Tên sản phẩm",
+            name: "Product name",
             value: tenSP,
             required: true,
             maxLength: 100,
           },
-          { name: "Giá bán", value: giaBan, gt: 0 },
-          { name: "Số lượng", value: soLuong, min: 0 },
+          { name: "Price", value: giaBan, gt: 0 },
+          { name: "Quantity", value: soLuong, min: 0 },
         ]);
         if (errors.length > 0) {
           showToast(errors[0], "error");
@@ -563,23 +584,38 @@
           productsCache = await apiGetProducts();
           closeEditProductModal();
           renderProductTable();
-          showToast("Cập nhật sản phẩm thành công!", "success");
+          showToast("Product updated successfully!", "success");
         } catch (err) {
           showToast("Failed to update product: " + err.message, "error");
         }
       }
 
-      async function deleteProduct(maSP) {
-        if (confirm("Delete product " + maSP + "?")) {
-          try {
-            await apiDeleteProduct(maSP);
-            productsCache = await apiGetProducts();
-            renderProductTable();
-            showToast("Đã xóa sản phẩm " + maSP, "success");
-          } catch (err) {
-            showToast("Failed to delete: " + err.message, "error");
-          }
+      var deleteTargetMaSP = null;
+
+      function deleteProduct(maSP) {
+        var sp = productsCache.find(function (p) { return p.MaSP === maSP; });
+        if (!sp) return;
+        deleteTargetMaSP = maSP;
+        document.getElementById("delete-product-name").innerText = sp.TenSP + " (" + maSP + ")";
+        document.getElementById("modal-delete-product").style.display = "flex";
+      }
+
+      async function confirmDeleteProduct() {
+        if (!deleteTargetMaSP) return;
+        try {
+          await apiDeleteProduct(deleteTargetMaSP);
+          closeModal("modal-delete-product");
+          productsCache = await apiGetProducts();
+          renderProductTable();
+          showToast("Product " + deleteTargetMaSP + " deleted", "success");
+        } catch (err) {
+          showToast("Failed to delete: " + err.message, "error");
         }
+        deleteTargetMaSP = null;
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
       }
 
       async function openAuditLogModal() {
@@ -610,7 +646,7 @@
               var color = actionColors[log.action] || "#666";
               var label = actionLabels[log.action] || log.action;
               var ts = log.timestamp
-                ? new Date(log.timestamp).toLocaleString("vi-VN")
+                ? new Date(log.timestamp).toLocaleString("en-US")
                 : "";
               var details = "";
               if (log.details) {

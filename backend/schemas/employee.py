@@ -27,3 +27,8 @@ class EmployeeUpdate(BaseModel):
     ChucVu: Optional[str] = None
     SDT: Optional[str] = Field(None, pattern=r"^0\d{9}$")
     password: Optional[str] = None
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str = Field(min_length=1)
+    new_password: str = Field(min_length=6)

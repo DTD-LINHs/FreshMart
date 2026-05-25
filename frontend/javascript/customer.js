@@ -20,7 +20,7 @@ function lookupCustomer(sdt) {
 
   if (!sdt || sdt.length < 3) {
     currentCustomer = null;
-    display.innerText = "Chưa chọn";
+    display.innerText = "No customer";
     display.className = "customer-tag";
     infoBox.innerHTML = "";
     return;
@@ -34,15 +34,15 @@ function lookupCustomer(sdt) {
       display.className = "customer-tag found";
       infoBox.innerHTML = `
         <span><b>${customer.HoTen}</b> (${customer.MaKH})</span>
-        <span>${customer.HangThanhVien || "Thành viên"} · ${customer.DiemTichLuy} điểm</span>
+        <span>${customer.HangThanhVien || "Member"} · ${customer.DiemTichLuy} points</span>
       `;
       updatePointsSection();
     } catch {
       currentCustomer = null;
-      display.innerText = "Không tìm thấy";
+      display.innerText = "Not found";
       display.className = "customer-tag";
       infoBox.innerHTML =
-        '<span style="color:#EF4444;">Không tìm thấy. <a href="#" onclick="openAddCustomerModal()" style="color:#3B82F6;">Thêm mới?</a></span>';
+        '<span style="color:#EF4444;">Not found. <a href="#" onclick="openAddCustomerModal()" style="color:#3B82F6;">Add new?</a></span>';
       updatePointsSection();
     }
   }, 400);
@@ -61,8 +61,8 @@ async function saveNewCustomer(e) {
   const name = document.getElementById("new-cust-name").value.trim();
   const sdt = document.getElementById("new-cust-sdt").value.trim();
   var errors = validateForm([
-    { name: "Tên khách hàng", value: name, required: true },
-    { name: "Số điện thoại", value: sdt, required: true, pattern: /^0\d{9}$/ },
+    { name: "Customer name", value: name, required: true },
+    { name: "Phone number", value: sdt, required: true, pattern: /^0\d{9}$/ },
   ]);
   if (errors.length > 0) {
     showToast(errors[0], "error");
@@ -79,7 +79,7 @@ async function saveNewCustomer(e) {
       HoTen: name,
       SDT: sdt,
       DiemTichLuy: 0,
-      HangThanhVien: "Đồng",
+      HangThanhVien: "Bronze",
     });
 
     currentCustomer = customer;
@@ -88,11 +88,11 @@ async function saveNewCustomer(e) {
       "customer-tag found";
     document.getElementById("customer-info").innerHTML = `
       <span><b>${customer.HoTen}</b> (${customer.MaKH})</span>
-      <span>${customer.HangThanhVien || "Thành viên"} · ${customer.DiemTichLuy} điểm</span>
+      <span>${customer.HangThanhVien || "Member"} · ${customer.DiemTichLuy} points</span>
     `;
     updatePointsSection();
     closeAllModals();
   } catch (err) {
-    showToast("Không thể tạo khách hàng: " + err.message, "error");
+    showToast("Cannot create customer: " + err.message, "error");
   }
 }

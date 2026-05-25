@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,11 +28,11 @@
             </svg>
           </a>
           <a href="cart.html" class="nav-item">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
+            <svg viewBox="0 0 24 24" class="nav-icon-grid">
+              <rect x="4" y="4" width="6" height="6" rx="1.5" />
+              <rect x="14" y="4" width="6" height="6" rx="1.5" />
+              <rect x="4" y="14" width="6" height="6" rx="1.5" />
+              <rect x="14" y="14" width="6" height="6" rx="1.5" />
             </svg>
           </a>
           <a href="invoice.html" class="nav-item">
@@ -207,32 +207,38 @@
           const iconMap = {
             low_stock: {
               icon: "fa-solid fa-box-open",
-              color: "#F97316",
+              color: "#3b82f6",
+              bg: "#dbeafe",
               type: "stock",
             },
             expiry: {
               icon: "fa-solid fa-clock",
-              color: "#EAB308",
+              color: "#f59e0b",
+              bg: "#fef3c7",
               type: "expiry",
             },
             expired: {
               icon: "fa-solid fa-skull-crossbones",
-              color: "#EF4444",
+              color: "#ef4444",
+              bg: "#fef2f2",
               type: "expiry",
             },
             promotion: {
               icon: "fa-solid fa-tags",
-              color: "#22C55E",
+              color: "#ec4899",
+              bg: "#fce7f3",
               type: "promo",
             },
             sales: {
               icon: "fa-solid fa-file-invoice-dollar",
-              color: "#3B82F6",
+              color: "#7c3aed",
+              bg: "#ede9fe",
               type: "invoice",
             },
             vip: {
               icon: "fa-solid fa-crown",
-              color: "#A855F7",
+              color: "#f97316",
+              bg: "#fff7ed",
               type: "customer",
             },
           };
@@ -248,6 +254,7 @@
               const meta = iconMap[n.type] || {
                 icon: "fa-solid fa-bell",
                 color: "#666",
+                bg: "#f3f4f6",
                 type: n.type,
               };
               return {
@@ -257,6 +264,7 @@
                 priority: severityToPriority[n.severity] || "low",
                 icon: meta.icon,
                 color: meta.color,
+                bg: meta.bg,
                 title: n.title,
                 content: n.message,
                 time: n.severity === "error" ? "Urgent" : "Today",
@@ -325,8 +333,8 @@
           .map(
             (n) => `
       <div class="noti-item ${n.read ? "read" : "unread"}" onclick="markRead(${n.id})">
-        <div class="noti-icon" style="background: ${n.color}">
-          <i class="${n.icon}" style="color: #fff; font-size: 16px;"></i>
+        <div class="noti-icon" style="background: ${n.bg}">
+          <i class="${n.icon}" style="color: ${n.color}; font-size: 18px;"></i>
         </div>
         <div class="noti-body">
           <div class="noti-title-row">
@@ -335,7 +343,7 @@
           </div>
           <p class="content">${n.content}</p>
         </div>
-        <button class="close-btn" onclick="event.stopPropagation(); dismissNoti(${n.id})">&times;</button>
+        <button class="close-btn" onclick="event.stopPropagation(); dismissNoti(${n.id})"><i class="fa-solid fa-xmark"></i></button>
       </div>
     `,
           )

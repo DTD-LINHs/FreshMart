@@ -11,9 +11,9 @@
 
 // ── PAYMENT FLOW ──
 function openPaymentModal() {
-  if (cart.length === 0) return showToast("Hóa đơn trống!", "warning");
+  if (cart.length === 0) return showToast("Invoice is empty!", "warning");
   if (!currentCustomer)
-    return showToast("Vui lòng chọn khách hàng trước!", "warning");
+    return showToast("Please select a customer first!", "warning");
 
   const container = document.getElementById("payment-methods");
   selectedMaPT = null;
@@ -43,9 +43,9 @@ function showReceipt() {
   const customerName =
     currentCustomer.HoTen + " (" + currentCustomer.MaKH + ")";
 
-  document.getElementById("rec-mahd").innerText = "(chờ xử lý)";
+  document.getElementById("rec-mahd").innerText = "(processing)";
   document.getElementById("rec-date").innerText = new Date().toLocaleString(
-    "vi-VN",
+    "en-US",
   );
   document.getElementById("rec-employee").innerText =
     currentEmployee.HoTen + " (" + currentEmployee.MaNV + ")";
@@ -90,7 +90,7 @@ function showReceipt() {
   if (pointsDiscountAmt > 0) {
     pointsRow.style.display = "";
     document.getElementById("rec-points-discount").innerText =
-      "-" + fmtVND(pointsDiscountAmt) + " (" + pointsUsed + " điểm)";
+      "-" + fmtVND(pointsDiscountAmt) + " (" + pointsUsed + " points)";
   } else {
     pointsRow.style.display = "none";
   }
@@ -98,7 +98,7 @@ function showReceipt() {
   let pointsEarned = Math.floor(afterDiscount * 0.01);
   document.getElementById("rec-points").innerText =
     pointsEarned > 0
-      ? "Tích điểm: +" + pointsEarned + " điểm → " + currentCustomer.HoTen
+      ? "Points earned: +" + pointsEarned + " points → " + currentCustomer.HoTen
       : "";
 
   document.getElementById("modal-receipt").style.display = "flex";
@@ -108,7 +108,7 @@ function showReceipt() {
 async function finishOrder() {
   const btn = document.querySelector(".btn-print-final");
   btn.disabled = true;
-  btn.innerText = "Đang xử lý...";
+  btn.innerText = "Processing...";
 
   try {
     const result = await apiCheckout({
@@ -122,11 +122,11 @@ async function finishOrder() {
     // Update receipt with real invoice ID
     document.getElementById("rec-mahd").innerText = result.MaHD;
 
-    let msg = "Hóa đơn " + result.MaHD + " đã lưu!";
+    let msg = "Invoice " + result.MaHD + " saved!";
     if (result.points_used > 0)
-      msg += " Đã dùng " + result.points_used + " điểm.";
-    msg += " Tích lũy: +" + result.points_earned + " điểm.";
-    if (result.new_tier) msg += " Hạng: " + result.new_tier;
+      msg += " Used " + result.points_used + " points.";
+    msg += " Earned: +" + result.points_earned + " points.";
+    if (result.new_tier) msg += " Tier: " + result.new_tier;
     showToast(msg, "success");
 
     // Refresh products (stock changed)
@@ -138,7 +138,7 @@ async function finishOrder() {
     cart = [];
     currentCustomer = null;
     selectedMaPT = null;
-    document.getElementById("customer-display").innerText = "Chưa chọn";
+    document.getElementById("customer-display").innerText = "No customer";
     document.getElementById("customer-display").className = "customer-tag";
     if (document.getElementById("inp-sdt"))
       document.getElementById("inp-sdt").value = "";
@@ -151,9 +151,9 @@ async function finishOrder() {
     renderProducts(productsCache);
     renderCart();
   } catch (err) {
-    showToast("Thanh toán thất bại: " + err.message, "error");
+    showToast("Payment failed: " + err.message, "error");
   } finally {
     btn.disabled = false;
-    btn.innerText = "Xong & Khách tiếp theo";
+    btn.innerText = "Done & Next Customer";
   }
 }
