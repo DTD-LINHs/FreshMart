@@ -13,6 +13,7 @@ from backend.routers import (
     notifications,
     suppliers,
     stock_imports,
+    audit,
 )
 
 app = FastAPI(title="FreshMart POS API", version="1.0.0")
@@ -36,6 +37,7 @@ app.include_router(payment_methods.router)
 app.include_router(notifications.router)
 app.include_router(suppliers.router)
 app.include_router(stock_imports.router)
+app.include_router(audit.router)
 
 
 @app.get("/")

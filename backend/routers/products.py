@@ -1,6 +1,7 @@
+import json
 import os
 import uuid
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
@@ -11,6 +12,7 @@ from backend.dependencies import get_current_user, require_role
 from backend.models.sanpham import SanPham
 from backend.models.khuyenmai import KhuyenMai
 from backend.models.ap_dung_km import ApDungKM
+from backend.models.audit_log import AuditLog
 from backend.schemas.product import (
     ProductCreate,
     ProductUpdate,
@@ -53,6 +55,11 @@ def create_product(product: ProductCreate, db: Session = Depends(get_db), curren
         raise HTTPException(status_code=400, detail="Product ID already exists")
     db_product = SanPham(**product.model_dump())
     db.add(db_product)
+    db.add(AuditLog(
+        MaNV=current_user["MaNV"], action="CREATE", target_type="SANPHAM",
+        target_id=product.MaSP, details=json.dumps(product.model_dump(), default=str),
+        timestamp=datetime.now(),
+    ))
     db.commit()
     db.refresh(db_product)
     return db_product
@@ -66,6 +73,11 @@ def update_product(MaSP: str, product: ProductUpdate, db: Session = Depends(get_
     update_data = product.model_dump(exclude_unset=True)
     for key, value in update_data.items():
         setattr(db_product, key, value)
+    db.add(AuditLog(
+        MaNV=current_user["MaNV"], action="UPDATE", target_type="SANPHAM",
+        target_id=MaSP, details=json.dumps(update_data, default=str),
+        timestamp=datetime.now(),
+    ))
     db.commit()
     db.refresh(db_product)
     return db_product
@@ -76,6 +88,11 @@ def delete_product(MaSP: str, db: Session = Depends(get_db), current_user: dict 
     db_product = db.query(SanPham).filter(SanPham.MaSP == MaSP).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
+    db.add(AuditLog(
+        MaNV=current_user["MaNV"], action="DELETE", target_type="SANPHAM",
+        target_id=MaSP, details=json.dumps({"TenSP": db_product.TenSP}),
+        timestamp=datetime.now(),
+    ))
     db.delete(db_product)
     db.commit()
     return {"message": f"Product {MaSP} deleted"}

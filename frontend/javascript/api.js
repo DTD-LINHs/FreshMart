@@ -222,6 +222,15 @@ async function apiRemoveProductFromPromo(MaKM, MaSP) {
   return api('/promotions/' + encodeURIComponent(MaKM) + '/products/' + encodeURIComponent(MaSP), { method: 'DELETE' });
 }
 
+// --- Audit Log ---
+async function apiGetAuditLog(targetType, targetId) {
+  var params = [];
+  if (targetType) params.push('target_type=' + encodeURIComponent(targetType));
+  if (targetId) params.push('target_id=' + encodeURIComponent(targetId));
+  var qs = params.length ? '?' + params.join('&') : '';
+  return api('/audit-log' + qs);
+}
+
 // --- Notifications ---
 async function apiGetNotifications() {
   return api('/notifications');
