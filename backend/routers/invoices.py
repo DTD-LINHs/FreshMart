@@ -3,7 +3,7 @@ from datetime import date, datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from sqlalchemy import func, text
+from sqlalchemy import func
 
 from backend.database import get_db
 from backend.dependencies import get_current_user
@@ -194,21 +194,27 @@ def create_invoice(invoice: InvoiceCreate, db: Session = Depends(get_db), curren
         db.add(detail)
         product.SoLuongTon -= qty
 
-    # Deduct points used
+    # Deduct / earn points (MaGD is not AUTO_INCREMENT in MySQL — generate manually)
+    next_magd = (db.query(func.max(LichSuDiem.MaGD)).scalar() or 0) + 1
+
     if points_used > 0:
-        db.execute(
-            text("INSERT INTO LICHSUDIEM (MaKH, NgayGD, SoDiemThayDoi) VALUES (:mk, :ng, :sd)"),
-            {"mk": invoice.MaKH, "ng": today, "sd": -points_used},
-        )
+        db.add(LichSuDiem(
+            MaGD=next_magd,
+            MaKH=invoice.MaKH,
+            NgayGD=today,
+            SoDiemThayDoi=-points_used,
+        ))
+        next_magd += 1
         customer.DiemTichLuy = (customer.DiemTichLuy or 0) - points_used
 
-    # Earn points: 1% of after_discount
     points_earned = math.floor(after_discount * 0.01)
     if points_earned > 0:
-        db.execute(
-            text("INSERT INTO LICHSUDIEM (MaKH, NgayGD, SoDiemThayDoi) VALUES (:mk, :ng, :sd)"),
-            {"mk": invoice.MaKH, "ng": today, "sd": points_earned},
-        )
+        db.add(LichSuDiem(
+            MaGD=next_magd,
+            MaKH=invoice.MaKH,
+            NgayGD=today,
+            SoDiemThayDoi=points_earned,
+        ))
         customer.DiemTichLuy = (customer.DiemTichLuy or 0) + points_earned
 
     # Auto-upgrade tier

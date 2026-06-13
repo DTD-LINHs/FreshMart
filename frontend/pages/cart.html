@@ -93,10 +93,35 @@
             >
               Activity Log
             </button>
-            <button class="btn-add" onclick="openAddProductModal()">
+            <button
+              class="btn-add"
+              id="btn-add-product"
+              style="display: none"
+              onclick="openAddProductModal()"
+            >
               + Add Product
             </button>
           </div>
+        </div>
+
+        <div
+          id="role-notice"
+          style="
+            display: none;
+            margin: 0 0 16px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: #fff7ed;
+            border: 1px solid #fdba74;
+            color: #9a3412;
+            font-size: 14px;
+            line-height: 1.5;
+          "
+        >
+          <strong>Chế độ xem only.</strong> Tài khoản Thu ngân không được sửa
+          sản phẩm. Đăng xuất và đăng nhập bằng tài khoản
+          <strong>Quản lý</strong> (VD: NV02, NV08) hoặc <strong>Kho</strong>
+          (VD: NV04, NV06) để thêm/sửa ảnh sản phẩm.
         </div>
 
         <div class="table-card">
@@ -345,13 +370,31 @@
     <script>
       let productsCache = [];
       let categoriesCache = [];
+      let canEditProducts = false;
+
+      function requireProductManager() {
+        if (canEditProducts) return true;
+        showToast(
+          "Chỉ tài khoản Quản lý hoặc Kho mới được sửa sản phẩm. Vui lòng đăng nhập lại.",
+          "warning",
+        );
+        return false;
+      }
 
       window.onload = async function () {
         var navPromo = document.getElementById("nav-promotions");
-        var _emp = JSON.parse(localStorage.getItem("loggedInEmployee") || "{}");
+        var _emp = getLoggedInEmployee();
+        canEditProducts = canManageProducts();
+
         if (_emp.ChucVu === "Quản lý") {
           if (navPromo) navPromo.style.display = "";
           document.getElementById("btn-audit-log").style.display = "";
+        }
+
+        if (canEditProducts) {
+          document.getElementById("btn-add-product").style.display = "";
+        } else {
+          document.getElementById("role-notice").style.display = "block";
         }
 
         try {
@@ -392,15 +435,12 @@
             const cat = categoriesCache.find((c) => c.MaNhom === sp.MaNhom);
             const isLowStock = sp.SoLuongTon <= 10;
             const isExpired = sp.HSD && new Date(sp.HSD) < new Date();
-            const imgSrc = sp.HinhAnh
-              ? "../" + sp.HinhAnh
-              : "https://via.placeholder.com/80?text=" +
-                encodeURIComponent(sp.TenSP);
+            const imgSrc = productImageUrl(sp.HinhAnh, sp.TenSP, 80, 80, sp.MaSP);
             return `
         <tr>
           <td>
             <div class="product-cell">
-              <img class="product-img" src="${imgSrc}" alt="${sp.TenSP}">
+              <img class="product-img" src="${imgSrc}" alt="${sp.TenSP}" onerror="${productImageFallback(sp.MaSP, sp.TenSP, 80, 80)}">
               <span class="product-name">${sp.TenSP}</span>
             </div>
           </td>
@@ -415,14 +455,18 @@
           </td>
           <td style="color: ${isExpired ? "#EF4444" : "#666"};">${sp.HSD || "--"}</td>
           <td>
-            <div class="actions">
+            ${
+              canEditProducts
+                ? `<div class="actions">
               <a href="#" class="btn-edit" onclick="editProduct('${sp.MaSP}')">
                 <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg> Edit
               </a>
               <a href="#" class="btn-del" onclick="deleteProduct('${sp.MaSP}')">
                 <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> Delete
               </a>
-            </div>
+            </div>`
+                : '<span style="color:#999;font-size:12px;">Chỉ xem</span>'
+            }
           </td>
         </tr>
       `;
@@ -431,6 +475,7 @@
       }
 
       function openAddProductModal() {
+        if (!requireProductManager()) return;
         const maxNum = productsCache.reduce((max, p) => {
           const n = parseInt(p.MaSP.replace("SP", ""));
           return n > max ? n : max;
@@ -503,6 +548,7 @@
       }
 
       function editProduct(maSP) {
+        if (!requireProductManager()) return;
         const sp = productsCache.find((p) => p.MaSP === maSP);
         if (!sp) return;
 
@@ -517,7 +563,8 @@
         // Show current image preview
         const preview = document.getElementById("edit-img-preview");
         if (sp.HinhAnh) {
-          preview.innerHTML = '<img src="../' + sp.HinhAnh + '">';
+          preview.innerHTML =
+            '<img src="' + productImageUrl(sp.HinhAnh) + '">';
         } else {
           preview.innerHTML =
             '<span class="img-preview-empty">No image uploaded</span>';
@@ -543,6 +590,7 @@
 
       async function updateProduct(e) {
         e.preventDefault();
+        if (!requireProductManager()) return;
 
         const maSP = document.getElementById("edit-masp").value;
         const tenSP = document.getElementById("edit-tensp").value;
@@ -593,6 +641,7 @@
       var deleteTargetMaSP = null;
 
       function deleteProduct(maSP) {
+        if (!requireProductManager()) return;
         var sp = productsCache.find(function (p) { return p.MaSP === maSP; });
         if (!sp) return;
         deleteTargetMaSP = maSP;

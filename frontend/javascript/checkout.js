@@ -100,7 +100,7 @@ function renderCart() {
     .map(
       (item) => `
         <div class="checkout-item">
-            <img src="${item.HinhAnh || item.image || ""}">
+            <img src="${productImageUrl(item.HinhAnh || item.image, item.TenSP, 80, 80, item.MaSP)}" onerror="${productImageFallback(item.MaSP, item.TenSP, 80, 80)}">
             <div class="checkout-item-name">${item.TenSP} <small style="color:#999;">(${item.MaSP})</small></div>
             <div class="checkout-item-price">${fmtVND(item.GiaBan)}/${item.DonViTinh}</div>
             <div class="checkout-item-qty">x ${item.quantity}</div>

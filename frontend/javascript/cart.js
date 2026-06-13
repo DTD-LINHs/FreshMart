@@ -13,15 +13,12 @@ function renderProducts(products) {
       const outOfStock = sp.SoLuongTon <= 0;
       const promo = sp._discount;
       const finalPrice = promo ? sp.GiaBan - promo.MucGiam : sp.GiaBan;
-      const imgSrc =
-        sp.HinhAnh ||
-        "https://via.placeholder.com/400x300?text=" +
-          encodeURIComponent(sp.TenSP);
+      const imgSrc = productImageUrl(sp.HinhAnh, sp.TenSP, 400, 300, sp.MaSP);
 
       return `
       <div class="card ${outOfStock ? "out-of-stock" : ""}${promo ? " has-promo" : ""}" onclick="${outOfStock ? "" : "addToCart('" + sp.MaSP + "')"}">
         ${promo ? '<div class="promo-badge"><i class="fa-solid fa-percent"></i> -' + Math.round(promo.MucGiam / sp.GiaBan * 100) + "%</div>" : ""}
-        <img src="${imgSrc}" alt="${sp.TenSP}" />
+        <img src="${imgSrc}" alt="${sp.TenSP}" onerror="${productImageFallback(sp.MaSP, sp.TenSP, 400, 300)}" />
         <div class="card-body">
           <div class="title">${sp.TenSP}</div>
           <div class="card-price-row">
@@ -58,10 +55,7 @@ function addToCart(maSP) {
       DonViTinh: product.DonViTinh,
       GiaBan: product.GiaBan,
       GiaSauGiam: product.GiaBan - discount,
-      HinhAnh:
-        product.HinhAnh ||
-        "https://via.placeholder.com/80?text=" +
-          encodeURIComponent(product.TenSP),
+      HinhAnh: product.HinhAnh || null,
       quantity: 1,
       discount: discount,
       promoName: promo ? promo.TenKM : null,
@@ -81,7 +75,7 @@ function renderCart() {
       .map(
         (item) => `
       <div class="cart-item">
-        <img src="${item.HinhAnh}" class="cart-img"/>
+        <img src="${productImageUrl(item.HinhAnh, item.TenSP, 80, 80, item.MaSP)}" onerror="${productImageFallback(item.MaSP, item.TenSP, 80, 80)}" class="cart-img"/>
         <div class="cart-info">
           <p class="name">${item.TenSP}</p>
           <p class="price">

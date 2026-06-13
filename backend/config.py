@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     DB_HOST: str = "localhost"
     DB_PORT: int = 3306
     DB_USER: str = "root"
-    DB_PASSWORD: str = ""
+    DB_PASSWORD: str = "131467"
     DB_NAME: str = "QuanLyBanHang"
     SECRET_KEY: str = "freshmart-secret-key-change-in-production"
     ALGORITHM: str = "HS256"

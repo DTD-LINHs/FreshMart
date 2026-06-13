@@ -285,10 +285,16 @@
           const productsContainer = document.getElementById("detail-products");
           productsContainer.innerHTML = detail.items
             .map((ct) => {
-              const imgSrc = ct.HinhAnh ? "../" + ct.HinhAnh : "";
+              const imgSrc = productImageUrl(
+                ct.HinhAnh,
+                ct.TenSP || ct.MaSP,
+                80,
+                80,
+                ct.MaSP,
+              );
               return `
           <div class="invoice-food-row">
-            ${imgSrc ? '<img src="' + imgSrc + '" alt="' + (ct.TenSP || ct.MaSP) + '">' : '<div class="invoice-item-icon"><i class="fa-solid fa-box"></i></div>'}
+            ${imgSrc ? '<img src="' + imgSrc + '" alt="' + (ct.TenSP || ct.MaSP) + '" onerror="' + productImageFallback(ct.MaSP, ct.TenSP || ct.MaSP, 80, 80) + '">' : '<div class="invoice-item-icon"><i class="fa-solid fa-box"></i></div>'}
             <p>${ct.TenSP || ct.MaSP} x${ct.SoLuong}</p>
             <strong>${fmtVND(ct.DonGia * ct.SoLuong)}</strong>
           </div>
