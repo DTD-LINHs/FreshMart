@@ -197,6 +197,9 @@ async function finishOrder() {
       items: cart.map((item) => ({ MaSP: item.MaSP, SoLuong: item.quantity })),
     });
 
+    // Save creation time to localStorage (workaround for DB Date type)
+    localStorage.setItem(`invoice_time_${result.MaHD}`, new Date().toISOString());
+
     document.getElementById("rec-mahd").innerText = result.MaHD;
     showToast(
       "Hoàn tất! Hóa đơn " +

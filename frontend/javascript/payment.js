@@ -119,6 +119,9 @@ async function finishOrder() {
       points_used: getPointsUsed(),
     });
 
+    // Save creation time to localStorage (workaround for DB Date type)
+    localStorage.setItem(`invoice_time_${result.MaHD}`, new Date().toISOString());
+
     // Update receipt with real invoice ID
     document.getElementById("rec-mahd").innerText = result.MaHD;
 

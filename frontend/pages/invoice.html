@@ -174,18 +174,23 @@
 
       function fmtDate(isoStr) {
         if (!isoStr) return "--";
-        return new Date(isoStr).toLocaleDateString("en-US");
+        return new Date(isoStr).toLocaleDateString("vi-VN");
       }
-      function fmtTime(isoStr) {
+      function fmtTime(isoStr, maHD = null) {
+        if (maHD) {
+          const saved = localStorage.getItem(`invoice_time_${maHD}`);
+          if (saved) isoStr = saved;
+        }
         if (!isoStr) return "--";
-        return new Date(isoStr).toLocaleTimeString("en-US", {
+        return new Date(isoStr).toLocaleTimeString("vi-VN", {
           hour: "2-digit",
           minute: "2-digit",
+          hour12: false,
         });
       }
-      function fmtDateTime(isoStr) {
+      function fmtDateTime(isoStr, maHD = null) {
         if (!isoStr) return "--";
-        return fmtDate(isoStr) + " " + fmtTime(isoStr);
+        return fmtDate(isoStr) + " " + fmtTime(isoStr, maHD);
       }
 
       window.onload = async function () {
@@ -253,7 +258,7 @@
            onclick="selectInvoice('${hd.MaHD}')" style="cursor:pointer;">
         <div>
           <h4>${hd.MaHD}</h4>
-          <p>${fmtDateTime(hd.NgayLap)}</p>
+          <p>${fmtDateTime(hd.NgayLap, hd.MaHD)}</p>
         </div>
         <div class="invoice-order-right">
           <strong>${fmtVND(hd.TongTien)}</strong>
@@ -275,7 +280,8 @@
           document.getElementById("detail-badge").style.display = "";
           document.getElementById("detail-info").style.display = "";
           document.getElementById("det-date").innerText = fmtDate(detail.NgayLap);
-          document.getElementById("det-time").innerText = fmtTime(detail.NgayLap);
+          document.getElementById("det-time").innerText = fmtTime(detail.NgayLap, maHD);
+
           document.getElementById("det-employee").innerText =
             detail.employee_name || detail.MaNV;
           document.getElementById("det-payment").innerText =
